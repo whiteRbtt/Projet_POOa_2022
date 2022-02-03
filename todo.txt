@@ -1,0 +1,4 @@
+Retravailler le rapport
+Retravailler le script de la DB, y ajouter des check
+
+Corriger les point todo dans le projet
