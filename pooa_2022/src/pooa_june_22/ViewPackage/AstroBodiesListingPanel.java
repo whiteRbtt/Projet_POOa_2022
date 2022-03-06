@@ -5,25 +5,29 @@ import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.AstroBody;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class AstroBodiesListingPanel extends JPanel {
     private TitlePanel title;
-    private TablePanel table;
-    private String[] columnNames;
-    private Object[][] datas;
     private ApplicationControler controller;
+    private AstroBodiesListingModel model;
+    private JTable table;
 
-
-    public AstroBodiesListingPanel() {
+    public AstroBodiesListingPanel() throws ClimateException, NameException, DateException, TypeException, AllAstroBodiesException, IdException, ConnectionException, GravityException, GeneralException {
         this.setLayout(new BorderLayout());
-
-        title = new TitlePanel("Liste des Objets célestes connus de notre galaxie :");
+        title = new TitlePanel("Liste des objets célestes connus de notre galaxie :");
         this.add(title, BorderLayout.NORTH);
-
-        try {
-            setController(new ApplicationControler());
+        setController(new ApplicationControler());
+        model = new AstroBodiesListingModel();
+        table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel listSelect = table.getSelectionModel();
+        this.add(scrollPane);
+        int indiceLigneSelectionnee = listSelect.getMinSelectionIndex();
+        /*try {
             ArrayList<AstroBody> allBodies = controller.getAllAstroBodies();
             columnNames = new String[]{"ID", "Nom", "Type", "Climat", "Gravité relative", "Propice à la vie", "Date d'exploration"};
             //TODO ajouter colonne explorateurs, changer bd pour faire de gravité un entier non null (0 = 0), ajouter un "inconnus" dans la colonne propice à la vie
@@ -84,7 +88,7 @@ public class AstroBodiesListingPanel extends JPanel {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
         } catch (TypeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
     }
 
     public void setController(ApplicationControler controller) {

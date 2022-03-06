@@ -1,15 +1,44 @@
 package pooa_june_22.DataAccessPackage;
 
 import pooa_june_22.DataAccessPackage.DAO.AstroBodyDataAccess;
+import pooa_june_22.DataAccessPackage.DAO.ExplorerDataAccess;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.AstroBody;
+import pooa_june_22.ModelPackage.Explorer;
+import pooa_june_22.DataAccessPackage.ExplorerDBAccess;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-
 public class AstroDBAccess implements AstroBodyDataAccess {
 
+    public void deleteColonyForAstroBody(int location) throws ConnectionException, GeneralException {
+        String sqlInstruction;
+        Connection connection;
+        try{
+            sqlInstruction = "delete from colony where Location = ?";
+            connection = SingletonConnexion.getInstance();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+            preparedStatement.setInt(1, location);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new GeneralException(e.getMessage());
+        }
+    }
+    public void deleteAstroBody(int astroID) throws ConnectionException, DeleteAstroBodyException, GeneralException {
+        String sqlInstruction;
+        Connection connection;
+        try{
+            deleteColonyForAstroBody(astroID);
+            sqlInstruction = "delete from astronomicalbody where AstroID = ?";
+            connection = SingletonConnexion.getInstance();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+            preparedStatement.setInt(1, astroID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DeleteAstroBodyException(e.getMessage());
+        }
+    }
     public void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException {
         Connection connection = SingletonConnexion.getInstance();
 
@@ -29,7 +58,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             }
 
             if (astroBody.getFirstExplorer() != null) {
-                preparedStatement.setInt(5, astroBody.getFirstExplorer());
+                preparedStatement.setInt(5, astroBody.getFirstExplorer().getExplorerId());
             } else {
                 preparedStatement.setNull(5, Types.INTEGER);
             }
@@ -79,7 +108,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             }
 
             if (astroBody.getFirstExplorer() != null) {
-                preparedStatement.setInt(4, astroBody.getFirstExplorer());
+                preparedStatement.setInt(4, astroBody.getFirstExplorer().getExplorerId());
             } else {
                 preparedStatement.setNull(4, Types.INTEGER);
             }
@@ -112,7 +141,37 @@ public class AstroDBAccess implements AstroBodyDataAccess {
 
     }
 
-    public ArrayList<AstroBody> getAllAstroBodies() throws AllAstroBodiesException, ClimateException, TypeException, GravityException, NameException, DateException, IdException, ConnectionException {
+   public Explorer getExplorerForAstroBody(int exploID) throws IdException, DateException, NameException, ConnectionException, GeneralException {
+       String sqlInstruction;
+       Connection connection;
+       Explorer explorer = null;
+       try {
+           sqlInstruction = "select * from explorer where ExploId = ?";
+           connection = SingletonConnexion.getInstance();
+           PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+           preparedStatement.setInt(1, exploID);
+           ResultSet data = preparedStatement.executeQuery();
+           data.next();
+           explorer = new Explorer(data.getInt("ExploId"));
+
+           explorer.setName(data.getString("Name"));
+           explorer.setSpecie(data.getString("Specie"));
+           boolean isAlive = data.getBoolean("IsAlive");
+           if (!data.wasNull()) {
+               explorer.setAlive(isAlive);
+           }
+           GregorianCalendar calendar = new GregorianCalendar();
+           java.sql.Date date = data.getDate("BirthDate");
+           if (!data.wasNull()) {
+               calendar.setTime(date);
+               explorer.setBirthDate(calendar);
+           }
+       } catch (SQLException e) {
+           throw new GeneralException(e.getMessage());
+       }
+       return explorer;
+   }
+    public ArrayList<AstroBody> getAllAstroBodies() throws AllAstroBodiesException, ClimateException, TypeException, GravityException, NameException, DateException, IdException, ConnectionException, GeneralException {
         ArrayList<AstroBody> allAstroBodies = new ArrayList<>();
 
         try {
@@ -139,7 +198,8 @@ public class AstroDBAccess implements AstroBodyDataAccess {
 
                 Integer firstExplorer = data.getInt("FirstKnownExplorer");
                 if (!data.wasNull()) {
-                    astroBody.setFirstExplorer(firstExplorer);
+                    Explorer explorer = getExplorerForAstroBody(firstExplorer);
+                    astroBody.setFirstExplorer(explorer);
                 }
 
                 String climate = data.getString("Climate");
@@ -173,4 +233,5 @@ public class AstroDBAccess implements AstroBodyDataAccess {
 
         return allAstroBodies;
     }
+
 }

@@ -8,14 +8,14 @@ public class AstroBody {
 
     private Integer astroId;
     private String name;
-    private Integer firstExplorer;
+    private Explorer firstExplorer;
     private String type;
     private String climate;
     private Integer gravity;
     private Boolean hasLifeform;
     private GregorianCalendar firstExploDate;
 
-    public AstroBody(Integer astroId, String name, Integer firstExplorer, String type, String climate, Integer gravity, Boolean hasLifeform, GregorianCalendar firstExploDate) throws IdException, NameException, TypeException, ClimateException, GravityException, DateException {
+    public AstroBody(Integer astroId, String name, Explorer firstExplorer, String type, String climate, Integer gravity, Boolean hasLifeform, GregorianCalendar firstExploDate) throws IdException, NameException, TypeException, ClimateException, GravityException, DateException {
         setAstroId(astroId);
         setName(name);
         setFirstExplorer(firstExplorer);
@@ -44,7 +44,7 @@ public class AstroBody {
         }
     }
 
-    public void setFirstExplorer(Integer firstExplorer) {
+    public void setFirstExplorer(Explorer firstExplorer) {
         this.firstExplorer = firstExplorer;
     }
 
@@ -94,7 +94,7 @@ public class AstroBody {
         return name;
     }
 
-    public Integer getFirstExplorer() {
+    public Explorer getFirstExplorer() {
         return firstExplorer;
     }
 
@@ -116,6 +116,14 @@ public class AstroBody {
 
     public GregorianCalendar getFirstExploDate() {
         return firstExploDate;
+    }
+
+    public String getFirstExploDateInString(){
+        if(firstExploDate != null){
+            return firstExploDate.get(firstExploDate.DAY_OF_MONTH) + "/" + firstExploDate.get(firstExploDate.MONTH) + "/" + firstExploDate.get(firstExploDate.YEAR);
+        }else{
+            return "inconnu";
+        }
     }
 
 }

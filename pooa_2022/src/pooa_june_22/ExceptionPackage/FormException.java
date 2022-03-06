@@ -8,6 +8,6 @@ public class FormException extends Exception {
     }
 
     public String getMessage() {
-        return "les champs " + message + " ne peuvent pas etre vides";
+        return "les champs " + message + " ne peuvent pas être vides";
     }
 }

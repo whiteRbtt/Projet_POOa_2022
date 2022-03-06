@@ -9,6 +9,6 @@ public class GravityException extends Exception {
 
     @Override
     public String getMessage() {
-        return "La valeur " + wrongGravity + " pour la gravité doit etre un entier positif.";
+        return "La valeur " + wrongGravity + " pour la gravité doit être un entier positif.";
     }
 }

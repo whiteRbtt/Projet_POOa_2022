@@ -8,6 +8,6 @@ public class ClimateException extends Exception {
     }
 
     public String getMessage() {
-        return "The value " + wrongClimate + " is above the length allowed.";
+        return "La valeur " + wrongClimate + " est plus grande que la valeur permise.";
     }
 }

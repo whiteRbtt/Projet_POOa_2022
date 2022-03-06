@@ -214,6 +214,8 @@ public class ResearchColoniesPanel extends JPanel {
             } catch (IdException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(),
                         "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+            } catch (GeneralException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
             }
 
             container.add(description, BorderLayout.SOUTH);

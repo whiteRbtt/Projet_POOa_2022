@@ -10,4 +10,5 @@ public class IdException extends Exception {
     public String getMessage() {
         return "La valeur " + wrongId + " doit etre un entier positif";
     }
+
 }

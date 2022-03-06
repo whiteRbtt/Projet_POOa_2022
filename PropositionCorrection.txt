@@ -1,0 +1,6 @@
+Suggestion tâches métier : - Durée de vie moyenne d'une colonie par Epoque.
+Suggestion recherches :
+	-Explorateur ayant découvert plus d'un corps astronomique (corps astronomique, explorateur, espèce).
+	-Pour une ère donné, les explorateurs connus (espèce, explorateur, ère).
+	-Pour un explorateur donné, son espèce, et ses colonies. (espèce, colonies, explorateur).
+Sortir les recherches sous forme de JTable.

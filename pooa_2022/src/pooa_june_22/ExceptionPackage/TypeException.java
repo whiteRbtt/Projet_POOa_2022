@@ -9,6 +9,6 @@ public class TypeException extends Exception {
 
     @Override
     public String getMessage() {
-        return "La valeur " + wrongType + " n'est pas une chaine ou bien dépasse la limite de caractères (45)";
+        return "La valeur " + wrongType + " n'est pas une chaêne ou bien dépasse la limite de caractères (45)";
     }
 }

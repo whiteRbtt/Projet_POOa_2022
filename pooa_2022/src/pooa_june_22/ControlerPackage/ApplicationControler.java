@@ -45,6 +45,9 @@ public class ApplicationControler {
     }
 
     //-----------------------------------AstroBodyManager-----------------------------------
+    public void deleteAstroBody(int astroID) throws ConnectionException, DeleteAstroBodyException, GeneralException {
+        astroBodyManager.deleteAstroBody(astroID);
+    }
     public void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException {
         astroBodyManager.addAstroBody(astroBody);
     }
@@ -53,7 +56,7 @@ public class ApplicationControler {
         astroBodyManager.updateAstroBody(astroBody);
     }
 
-    public ArrayList<AstroBody> getAllAstroBodies() throws GravityException, ConnectionException, ClimateException, TypeException, AllAstroBodiesException, NameException, DateException, IdException {
+    public ArrayList<AstroBody> getAllAstroBodies() throws GravityException, ConnectionException, ClimateException, TypeException, AllAstroBodiesException, NameException, DateException, IdException, GeneralException {
         return astroBodyManager.getAllAstroBodies();
     }
 

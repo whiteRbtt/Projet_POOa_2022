@@ -21,7 +21,7 @@ public class UpdateAstroBodyPanel extends JPanel {
     private ArrayList<AstroBody> allAstroBodies;
     private String[] astroBodiesName;
 
-    public UpdateAstroBodyPanel() {
+    public UpdateAstroBodyPanel() throws GeneralException {
         this.setLayout(new BorderLayout());
 
         title = new TitlePanel("Modification d'un objet céleste existant :");

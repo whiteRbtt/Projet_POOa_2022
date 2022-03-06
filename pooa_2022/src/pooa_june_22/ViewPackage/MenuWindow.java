@@ -1,7 +1,8 @@
 package pooa_june_22.ViewPackage;
 
 import pooa_june_22.DataAccessPackage.SingletonConnexion;
-import pooa_june_22.ExceptionPackage.ConnectionException;
+import pooa_june_22.ExceptionPackage.*;
+
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -15,7 +16,7 @@ import java.sql.SQLException; // TODO Rien a faire ici
 
 public class MenuWindow extends JFrame {
     private JMenuBar menuBar;
-    private JMenu welcomeMenu, addMenu, updateMenu, listMenu, searchMenu, editMenu, infosMenu;
+    private JMenu welcomeMenu, addMenu, updateMenu, deleteMenu, listMenu, searchMenu, searchMenu2, searchMenu3, editMenu, infosMenu, statMenu, lifeSpanMenu;
     private Container frameContainer;
 
     public MenuWindow() {
@@ -49,6 +50,12 @@ public class MenuWindow extends JFrame {
         updateMenu.addMenuListener(new MainListener());
         editMenu.add(updateMenu);
 
+        editMenu.addSeparator();
+
+        deleteMenu = new JMenu("Supprimer un corps céleste");
+        deleteMenu.addMenuListener(new MainListener());
+        editMenu.add(deleteMenu);
+
         // -----list-----
         infosMenu = new JMenu("S'informer");
         menuBar.add(infosMenu);
@@ -63,10 +70,26 @@ public class MenuWindow extends JFrame {
         searchMenu.addMenuListener(new MainListener());
         infosMenu.add(searchMenu);
 
+        searchMenu2 = new JMenu("Rechercher un explorateur");
+        searchMenu2.addMenuListener(new MainListener());
+        infosMenu.add(searchMenu2);
+
+        searchMenu3 = new JMenu("Rechercher explorateurs entre 2 époques");
+        searchMenu3.addMenuListener(new MainListener());
+        infosMenu.add(searchMenu3);
+
+        // -----Tâche métier-----
+        statMenu = new JMenu("Statistiques");
+        menuBar.add(statMenu);
+
+        lifeSpanMenu = new JMenu("Durée de vie moyenne entre 2 ères");
+        lifeSpanMenu.addMenuListener(new MainListener());
+        statMenu.add(lifeSpanMenu);
         // default panels
 
         WelcomePanel welcomePanel = new WelcomePanel();
         frameContainer.add(welcomePanel);
+
 
         setVisible(true);
     }
@@ -85,16 +108,77 @@ public class MenuWindow extends JFrame {
                 frameContainer.add(addAstroBodyPanel);
             }
             if (event.getSource() == updateMenu) {
-                UpdateAstroBodyPanel updateAstroBodyPanel = new UpdateAstroBodyPanel();
+                UpdateAstroBodyPanel updateAstroBodyPanel = null;
+                try {
+                    updateAstroBodyPanel = new UpdateAstroBodyPanel();
+                } catch (GeneralException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(),
+                            "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                }
                 frameContainer.add(updateAstroBodyPanel);
             }
-            if (event.getSource() == listMenu) {
-                AstroBodiesListingPanel astroBodiesListingPanel = new AstroBodiesListingPanel();
-                frameContainer.add(astroBodiesListingPanel);
+            if (event.getSource() == listMenu) {// TODO : optimiser les try catchs
+                try{
+                    AstroBodiesListingPanel astroBodiesListingPanel = new AstroBodiesListingPanel();
+                    frameContainer.add(astroBodiesListingPanel);
+                }catch (AllAstroBodiesException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (IdException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (GravityException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (DateException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (ClimateException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (NameException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (ConnectionException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (TypeException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (GeneralException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(),
+                            "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if(event.getSource() == deleteMenu){
+                try{
+                    DeleteAstroBodyPanel deletePanel = new DeleteAstroBodyPanel();
+                    frameContainer.add(deletePanel);
+                }catch (AllAstroBodiesException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (IdException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (GravityException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (DateException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (ClimateException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (NameException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (ConnectionException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (TypeException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                } catch (GeneralException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(),
+                            "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
             if (event.getSource() == searchMenu) {
                 ResearchColoniesPanel researchColoniesPanel = new ResearchColoniesPanel();
                 frameContainer.add(researchColoniesPanel);
+            }
+            if(event.getSource() == lifeSpanMenu){
+                BusinessPanel panel = new BusinessPanel();
+                frameContainer.add(panel);
+            }
+            if(event.getSource() == searchMenu2){
+                ResearchExplorerPanel panel = new ResearchExplorerPanel();
+                frameContainer.add(panel);
             }
 
             frameContainer.revalidate();

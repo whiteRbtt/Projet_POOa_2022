@@ -287,7 +287,9 @@ public class AstroBodyFormPanel extends JPanel {
                     }
 
                 // -----------------------------------object creation-----------------------------------
-                AstroBody newBody = new AstroBody(newId, newName, newExplorerId, newType, newClimate, newGravity, newLifeform, newDate);
+                ArrayList<Explorer> explorers = controller.getAllExplorers();
+
+                AstroBody newBody = new AstroBody(newId, newName, allExplorers.get(explorer.getSelectedIndex()), newType, newClimate, newGravity, newLifeform, newDate);
 
                 if (fixedId == null) {
                     controller.addAstroBody(newBody);
@@ -325,6 +327,9 @@ public class AstroBodyFormPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, e.getMessage(),
                         "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
             } catch (FormException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(),
+                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+            } catch (AllExplorersException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(),
                         "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
             }

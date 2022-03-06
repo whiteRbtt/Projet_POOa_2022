@@ -21,6 +21,11 @@ public class Explorer {
         setSpecie(specie);
     }
 
+    public Explorer(int exploId) throws IdException {
+        setExplorerId(exploId);
+    }
+
+
     // Setters
 
     public void setExplorerId(Integer explorerId) throws IdException {
