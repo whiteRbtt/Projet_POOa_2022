@@ -39,7 +39,7 @@ public class AstroBodiesListingModel extends AbstractTableModel {
         switch (column){
             case 0 : return astroBody.getAstroId();
             case 1 : return astroBody.getName();
-            case 2 : return astroBody.getType();
+            case 2 : return astroBody.getType().getName();
             case 3 : return astroBody.getClimate();
             case 4 : return astroBody.getGravity();
             case 5 : {if(astroBody.getHasLifeform())return "Oui";

@@ -3,19 +3,20 @@ package pooa_june_22.ModelPackage;
 import java.util.GregorianCalendar;
 
 import pooa_june_22.ExceptionPackage.*;
+import pooa_june_22.ViewPackage.AstroBodiesListingModel;
 
 public class AstroBody {
 
     private Integer astroId;
     private String name;
     private Explorer firstExplorer;
-    private String type;
+    private AstroType type;
     private String climate;
     private Integer gravity;
     private Boolean hasLifeform;
     private GregorianCalendar firstExploDate;
 
-    public AstroBody(Integer astroId, String name, Explorer firstExplorer, String type, String climate, Integer gravity, Boolean hasLifeform, GregorianCalendar firstExploDate) throws IdException, NameException, TypeException, ClimateException, GravityException, DateException {
+    public AstroBody(Integer astroId, String name, Explorer firstExplorer, AstroType type, String climate, Integer gravity, Boolean hasLifeform, GregorianCalendar firstExploDate) throws IdException, NameException, TypeException, ClimateException, GravityException, DateException {
         setAstroId(astroId);
         setName(name);
         setFirstExplorer(firstExplorer);
@@ -48,11 +49,11 @@ public class AstroBody {
         this.firstExplorer = firstExplorer;
     }
 
-    public void setType(String type) throws TypeException {
-        if (type != null && type.length() < 45)
+    public void setType(AstroType type) throws TypeException {
+        if (type != null && type.getTypeID() > 0)
             this.type = type;
         else {
-            throw new TypeException(type);
+            throw new TypeException(type.getTypeID());
         }
     }
 
@@ -98,7 +99,7 @@ public class AstroBody {
         return firstExplorer;
     }
 
-    public String getType() {
+    public AstroType getType() {
         return type;
     }
 
@@ -120,7 +121,7 @@ public class AstroBody {
 
     public String getFirstExploDateInString(){
         if(firstExploDate != null){
-            return firstExploDate.get(firstExploDate.DAY_OF_MONTH) + "/" + firstExploDate.get(firstExploDate.MONTH) + "/" + firstExploDate.get(firstExploDate.YEAR);
+            return firstExploDate.get(firstExploDate.DAY_OF_MONTH) + "/" + (firstExploDate.get(firstExploDate.MONTH)+1) + "/" + firstExploDate.get(firstExploDate.YEAR);
         }else{
             return "inconnu";
         }

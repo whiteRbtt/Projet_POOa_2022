@@ -4,8 +4,11 @@ import pooa_june_22.DataAccessPackage.AstroDBAccess;
 import pooa_june_22.DataAccessPackage.DAO.AstroBodyDataAccess;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.AstroBody;
+import pooa_june_22.ModelPackage.ResearchedAstroBodies;
+import pooa_june_22.ModelPackage.ResearchedAstroBodiesDate;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class AstroBodyManager {
     AstroBodyDataAccess dao;
@@ -32,6 +35,12 @@ public class AstroBodyManager {
 
     public ArrayList<AstroBody> getAllAstroBodies() throws ConnectionException, ClimateException, IdException, TypeException, NameException, AllAstroBodiesException, DateException, GravityException, GeneralException {
         return dao.getAllAstroBodies();
+    }
+    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException{
+        return dao.getAstroBodiesForType(type);
+    }
+    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException{
+        return dao.getAstroBodiesForPeriod(beginning, ending);
     }
 
 }

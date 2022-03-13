@@ -15,7 +15,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class ResearchColoniesPanel extends JPanel {
+public class ResearchColoniesPanel extends JPanel {// TODO : Refaire ENTIEREMENT la fonctionnalités.
 
     private TitlePanel title;
     private JLabel specieLabel, dateLabel, description;
@@ -26,6 +26,7 @@ public class ResearchColoniesPanel extends JPanel {
     private TablePanel table;
     private String[] columnNames;
     private Object[][] datas;
+    private ResearchColonieModel colonieModel;
     private ApplicationControler controller;
 
     private ArrayList<Specie> allSpecies;
@@ -82,7 +83,7 @@ public class ResearchColoniesPanel extends JPanel {
         c.anchor = GridBagConstraints.LINE_END;
         container.add(species, c);
 
-        dateLabel = new JLabel("Entrez une année de référence");
+        /*dateLabel = new JLabel("Entrez une année de référence");
         c.gridx = 0;
         c.gridy = 1;
         c.ipadx = 0;
@@ -95,7 +96,7 @@ public class ResearchColoniesPanel extends JPanel {
         c.gridy = 1;
         c.ipadx = 70;
         c.anchor = GridBagConstraints.LINE_END;
-        container.add(year, c);
+        container.add(year, c);*/
 
         validate = new JButton("Rechercher");
         validate.addActionListener(new SearchListener());
@@ -108,7 +109,7 @@ public class ResearchColoniesPanel extends JPanel {
         this.add(container, BorderLayout.CENTER);
     }
 
-    private class SearchListener implements ActionListener {
+    class SearchListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -116,7 +117,7 @@ public class ResearchColoniesPanel extends JPanel {
             container.removeAll();
             container.setLayout(new BorderLayout());
 
-            try {
+            /*try {
                 // -----------------------------------retrieve year-----------------------------------
                 year.commitEdit();
                 GregorianCalendar targetDate = new GregorianCalendar((Integer) year.getValue(), 1, 1);
@@ -135,7 +136,7 @@ public class ResearchColoniesPanel extends JPanel {
                 //TODO creer une classe selectedColonies dont la requete sql créé de nouvelles instances
 
                 // -----------------------------------display table-----------------------------------
-                selectedColonies = controller.getColonies(targetDate, targetName);
+                selectedColonies = controller.getColonies(targetName);
 
                 columnNames = new String[]{"Planète", "Nom de la colonie"};
                 datas = new Object[selectedColonies.size()][columnNames.length];
@@ -216,13 +217,30 @@ public class ResearchColoniesPanel extends JPanel {
                         "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
             } catch (GeneralException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+            }*/
+            try {
+                colonieModel = new ResearchColonieModel((String)species.getSelectedItem());
+                JTable table = new JTable(colonieModel);
+                JScrollPane scrollPane = new JScrollPane(table);
+                table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                container.add(scrollPane);
+
+                container.revalidate();
+                container.repaint();
+                setVisible(true);
+            } catch (AllEraException e) {
+                e.printStackTrace();
+            } catch (NameException e) {
+                e.printStackTrace();
+            } catch (ColonyException e) {
+                e.printStackTrace();
+            } catch (DateException e) {
+                e.printStackTrace();
+            } catch (ConnectionException e) {
+                e.printStackTrace();
             }
 
-            container.add(description, BorderLayout.SOUTH);
-
-            container.revalidate();
-            container.repaint();
-        }
+            }
     }
 
     public void setController(ApplicationControler controller) {

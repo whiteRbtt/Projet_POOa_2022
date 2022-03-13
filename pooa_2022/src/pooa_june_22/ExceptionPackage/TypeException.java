@@ -1,14 +1,14 @@
 package pooa_june_22.ExceptionPackage;
 
 public class TypeException extends Exception {
-    private String wrongType;
+    private Integer wrongType;
 
-    public TypeException(String wrongType) {
+    public TypeException(Integer wrongType) {
         this.wrongType = wrongType;
     }
 
     @Override
     public String getMessage() {
-        return "La valeur " + wrongType + " n'est pas une chaêne ou bien dépasse la limite de caractères (45)";
+        return "La valeur " + wrongType + " n'est pas une chaîne ou bien dépasse la limite de caractères (45)";
     }
 }

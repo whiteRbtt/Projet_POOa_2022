@@ -36,7 +36,6 @@ public class UpdateAstroBodyPanel extends JPanel {
             setController(new ApplicationControler());
             allAstroBodies = controller.getAllAstroBodies();
             astroBodiesName = new String[allAstroBodies.size()];
-
             int i = 0;
             for (AstroBody a : allAstroBodies) {
                 astroBodiesName[i] = a.getName();
@@ -109,7 +108,15 @@ public class UpdateAstroBodyPanel extends JPanel {
                 if (a.getName() == (String) astroBody.getSelectedItem())
                     selectedId = a.getAstroId();
 
-            formPanel = new AstroBodyFormPanel(selectedId);
+            try {
+                formPanel = new AstroBodyFormPanel(selectedId);
+            } catch (NameException e) {
+                e.printStackTrace();
+            } catch (TypeException e) {
+                e.printStackTrace();
+            } catch (ConnectionException e) {
+                e.printStackTrace();
+            }
             container.add(formPanel, BorderLayout.CENTER);
 
             container.revalidate();

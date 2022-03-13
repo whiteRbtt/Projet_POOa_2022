@@ -18,6 +18,20 @@ USE `solarsystem`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `astronomicaltype`
+--
+DROP TABLE IF EXISTS `astronomicaltype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `astronomicaltype`(
+`TypeId` int NOT NULL,
+`Name` varchar(45) NOT NULL,
+PRIMARY KEY (`TypeId`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `astronomicaltype` VALUES (01,'astre'), (02,'planète mort'),(03, 'planète'), (04,'comète'), (05,'lune vagabonde'), (06,'lune d\'atrebois'), (07,'lune de Cravite'), (08, 'laboratoire de recherches nomai'), (09, 'relique nomai'), (10, 'origine du big bang');
+--
 -- Table structure for table `astronomicalbody`
 --
 
@@ -26,16 +40,21 @@ DROP TABLE IF EXISTS `astronomicalbody`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `astronomicalbody` (
   `AstroId` int NOT NULL,
-  `Name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Name` varchar(45) NOT NULL,
   `FirstKnownExplorer` int DEFAULT NULL,
-  `Type` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Type` int NOT NULL,
   `Climate` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Gravity` int DEFAULT NULL,
-  `HasEndemicLifeform` bit(1) DEFAULT NULL,
-  `FirstExploDate` date DEFAULT NULL,
+  `HasEndemicLifeform` bit(1) NOT NULL,
+  `FirstExplorationDate` date DEFAULT NULL,
   PRIMARY KEY (`AstroId`),
   KEY `FirstKnownExplorer_idx` (`FirstKnownExplorer`),
-  CONSTRAINT `FirstKnownExplorer` FOREIGN KEY (`FirstKnownExplorer`) REFERENCES `explorer` (`ExploId`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  key `Type_idx` (`Type`),
+  CONSTRAINT `FirstKnownExplorer` FOREIGN KEY (`FirstKnownExplorer`) REFERENCES `explorer` (`ExplorerId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `Type` FOREIGN KEY (`Type`) REFERENCES `astronomicaltype` (`TypeId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `explorer_positive` CHECK (`FirstKnownExplorer` > 0),
+  CONSTRAINT `gravity_positive` CHECK (`Gravity`>0),
+  CONSTRAINT `date_constraint` CHECK (`FirstExplorationDate` > '1000-01-01' and `FirstExplorationDate` <= '9999-12-31')
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,7 +64,7 @@ CREATE TABLE `astronomicalbody` (
 
 LOCK TABLES `astronomicalbody` WRITE;
 /*!40000 ALTER TABLE `astronomicalbody` DISABLE KEYS */;
-INSERT INTO `astronomicalbody` VALUES (100,'Atrebois',911,'planète','tempéré',1,_binary '',NULL),(101,'Cravité',411,'planète','chaotique',2,_binary '\0','9975-05-05'),(102,'Sombronce',414,'Planète morte',NULL,NULL,_binary '',NULL),(103,'Leviante',413,'Planète','tempête',3,_binary '','9980-01-01'),(104,'Sablières',912,'planète','aride',1,_binary '\0',NULL),(110,'L\'intrus',910,'comète','glacé',NULL,_binary '','8764-01-01'),(120,'Lune quantique',NULL,'lune vagabonde','quantique',1,_binary '\0',NULL),(121,'Rocaille',410,'lune d Atrebois',NULL,1,_binary '\0','9955-02-05'),(122,'la Lanterne',NULL,'lune de Cravite','volcanique',3,_binary '\0',NULL),(410,'la station solaire',510,'laboratoire de recherches nomai','torride',1,_binary '\0','9999-12-31'),(411,'le canon orbital',510,'relique nomai',NULL,NULL,_binary '\0','9999-12-31'),(412,'Station du trou blanc',510,'relique nomai',NULL,NULL,_binary '\0','9999-12-31'),(777,'l oeil de l univers',510,'origine du bing bang','quantique',NULL,_binary '\0','9999-12-31'),(999,'le Soleil',NULL,'astre',NULL,100,_binary '\0',NULL);
+INSERT INTO `astronomicalbody` VALUES (100,'Atrebois',911,03,'tempéré',1,_binary '',NULL),(101,'Cravité',411,01,'chaotique',2,_binary '\0','9975-05-05'),(102,'Sombronce',414,02,NULL,NULL,_binary '',NULL),(103,'Leviante',413,03,'tempête',3,_binary '','9980-01-01'),(104,'Sablières',912,03,'aride',1,_binary '\0',NULL),(110,'L\'intrus',910,04,'glacé',NULL,_binary '','8764-01-01'),(120,'Lune quantique',NULL,05,'quantique',1,_binary '\0',NULL),(121,'Rocaille',410,06,NULL,1,_binary '\0','9955-02-05'),(122,'la Lanterne',NULL,07,'volcanique',3,_binary '\0',NULL),(410,'la station solaire',510,08,'torride',1,_binary '\0','9999-12-31'),(411,'le canon orbital',510,09,NULL,NULL,_binary '\0','9999-12-31'),(412,'Station du trou blanc',510,09,NULL,NULL,_binary '\0','9999-12-31'),(777,'l oeil de l univers',510,10,'quantique',NULL,_binary '\0','9999-12-31'),(999,'le Soleil',NULL,01,NULL,100,_binary '\0',NULL);
 /*!40000 ALTER TABLE `astronomicalbody` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +110,9 @@ CREATE TABLE `era` (
   `EraName` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Beginning` date NOT NULL,
   `Ending` date DEFAULT NULL,
-  PRIMARY KEY (`EraName`)
+  PRIMARY KEY (`EraName`),
+  CONSTRAINT `beginning_constraint` CHECK (`Beginning` between '1000-01-01' and '9999-12-31'),
+  CONSTRAINT `ending_constraint` CHECK (`Ending` between '1000-01-01' and '9999-12-31')
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -104,36 +125,6 @@ LOCK TABLES `era` WRITE;
 INSERT INTO `era` VALUES ('Ere des explorateurs','9900-01-01',NULL),('Ere des pélerins','8500-01-01','8764-01-01'),('Ere du grand chaudron cosmique','1000-01-01','8500-01-01'),('Ere préhistorique','8764-01-01','9900-01-01');
 /*!40000 ALTER TABLE `era` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `explorer`
---
-
-DROP TABLE IF EXISTS `explorer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `explorer` (
-  `ExploId` int NOT NULL,
-  `Name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `IsAlive` bit(1) DEFAULT NULL,
-  `BirthDate` date DEFAULT NULL,
-  `Specie` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`ExploId`),
-  KEY `Specie_idx` (`Specie`),
-  CONSTRAINT `Specie` FOREIGN KEY (`Specie`) REFERENCES `specie` (`ScientificName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `explorer`
---
-
-LOCK TABLES `explorer` WRITE;
-/*!40000 ALTER TABLE `explorer` DISABLE KEYS */;
-INSERT INTO `explorer` VALUES (410,'Esker',_binary '','9940-01-23','Quattuor luscus Arnoldus'),(411,'Riebeck',_binary '','9962-11-11','Quattuor luscus Arnoldus'),(412,'Chester',_binary '','9951-08-14','Quattuor luscus Arnoldus'),(413,'Gabbro',_binary '','9969-05-25','Quattuor luscus Arnoldus'),(414,'Feldspath',NULL,'9973-04-25','Quattuor luscus Arnoldus'),(510,'Petite pierre',_binary '','9991-06-10','Quattuor luscus Arnoldus'),(910,'Pike',_binary '\0',NULL,'Genios ex astris'),(911,'Poke',_binary '\0',NULL,'Genios ex astris'),(912,'Falka',_binary '\0',NULL,'Genios ex astris'),(913,'Solanum',NULL,NULL,'Genios ex astris');
-/*!40000 ALTER TABLE `explorer` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `specie`
 --
@@ -145,7 +136,7 @@ CREATE TABLE `specie` (
   `ScientificName` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `VernacularName` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `IsIntelligent` bit(1) NOT NULL,
-  `IsExtinct` bit(1) DEFAULT NULL,
+  `IsExtinct` bit(1) NOT NULL,
   PRIMARY KEY (`ScientificName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -156,9 +147,40 @@ CREATE TABLE `specie` (
 
 LOCK TABLES `specie` WRITE;
 /*!40000 ALTER TABLE `specie` DISABLE KEYS */;
-INSERT INTO `specie` VALUES ('Arena monstrum','Vers du désert',_binary '\0',NULL),('Coelacanthiformes gigantis','Coelacanthes',_binary '\0',_binary '\0'),('Genios ex astris','Nomais',_binary '',NULL),('Octopode pacificae','Octopode',_binary '',_binary ''),('Periculosum mollis','Méduses électriques',_binary '\0',_binary '\0'),('Quattuor luscus Arnoldus','Atriens',_binary '',_binary '\0'),('Quattuor luscus tadpoles','Proto-Atriens',_binary '\0',_binary ''),('Silens mortem','Matière fantome',_binary '\0',_binary '\0');
+INSERT INTO `specie` VALUES ('Arena monstrum','Vers du désert',_binary '\0',_binary '\0'),('Coelacanthiformes gigantis','Coelacanthes',_binary '\0',_binary '\0'),('Genios ex astris','Nomais',_binary '',_binary ''),('Octopode pacificae','Octopode',_binary '',_binary ''),('Periculosum mollis','Méduses électriques',_binary '\0',_binary '\0'),('Quattuor luscus Arnoldus','Atriens',_binary '',_binary '\0'),('Quattuor luscus tadpoles','Proto-Atriens',_binary '\0',_binary ''),('Silens mortem','Matière fantome',_binary '\0',_binary '\0');
 /*!40000 ALTER TABLE `specie` ENABLE KEYS */;
 UNLOCK TABLES;
+--
+-- Table structure for table `explorer`
+--
+
+DROP TABLE IF EXISTS `explorer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `explorer` (
+  `ExplorerId` int NOT NULL,
+  `Name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `IsAlive` bit(1) NOT NULL,
+  `BirthDate` date DEFAULT NULL,
+  `Specie` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`ExplorerId`),
+  KEY `Specie_idx` (`Specie`),
+  CONSTRAINT `Specie` FOREIGN KEY (`Specie`) REFERENCES `specie` (`ScientificName`),
+  CONSTRAINT `ExplorerId_constraint` CHECK (`ExplorerId` > 0),
+  CONSTRAINT `Birthdate_constraint` CHECK (`BirthDate` between '1000-01-01' and '9999-12-31')
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `explorer`
+--
+
+LOCK TABLES `explorer` WRITE;
+/*!40000 ALTER TABLE `explorer` DISABLE KEYS */;
+INSERT INTO `explorer` VALUES (410,'Esker',_binary '','9940-01-23','Quattuor luscus Arnoldus'),(411,'Riebeck',_binary '','9962-11-11','Quattuor luscus Arnoldus'),(412,'Chester',_binary '','9951-08-14','Quattuor luscus Arnoldus'),(413,'Gabbro',_binary '','9969-05-25','Quattuor luscus Arnoldus'),(414,'Feldspath',_binary '\0','9973-04-25','Quattuor luscus Arnoldus'),(510,'Petite pierre',_binary '','9991-06-10','Quattuor luscus Arnoldus'),(910,'Pike',_binary '\0',NULL,'Genios ex astris'),(911,'Poke',_binary '\0',NULL,'Genios ex astris'),(912,'Falka',_binary '\0',NULL,'Genios ex astris'),(913,'Solanum',_binary '',NULL,'Genios ex astris');
+/*!40000 ALTER TABLE `explorer` ENABLE KEYS */;
+UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

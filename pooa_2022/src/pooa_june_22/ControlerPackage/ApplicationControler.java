@@ -13,6 +13,7 @@ public class ApplicationControler {
     private ExplorerManager explorerManager;
     private SpecieManager specieManager;
     private EraManager eraManager;
+    private TypeManager typeManager;
 
     public ApplicationControler() {
         setAstroBodyManager(new AstroBodyManager());
@@ -20,10 +21,16 @@ public class ApplicationControler {
         setColonyManager(new ColonyManager());
         setExplorerManager(new ExplorerManager());
         setEraManager(new EraManager());
+        setTypeManager(new TypeManager());
     }
 
 
     //------Setters------
+
+    public void setTypeManager(TypeManager typeManager) {
+        this.typeManager = typeManager;
+    }
+
     public void setAstroBodyManager(AstroBodyManager astroBodyManager) {
         this.astroBodyManager = astroBodyManager;
     }
@@ -60,6 +67,13 @@ public class ApplicationControler {
         return astroBodyManager.getAllAstroBodies();
     }
 
+    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException{
+        return astroBodyManager.getAstroBodiesForType(type);
+    }
+
+    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException{
+        return astroBodyManager.getAstroBodiesForPeriod(beginning, ending);
+    }
     //-----------------------------------SpecieManager-----------------------------------
     public ArrayList<Specie> getAllSpecies() throws ConnectionException, AllSpeciesException, NameException {
         return specieManager.getAllSpecies();
@@ -76,8 +90,12 @@ public class ApplicationControler {
     }
 
     //-----------------------------------ColonyManager-----------------------------------
-    public ArrayList<Colony> getColonies(GregorianCalendar date, String specie) throws ConnectionException, DateException, ColonyException, AllEraException, NameException {
-        return colonyManager.getColonies(date, specie);
+    public ArrayList<ResearchedColonies> getColonies( String specie) throws ConnectionException, DateException, ColonyException, AllEraException, NameException {
+        return colonyManager.getColonies(specie);
     }
 
+    //-----------------------------------TypeManager-----------------------------------
+    public ArrayList<AstroType> getAllTypes() throws NameException, TypeException, ConnectionException {
+        return typeManager.getAllTypes();
+    }
 }

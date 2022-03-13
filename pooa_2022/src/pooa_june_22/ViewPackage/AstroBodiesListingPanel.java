@@ -26,6 +26,7 @@ public class AstroBodiesListingPanel extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel listSelect = table.getSelectionModel();
         this.add(scrollPane);
+        TableColumn column3 = table.getColumnModel().getColumn(3);
         int indiceLigneSelectionnee = listSelect.getMinSelectionIndex();
         /*try {
             ArrayList<AstroBody> allBodies = controller.getAllAstroBodies();

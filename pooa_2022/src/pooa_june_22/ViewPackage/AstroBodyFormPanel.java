@@ -3,6 +3,7 @@ package pooa_june_22.ViewPackage;
 import pooa_june_22.ControlerPackage.ApplicationControler;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.AstroBody;
+import pooa_june_22.ModelPackage.AstroType;
 import pooa_june_22.ModelPackage.Explorer;
 
 import javax.swing.*;
@@ -17,17 +18,18 @@ import java.util.GregorianCalendar;
 
 public class AstroBodyFormPanel extends JPanel {
     private JLabel idLabel, nameLabel, explorerLabel, typeLabel, climateLabel, gravityLabel, lifeformLabel, dateLabel;
-    private JTextField id, name, type, climate;
+    private JTextField id, name;
     private JSpinner gravity, year;
-    private JComboBox day, month, explorer, lifeform;
+    private JComboBox day, month, explorer, lifeform, type, climate;
     private JButton validate;
     private JCheckBox noDate;
     private Boolean checkBoxState;
     private ApplicationControler controller;
     private ArrayList<Explorer> allExplorers;
+    private ArrayList<AstroType> allTypes;
     private Integer fixedId;
 
-    public AstroBodyFormPanel(Integer fixedId) {
+    public AstroBodyFormPanel(Integer fixedId) throws NameException, TypeException, ConnectionException {
         this.fixedId = fixedId;
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -37,6 +39,7 @@ public class AstroBodyFormPanel extends JPanel {
         try {
             setController(new ApplicationControler());
             allExplorers = controller.getAllExplorers();
+            allTypes = controller.getAllTypes();
             values = new String[allExplorers.size() + 1];
             values[0] = "inconnu";
 
@@ -129,10 +132,15 @@ public class AstroBodyFormPanel extends JPanel {
         c.ipadx = 0;
         this.add(typeLabel, c);
 
-        type = new JTextField();
+        ArrayList<String> typesName = new ArrayList<>();
+        for (AstroType a : allTypes) {
+            typesName.add(a.getName());
+        }
+        type = new JComboBox(typesName.toArray());
         c.gridx = 4;
         c.gridy = 3;
-        c.ipadx = 100;
+        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_END;
         this.add(type, c);
 
 
@@ -144,7 +152,8 @@ public class AstroBodyFormPanel extends JPanel {
         c.ipadx = 0;
         this.add(climateLabel, c);
 
-        climate = new JTextField();
+        String[] climates = new String[]{"tempéré", "chaotique", "tempête", "aride", "glacé", "quantique", "volcanique", "torride"};
+        climate = new JComboBox(climates);
         c.gridx = 4;
         c.gridy = 4;
         c.ipadx = 100;
@@ -230,7 +239,7 @@ public class AstroBodyFormPanel extends JPanel {
 
         validate = new JButton("Valider");
         validate.addActionListener(new ValidateListener());
-        c.gridx = 0;
+        c.gridx = 3;
         c.gridy = 8;
         c.ipadx = 100;
         c.anchor = GridBagConstraints.SOUTH;
@@ -248,12 +257,12 @@ public class AstroBodyFormPanel extends JPanel {
 
                 // -----------------------------------retrieve id, name, type, climate, gravity-----------------------------------
 
-                if (name.getText().isEmpty() || type.getText().isEmpty() || id.getText().isEmpty())
-                    throw new FormException("Nom, Type et Id");
+                if (name.getText().isEmpty() || id.getText().isEmpty())
+                    throw new FormException("Nom et Id");
 
                 Integer newId = Integer.parseInt(id.getText());
                 String newName = name.getText();
-                String newType = type.getText();
+                String newType = (String)type.getSelectedItem();
 
                 // -----------------------------------retrieve gravity-----------------------------------
                 Integer newGravity = null;
@@ -261,9 +270,7 @@ public class AstroBodyFormPanel extends JPanel {
                     newGravity = (Integer) gravity.getValue();
 
                 // -----------------------------------retrieve climate-----------------------------------
-                String newClimate = null;
-                if (!climate.getText().isEmpty())
-                    newClimate = climate.getText();
+                String newClimate = (String)climate.getSelectedItem();
 
                 // -----------------------------------retrieve explorer-----------------------------------
                 Integer newExplorerId = null;
@@ -287,9 +294,7 @@ public class AstroBodyFormPanel extends JPanel {
                     }
 
                 // -----------------------------------object creation-----------------------------------
-                ArrayList<Explorer> explorers = controller.getAllExplorers();
-
-                AstroBody newBody = new AstroBody(newId, newName, allExplorers.get(explorer.getSelectedIndex()), newType, newClimate, newGravity, newLifeform, newDate);
+                AstroBody newBody = new AstroBody(newId, newName, allExplorers.get(explorer.getSelectedIndex()), allTypes.get(type.getSelectedIndex()), newClimate, newGravity, newLifeform, newDate);
 
                 if (fixedId == null) {
                     controller.addAstroBody(newBody);
@@ -327,9 +332,6 @@ public class AstroBodyFormPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, e.getMessage(),
                         "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
             } catch (FormException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (AllExplorersException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(),
                         "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
             }

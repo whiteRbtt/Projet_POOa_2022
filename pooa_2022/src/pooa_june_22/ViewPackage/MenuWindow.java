@@ -21,7 +21,7 @@ public class MenuWindow extends JFrame {
 
     public MenuWindow() {
         super("A.D.C.S - Solar system explorer");
-        setBounds(0, 0, 700, 700);
+        setBounds(0, 0, 1675, 870);
         this.setLocationRelativeTo(null);
         this.addWindowListener(new ClosingListener());
 
@@ -70,11 +70,11 @@ public class MenuWindow extends JFrame {
         searchMenu.addMenuListener(new MainListener());
         infosMenu.add(searchMenu);
 
-        searchMenu2 = new JMenu("Rechercher un explorateur");
+        searchMenu2 = new JMenu("Rechercher des planètes selon un période");
         searchMenu2.addMenuListener(new MainListener());
         infosMenu.add(searchMenu2);
 
-        searchMenu3 = new JMenu("Rechercher explorateurs entre 2 époques");
+        searchMenu3 = new JMenu("Rechercher des planètes en fonction du type");
         searchMenu3.addMenuListener(new MainListener());
         infosMenu.add(searchMenu3);
 
@@ -117,7 +117,7 @@ public class MenuWindow extends JFrame {
                 }
                 frameContainer.add(updateAstroBodyPanel);
             }
-            if (event.getSource() == listMenu) {// TODO : optimiser les try catchs
+            if (event.getSource() == listMenu) {// TODO : optimiser les try catchs, créer des messages spécifiques à chaque exception dans leurs classes. Ne pas remonter les erreurs SQL. Rassembler les catchs car même comportement. Un seul try.
                 try{
                     AstroBodiesListingPanel astroBodiesListingPanel = new AstroBodiesListingPanel();
                     frameContainer.add(astroBodiesListingPanel);
@@ -177,7 +177,11 @@ public class MenuWindow extends JFrame {
                 frameContainer.add(panel);
             }
             if(event.getSource() == searchMenu2){
-                ResearchExplorerPanel panel = new ResearchExplorerPanel();
+                ResearchAstroBodiesForPeriodPanel panel = new ResearchAstroBodiesForPeriodPanel();
+                frameContainer.add(panel);
+            }
+            if(event.getSource() == searchMenu3){
+                ResearchAstroBodiesPanel panel = new ResearchAstroBodiesPanel();
                 frameContainer.add(panel);
             }
 

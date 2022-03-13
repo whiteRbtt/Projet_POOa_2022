@@ -29,7 +29,7 @@ public class ExplorerDBAccess implements ExplorerDataAccess {
 
                 Explorer explorer = new Explorer
                         (
-                                data.getInt("ExploId"),
+                                data.getInt("ExplorerId"),
                                 data.getString("Name"),
                                 null,
                                 null,
