@@ -78,6 +78,10 @@ public class ApplicationControler {
     public int getMaxId() throws ConnectionException, IdException{
         return astroBodyManager.getMaxId();
     }
+
+    public double getGravityAverage(String type) throws ClimateException, NameException, DateException, TypeException, IdException, ConnectionException, GravityException, GravityAverageException {
+        return astroBodyManager.getGravityAverage(type);
+    }
     //-----------------------------------SpecieManager-----------------------------------
     public ArrayList<Specie> getAllSpecies() throws ConnectionException, AllSpeciesException, NameException {
         return specieManager.getAllSpecies();

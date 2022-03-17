@@ -39,11 +39,32 @@ public class AstroBodyManager {
     public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
         return dao.getAstroBodiesForType(type);
     }
+
     public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException{
         return dao.getAstroBodiesForPeriod(beginning, ending);
     }
+
     public int getMaxId() throws ConnectionException, IdException{
         return dao.getMaxId();
+    }
+
+    public double getGravityAverage(String type) throws ClimateException, NameException, DateException, TypeException, IdException, ConnectionException, GravityException, GravityAverageException {
+        ArrayList<ResearchedAstroBodies> astroBodies = dao.getAstroBodiesForType(type);
+        if(astroBodies.size() != 0){
+            double average = 0;
+            for(ResearchedAstroBodies a : astroBodies){
+                if(a.getGravity() != null)
+                    average += a.getGravity();
+            }
+            if(average != 0){
+                return average/astroBodies.size();
+            }else{
+                throw new GravityAverageException();
+            }
+        }
+        else{
+            throw new GravityAverageException();
+        }
     }
 
 }
