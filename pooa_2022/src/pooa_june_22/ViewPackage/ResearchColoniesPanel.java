@@ -15,7 +15,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class ResearchColoniesPanel extends JPanel {// TODO : Refaire ENTIEREMENT la fonctionnalités.
+public class ResearchColoniesPanel extends JPanel {
 
     private TitlePanel title;
     private JLabel specieLabel, dateLabel, description;
@@ -50,15 +50,8 @@ public class ResearchColoniesPanel extends JPanel {// TODO : Refaire ENTIEREMENT
                 values[i] = s.getVernacularName();
                 i++;
             }
-        } catch (ConnectionException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (NameException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (AllSpeciesException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+        } catch (GeneralException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
 
 
@@ -117,107 +110,6 @@ public class ResearchColoniesPanel extends JPanel {// TODO : Refaire ENTIEREMENT
             container.removeAll();
             container.setLayout(new BorderLayout());
 
-            /*try {
-                // -----------------------------------retrieve year-----------------------------------
-                year.commitEdit();
-                GregorianCalendar targetDate = new GregorianCalendar((Integer) year.getValue(), 1, 1);
-
-
-                // -----------------------------------retrieve specie-----------------------------------
-                String targetName = null;
-                for (Specie specie : allSpecies) { //TODO inutile, soit utiliser les indices et acceder séquentiellement soit utiliser un Hashmap
-                    if (specie.getVernacularName() == (String) species.getSelectedItem()) { //TODO comparer les strings avec la méthode adaptée
-                        targetName = specie.getScientificName();
-                    }
-                }
-
-                // -----------------------------------retrieve AstroBodies-----------------------------------
-                allAstroBodies = controller.getAllAstroBodies(); //TODO inutile
-                //TODO creer une classe selectedColonies dont la requete sql créé de nouvelles instances
-
-                // -----------------------------------display table-----------------------------------
-                selectedColonies = controller.getColonies(targetName);
-
-                columnNames = new String[]{"Planète", "Nom de la colonie"};
-                datas = new Object[selectedColonies.size()][columnNames.length];
-
-                int i = 0;
-                for (Colony c : selectedColonies) {
-                    for (AstroBody a : allAstroBodies) {
-                        if (a.getAstroId() == c.getLocation())
-                            datas[i][0] = a.getName();
-                    }
-
-                    if (c.getName() != null) {
-                        datas[i][1] = c.getName();
-                    } else {
-                        datas[i][1] = "inconnu";
-                    }
-                    i++;
-                }
-
-                table = new TablePanel(columnNames, datas);
-                container.add(table, BorderLayout.CENTER);
-
-                // -----------------------------------description-----------------------------------
-                Era era = controller.findEra(targetDate);
-
-                if (selectedColonies.size() == 0) {
-                    description = new JLabel(
-                            "<html><p>L'année +" +
-                                    targetDate.get(targetDate.YEAR) +
-                                    " correspond à l' " +
-                                    era.getName() + " ( " +
-                                    era.getBeginning().get(era.getBeginning().YEAR) + " - " +
-                                    era.getEnding().get(era.getEnding().YEAR) + " )</p> <p>En ce temps, les " +
-                                    ((String) species.getSelectedItem()) + " ne possédaient aucunes colonies.</p>"
-                    );
-
-                } else {
-                    description = new JLabel(
-                            "<html><p>L'année +" +
-                                    targetDate.get(targetDate.YEAR) +
-                                    " correspond à l' " +
-                                    era.getName() + " ( " +
-                                    era.getBeginning().get(era.getBeginning().YEAR) + " - " +
-                                    era.getEnding().get(era.getEnding().YEAR) + " )</p> <p>En ce temps, les " +
-                                    ((String) species.getSelectedItem()) + " possédaient les colonies çi dessus.</p>"
-                    );
-                }
-
-            } catch (DateException | ParseException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (ConnectionException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (NameException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (AllEraException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (ColonyException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (TypeException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (AllAstroBodiesException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (GravityException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (ClimateException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (IdException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (GeneralException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            }*/
             try {
                 colonieModel = new ResearchColonieModel((String)species.getSelectedItem());
                 JTable table = new JTable(colonieModel);
@@ -228,19 +120,11 @@ public class ResearchColoniesPanel extends JPanel {// TODO : Refaire ENTIEREMENT
                 container.revalidate();
                 container.repaint();
                 setVisible(true);
-            } catch (AllEraException e) {
-                e.printStackTrace();
-            } catch (NameException e) {
-                e.printStackTrace();
-            } catch (ColonyException e) {
-                e.printStackTrace();
-            } catch (DateException e) {
-                e.printStackTrace();
-            } catch (ConnectionException e) {
-                e.printStackTrace();
+            } catch (GeneralException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
 
-            }
+        }
     }
 
     public void setController(ApplicationControler controller) {

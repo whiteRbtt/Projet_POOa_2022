@@ -2,12 +2,13 @@ package pooa_june_22.ModelPackage;
 
 import pooa_june_22.ExceptionPackage.NameException;
 import pooa_june_22.ExceptionPackage.TypeException;
+import pooa_june_22.ExceptionPackage.TypeIDException;
 
 public class AstroType {
     private Integer typeID;
     private String name;
 
-    public AstroType(Integer typeID, String name) throws TypeException, NameException {
+    public AstroType(Integer typeID, String name) throws NameException, TypeIDException {
         setTypeID(typeID);
         setName(name);
     }
@@ -19,11 +20,11 @@ public class AstroType {
     public String getName(){;return name;
     }
 
-    public void setTypeID(Integer typeID) throws TypeException {
+    public void setTypeID(Integer typeID) throws  TypeIDException {
         if(typeID != null && typeID > 0){
             this.typeID = typeID;
         }else{
-            throw new TypeException(typeID);
+            throw new TypeIDException(typeID);
         }
     }
 

@@ -1,6 +1,6 @@
 package pooa_june_22.ExceptionPackage;
 
-public class AllAstroBodiesException extends Exception {
+public class AllAstroBodiesException extends GeneralException {
     private String message;
 
     public AllAstroBodiesException(String message) {
@@ -11,4 +11,7 @@ public class AllAstroBodiesException extends Exception {
         return message;
     }
 
+    public String getTitle(){
+        return "Erreur lors de la récolte des informations des planètes ! ";
+    }
 }

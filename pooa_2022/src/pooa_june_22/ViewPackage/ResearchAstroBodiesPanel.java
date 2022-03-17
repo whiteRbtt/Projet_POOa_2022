@@ -66,12 +66,8 @@ public class ResearchAstroBodiesPanel extends JPanel {
             container.add(validate, c);
 
             this.add(container, BorderLayout.CENTER);
-        } catch (NameException e) {
-            e.printStackTrace();
-        } catch (TypeException e) {
-            e.printStackTrace();
-        } catch (ConnectionException e) {
-            e.printStackTrace();
+        } catch (GeneralException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -91,18 +87,8 @@ public class ResearchAstroBodiesPanel extends JPanel {
                 container.revalidate();
                 container.repaint();
                 setVisible(true);
-            } catch (ClimateException e) {
-                e.printStackTrace();
-            } catch (NameException e) {
-                e.printStackTrace();
-            } catch (DateException e) {
-                e.printStackTrace();
-            } catch (IdException e) {
-                e.printStackTrace();
-            } catch (ConnectionException e) {
-                e.printStackTrace();
-            } catch (GravityException e) {
-                e.printStackTrace();
+            } catch (GeneralException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
         }
     }

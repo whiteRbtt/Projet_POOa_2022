@@ -53,7 +53,7 @@ public class ExplorerDBAccess implements ExplorerDataAccess {
             }
 
         } catch (SQLException exception) {
-            throw new AllExplorersException(exception.getMessage());
+            throw new AllExplorersException();
         }
 
         return allExplorers;

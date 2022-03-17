@@ -42,30 +42,8 @@ public class UpdateAstroBodyPanel extends JPanel {
                 i++;
             }
 
-        } catch (AllAstroBodiesException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (IdException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (GravityException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (DateException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (ClimateException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (NameException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (ConnectionException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (TypeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+        } catch (GeneralException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
 
         // --------------------------Components--------------------------
@@ -101,22 +79,22 @@ public class UpdateAstroBodyPanel extends JPanel {
 
             container.removeAll();
             container.setLayout(new BorderLayout());
-
-            // --------------------------retrieve id--------------------------
-            Integer selectedId = null;
-            for (AstroBody a : allAstroBodies)
-                if (a.getName() == (String) astroBody.getSelectedItem())
-                    selectedId = a.getAstroId();
-
             try {
-                formPanel = new AstroBodyFormPanel(selectedId);
-            } catch (NameException e) {
-                e.printStackTrace();
-            } catch (TypeException e) {
-                e.printStackTrace();
-            } catch (ConnectionException e) {
-                e.printStackTrace();
+                // --------------------------retrieve id--------------------------
+                AstroBody astro = null;
+                Integer selectedId = null;
+                for (AstroBody a : allAstroBodies) {
+                    if (a.getName().compareTo((String) astroBody.getSelectedItem()) == 0) {
+                        astro = new AstroBody(a.getAstroId(), a.getName(), a.getFirstExplorer(), a.getType(), a.getClimate(), a.getGravity(), a.getHasLifeform(), a.getFirstExploDate());
+                    }
+
+                }
+
+                formPanel = new AstroBodyFormPanel(astro);
+            }catch (GeneralException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
+
             container.add(formPanel, BorderLayout.CENTER);
 
             container.revalidate();

@@ -1,6 +1,6 @@
 package pooa_june_22.ExceptionPackage;
 
-public class ColonyException extends Exception {
+public class ColonyException extends GeneralException {
     private String message;
 
     public ColonyException(String message) {
@@ -9,5 +9,9 @@ public class ColonyException extends Exception {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getTitle(){
+        return "Erreur sur la colonie ! ";
     }
 }

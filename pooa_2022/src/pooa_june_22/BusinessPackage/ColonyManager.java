@@ -16,7 +16,7 @@ public class ColonyManager {
         setDao(new ColonyDBAccess());
     }
 
-    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, ColonyException, NameException, AllEraException, DateException {
+    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, ColonyException, NameException, AllEraException, DateException, AllColoniesException {
         return (dao.getColonies(specie));
     }
 

@@ -18,9 +18,19 @@ public class SingletonConnexion {
                                 "root",
                                 "ALIcia91270");
             } catch (SQLException e) {
-                throw new ConnectionException(e.getMessage());
+                throw new ConnectionException(true);
             }
         }
         return connectionToken;
+    }
+
+    public static void close() throws ConnectionException {
+        if(connectionToken != null){
+            try {
+                connectionToken.close();
+            } catch (SQLException e) {
+                throw new ConnectionException(false);
+            }
+        }
     }
 }

@@ -1,14 +1,13 @@
 package pooa_june_22.ExceptionPackage;
 
-public class AllEraException extends GeneralException {
+public class AllTypesException extends GeneralException{
 
-
-    public AllEraException() {
+    public AllTypesException() {
 
     }
 
     public String getMessage() {
-        return "Impossible d'obtenir les époques.";
+        return "Impossible d'obtenir des informations sur les types.";
     }
 
     public String getTitle(){

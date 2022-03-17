@@ -1,10 +1,7 @@
 package pooa_june_22.DataAccessPackage;
 
 import pooa_june_22.DataAccessPackage.DAO.ColonyDataAccess;
-import pooa_june_22.ExceptionPackage.ColonyException;
-import pooa_june_22.ExceptionPackage.ConnectionException;
-import pooa_june_22.ExceptionPackage.DateException;
-import pooa_june_22.ExceptionPackage.NameException;
+import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.Colony;
 import pooa_june_22.ModelPackage.ResearchedColonies;
 
@@ -16,7 +13,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class ColonyDBAccess implements ColonyDataAccess {
-    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, NameException, ColonyException {
+    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, NameException, ColonyException, DateException, AllColoniesException {
         ArrayList<ResearchedColonies> colonies = new ArrayList<>();
 
         try {
@@ -50,8 +47,8 @@ public class ColonyDBAccess implements ColonyDataAccess {
                 colonies.add(colony);
             }
 
-        } catch (SQLException | DateException exception) {
-            throw new ColonyException(exception.getMessage());
+        } catch (SQLException e) {
+            throw new AllColoniesException(specie);
         }
 
         return colonies;

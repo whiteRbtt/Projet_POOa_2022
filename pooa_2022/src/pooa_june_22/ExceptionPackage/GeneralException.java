@@ -1,12 +1,14 @@
 package pooa_june_22.ExceptionPackage;
 
-public class GeneralException extends Throwable {
-    private String message;
-    public GeneralException(String message){
-        this.message = message;
+public abstract class GeneralException extends Exception {
+
+    public GeneralException(){
+
     }
 
-    public String getMessage() {
-        return message;
+    public abstract String getMessage();
+
+    public String getTitle(){
+        return "Erreur générique ! ";
     }
 }

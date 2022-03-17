@@ -1,14 +1,17 @@
 package pooa_june_22.ExceptionPackage;
 
-public class AddAstroBodyException extends Exception {
-    private String message;
+public class AddAstroBodyException extends GeneralException {
+    private String wrongAstro;
 
-    public AddAstroBodyException(String message) {
-        this.message = message;
+    public AddAstroBodyException(String wrongAstro) {
+        this.wrongAstro = wrongAstro;
     }
 
     public String getMessage() {
-        return "Erreur lors de l'ajout d'un nouvel objet : " + message;
+        return "L'objet : " + wrongAstro + " n'a pas pu être ajouté.";
     }
 
+    public String getTitle(){
+        return "Erreur lors de l'ajout d'une planète ! ";
+    }
 }

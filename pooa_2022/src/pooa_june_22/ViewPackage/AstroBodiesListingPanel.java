@@ -34,7 +34,6 @@ public class AstroBodiesListingPanel extends JPanel {
             //TODO ajouter colonne explorateurs, changer bd pour faire de gravité un entier non null (0 = 0), ajouter un "inconnus" dans la colonne propice à la vie
 
             datas = new Object[allBodies.size()][columnNames.length];
-            // TODO utiliser le template de jList du cours (chap séparation en couches)
             int i = 0;
             for (AstroBody a : allBodies) {
                 datas[i][0] = a.getAstroId();

@@ -51,7 +51,7 @@ public class SpecieDBAccess implements SpecieDataAccess {
             }
 
         } catch (SQLException exception) {
-            throw new AllSpeciesException(exception.getMessage());
+            throw new AllSpeciesException();
         }
         return allSpecies;
     }

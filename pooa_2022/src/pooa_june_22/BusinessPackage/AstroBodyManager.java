@@ -29,18 +29,21 @@ public class AstroBodyManager {
         dao.addAstroBody(astroBody);
     }
 
-    public void updateAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException {
+    public void updateAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException, UpdateAstroBodyException {
         dao.updateAstroBody(astroBody);
     }
 
     public ArrayList<AstroBody> getAllAstroBodies() throws ConnectionException, ClimateException, IdException, TypeException, NameException, AllAstroBodiesException, DateException, GravityException, GeneralException {
         return dao.getAllAstroBodies();
     }
-    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException{
+    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
         return dao.getAstroBodiesForType(type);
     }
     public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException{
         return dao.getAstroBodiesForPeriod(beginning, ending);
+    }
+    public int getMaxId() throws ConnectionException, IdException{
+        return dao.getMaxId();
     }
 
 }

@@ -14,11 +14,13 @@ public interface AstroBodyDataAccess {
 
     public void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException;
 
-    public void updateAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException;
+    public void updateAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException, UpdateAstroBodyException;
 
     public ArrayList<AstroBody> getAllAstroBodies() throws AllAstroBodiesException, ClimateException, TypeException, GravityException, NameException, DateException, IdException, ConnectionException, GeneralException;
 
-    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException;
+    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException;
 
     public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException;
+
+    public int getMaxId() throws ConnectionException, IdException;
 }

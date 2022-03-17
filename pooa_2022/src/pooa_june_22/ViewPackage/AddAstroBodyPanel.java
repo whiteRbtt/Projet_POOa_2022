@@ -1,6 +1,7 @@
 package pooa_june_22.ViewPackage;
 
 import pooa_june_22.ExceptionPackage.ConnectionException;
+import pooa_june_22.ExceptionPackage.GeneralException;
 import pooa_june_22.ExceptionPackage.NameException;
 import pooa_june_22.ExceptionPackage.TypeException;
 
@@ -20,15 +21,9 @@ public class AddAstroBodyPanel extends JPanel {
 
         try {
             formPanel = new AstroBodyFormPanel(null);
-        } catch (NameException e) {
+        } catch (GeneralException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (TypeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (ConnectionException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                    e.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
         this.add(formPanel, BorderLayout.CENTER);
 

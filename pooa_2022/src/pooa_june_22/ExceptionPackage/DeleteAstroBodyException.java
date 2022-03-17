@@ -1,14 +1,17 @@
 package pooa_june_22.ExceptionPackage;
 
-public class DeleteAstroBodyException extends Exception{
-    private String message;
+public class DeleteAstroBodyException extends GeneralException {
+    private int wrongID;
 
-    public DeleteAstroBodyException(String message) {
-        this.message = message;
+    public DeleteAstroBodyException(int wrongID) {
+        this.wrongID = wrongID;
     }
 
     public String getMessage() {
-        return "Erreur lors de la suppression d'un nouvel objet : " + message;
+        return "La suppression de l'objet :  " + wrongID + " N'a pas pu s'effectuer";
     }
 
+    public String getTitle(){
+        return "Erreur lors de la suppression ! ";
+    }
 }

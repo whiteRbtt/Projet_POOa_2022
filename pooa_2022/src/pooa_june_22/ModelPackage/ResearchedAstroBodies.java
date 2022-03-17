@@ -63,7 +63,7 @@ public class ResearchedAstroBodies {
         }
     }
 
-    public Integer getGravity() {// TODO : Ne doit pas être null ca rne peut rien afficher
+    public Integer getGravity() {
         return gravity;
     }
 

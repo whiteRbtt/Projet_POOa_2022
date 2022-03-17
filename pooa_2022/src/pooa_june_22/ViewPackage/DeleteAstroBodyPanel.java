@@ -46,10 +46,6 @@ public class DeleteAstroBodyPanel extends JPanel{
                             JOptionPane.showMessageDialog(null,"Choisissez une ligne.", "Consigne", JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
-                } catch (DeleteAstroBodyException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(),"oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE );
-                } catch (ConnectionException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(),"oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE );
                 } catch (GeneralException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(),"oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE );
                 }

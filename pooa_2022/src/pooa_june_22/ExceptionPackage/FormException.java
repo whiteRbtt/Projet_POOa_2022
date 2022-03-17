@@ -1,6 +1,6 @@
 package pooa_june_22.ExceptionPackage;
 
-public class FormException extends Exception {
+public class FormException extends GeneralException {
     private String message;
 
     public FormException(String message) {
@@ -8,6 +8,10 @@ public class FormException extends Exception {
     }
 
     public String getMessage() {
-        return "les champs " + message + " ne peuvent pas être vides";
+        return "le champs " + message + " ne peut pas être vides";
+    }
+
+    public String getTitle(){
+        return "Le formulaire n'est pas complété correctement";
     }
 }

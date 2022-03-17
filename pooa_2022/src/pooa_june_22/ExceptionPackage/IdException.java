@@ -1,6 +1,6 @@
 package pooa_june_22.ExceptionPackage;
 
-public class IdException extends Exception {
+public class IdException extends GeneralException {
     private Integer wrongId;
 
     public IdException(Integer wrongId) {
@@ -11,4 +11,7 @@ public class IdException extends Exception {
         return "La valeur " + wrongId + " doit etre un entier positif";
     }
 
+    public String getTitle(){
+        return "Erreur sur l'id ! ";
+    }
 }

@@ -1,13 +1,19 @@
 package pooa_june_22.ExceptionPackage;
 
-public class ConnectionException extends Exception {
-    private String connectionErrorMessage;
+public class ConnectionException extends GeneralException {
+    private boolean toConnect;
 
-    public ConnectionException(String connectionErrorMessage) {
-        this.connectionErrorMessage = connectionErrorMessage;
+
+    public ConnectionException(boolean toConnect) {
+        this.toConnect = toConnect;
     }
 
     public String getMessage() {
-        return "Erreur lors de la tentative de connexion à la base de donnée : " + connectionErrorMessage;
+        if(this.toConnect){return "La connexion n'a pas pu s'effectuer : ";}
+        return "La fermeture de la connexion n'a pas pu s'effectuer";
+    }
+
+    public String getTitle(){
+        return "Erreur de connexion";
     }
 }

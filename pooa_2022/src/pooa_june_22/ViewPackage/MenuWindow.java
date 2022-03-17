@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
-import java.sql.SQLException; // TODO Rien a faire ici
+import java.sql.SQLException;
 
 
 public class MenuWindow extends JFrame {
@@ -98,92 +98,54 @@ public class MenuWindow extends JFrame {
         public void menuSelected(MenuEvent event) {
 
             frameContainer.removeAll();
-
-            if (event.getSource() == welcomeMenu) {
-                WelcomePanel welcomePanel = new WelcomePanel();
-                frameContainer.add(welcomePanel);
-            }
-            if (event.getSource() == addMenu) {
-                AddAstroBodyPanel addAstroBodyPanel = new AddAstroBodyPanel();
-                frameContainer.add(addAstroBodyPanel);
-            }
-            if (event.getSource() == updateMenu) {
-                UpdateAstroBodyPanel updateAstroBodyPanel = null;
-                try {
-                    updateAstroBodyPanel = new UpdateAstroBodyPanel();
-                } catch (GeneralException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(),
-                            "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+            try{
+                if (event.getSource() == welcomeMenu) {
+                    WelcomePanel welcomePanel = new WelcomePanel();
+                    frameContainer.add(welcomePanel);
                 }
-                frameContainer.add(updateAstroBodyPanel);
-            }
-            if (event.getSource() == listMenu) {// TODO : optimiser les try catchs, créer des messages spécifiques à chaque exception dans leurs classes. Ne pas remonter les erreurs SQL. Rassembler les catchs car même comportement. Un seul try.
-                try{
+                if (event.getSource() == addMenu) {
+                    AddAstroBodyPanel addAstroBodyPanel = new AddAstroBodyPanel();
+                    frameContainer.add(addAstroBodyPanel);
+                }
+                if (event.getSource() == updateMenu) {
+                    UpdateAstroBodyPanel updateAstroBodyPanel = null;
+                    updateAstroBodyPanel = new UpdateAstroBodyPanel();
+
+                    frameContainer.add(updateAstroBodyPanel);
+                }
+
+                if (event.getSource() == listMenu) {
                     AstroBodiesListingPanel astroBodiesListingPanel = new AstroBodiesListingPanel();
                     frameContainer.add(astroBodiesListingPanel);
-                }catch (AllAstroBodiesException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (IdException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (GravityException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (DateException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (ClimateException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (NameException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (ConnectionException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (TypeException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (GeneralException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(),
-                            "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+
                 }
-            }
-            if(event.getSource() == deleteMenu){
-                try{
+                if(event.getSource() == deleteMenu){
                     DeleteAstroBodyPanel deletePanel = new DeleteAstroBodyPanel();
                     frameContainer.add(deletePanel);
-                }catch (AllAstroBodiesException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (IdException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (GravityException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (DateException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (ClimateException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (NameException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (ConnectionException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (TypeException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                } catch (GeneralException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(),
-                            "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-                }
 
+
+                }
+                if (event.getSource() == searchMenu) {
+                    ResearchColoniesPanel researchColoniesPanel = new ResearchColoniesPanel();
+                    frameContainer.add(researchColoniesPanel);
+                }
+                if(event.getSource() == lifeSpanMenu){
+                    BusinessPanel panel = new BusinessPanel();
+                    frameContainer.add(panel);
+                }
+                if(event.getSource() == searchMenu2){
+                    ResearchAstroBodiesForPeriodPanel panel = new ResearchAstroBodiesForPeriodPanel();
+                    frameContainer.add(panel);
+                }
+                if(event.getSource() == searchMenu3){
+                    ResearchAstroBodiesPanel panel = new ResearchAstroBodiesPanel();
+                    frameContainer.add(panel);
+                }
+            }catch (GeneralException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(),
+                        e.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
-            if (event.getSource() == searchMenu) {
-                ResearchColoniesPanel researchColoniesPanel = new ResearchColoniesPanel();
-                frameContainer.add(researchColoniesPanel);
-            }
-            if(event.getSource() == lifeSpanMenu){
-                BusinessPanel panel = new BusinessPanel();
-                frameContainer.add(panel);
-            }
-            if(event.getSource() == searchMenu2){
-                ResearchAstroBodiesForPeriodPanel panel = new ResearchAstroBodiesForPeriodPanel();
-                frameContainer.add(panel);
-            }
-            if(event.getSource() == searchMenu3){
-                ResearchAstroBodiesPanel panel = new ResearchAstroBodiesPanel();
-                frameContainer.add(panel);
-            }
+
 
             frameContainer.revalidate();
             frameContainer.repaint();
@@ -198,13 +160,12 @@ public class MenuWindow extends JFrame {
     }
 
     public class ClosingListener extends WindowAdapter {
-        public void windowClosing(WindowEvent e) { //TODO faire de la fermeture une fonction de classe singleton et ici seulement un appel de fct
+        public void windowClosing(WindowEvent e) {
             try {
-                Connection connection = SingletonConnexion.getInstance();
-                connection.close();
-            } catch (ConnectionException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la cloture de la connection",
-                        "Erreur :", JOptionPane.ERROR_MESSAGE);
+                SingletonConnexion.close();
+            } catch (GeneralException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(),
+                        ex.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
 
             System.exit(0);

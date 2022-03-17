@@ -12,7 +12,7 @@ public class ResearchColonieModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<ResearchedColonies> contents;
 
-    public ResearchColonieModel(String specie) throws AllEraException, NameException, ColonyException, DateException, ConnectionException {
+    public ResearchColonieModel(String specie) throws AllEraException, NameException, ColonyException, DateException, ConnectionException, AllColoniesException {
         controler = new ApplicationControler();
         contents = controler.getColonies(specie);
         columnNames = new ArrayList<>();

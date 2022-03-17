@@ -12,7 +12,7 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<ResearchedAstroBodies> contents;
 
-    public ResearchAstroBodiesModel(String type) throws ClimateException, NameException, DateException, IdException, ConnectionException, GravityException {
+    public ResearchAstroBodiesModel(String type) throws ClimateException, NameException, DateException, IdException, ConnectionException, GravityException, TypeException {
         controler = new ApplicationControler();
         contents = controler.getAstroBodiesForType(type);
         columnNames = new ArrayList<>();

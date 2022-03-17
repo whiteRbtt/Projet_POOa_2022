@@ -13,24 +13,29 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.regex.Pattern;
 
 public class AstroBodyFormPanel extends JPanel {
     private JLabel idLabel, nameLabel, explorerLabel, typeLabel, climateLabel, gravityLabel, lifeformLabel, dateLabel;
     private JTextField id, name;
-    private JSpinner gravity, year;
-    private JComboBox day, month, explorer, lifeform, type, climate;
+    private JSpinner gravity, year, date;
+    private JComboBox day, month, explorer, type, climate;
     private JButton validate;
-    private JCheckBox noDate;
-    private Boolean checkBoxState;
+    private JCheckBox noDate, lifeform;
+    private ButtonGroup bg;
+    private Boolean checkBoxState, hasLifeForm;
     private ApplicationControler controller;
     private ArrayList<Explorer> allExplorers;
     private ArrayList<AstroType> allTypes;
-    private Integer fixedId;
+    private AstroBody astroBody;
 
-    public AstroBodyFormPanel(Integer fixedId) throws NameException, TypeException, ConnectionException {
-        this.fixedId = fixedId;
+    public AstroBodyFormPanel(AstroBody astroBody) throws NameException, TypeException, ConnectionException {
+        this.astroBody = astroBody;
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -41,55 +46,39 @@ public class AstroBodyFormPanel extends JPanel {
             allExplorers = controller.getAllExplorers();
             allTypes = controller.getAllTypes();
             values = new String[allExplorers.size() + 1];
-            values[0] = "inconnu";
+            values[10] = "inconnu";
 
-            int i = 1;
+            int i = 0;
             for (Explorer e : allExplorers) {
                 values[i] = e.getName();
                 i++;
             }
+            System.out.println(allExplorers.size());
 
-        } catch (AllExplorersException e) {
+        } catch (GeneralException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (NameException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (DateException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (ConnectionException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-        } catch (IdException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                    "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                    e.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
 
 
         // --------------------------astroId--------------------------
-        idLabel = new JLabel("Numero d'Id de l'objet :");
-        c.gridx = 0;
-        c.gridy = 0;
-        c.anchor = GridBagConstraints.LINE_START;
-        this.add(idLabel, c);
 
-        if (fixedId != null) {
-            id = new JTextField(fixedId);
-            id.setText(String.valueOf(fixedId));
+
+        if (astroBody != null) {
+            idLabel = new JLabel("Numero d'Id de l'objet :");
+            c.gridx = 0;
+            c.gridy = 0;
+            c.anchor = GridBagConstraints.LINE_START;
+            this.add(idLabel, c);
+            id = new JTextField(astroBody.getAstroId());
+            id.setText(String.valueOf(astroBody.getAstroId()));
             id.setEditable(false);
             c.gridx = 4;
             c.gridy = 0;
             c.ipadx = 100;
             this.add(id, c);
-        } else {
-            id = new JTextField();
-            c.gridx = 4;
-            c.gridy = 0;
-            c.ipadx = 100;
-            this.add(id, c);
-        }
 
+        }
 
         // --------------------------name--------------------------
 
@@ -100,9 +89,8 @@ public class AstroBodyFormPanel extends JPanel {
         c.insets = new Insets(20, 0, 0, 0);
 
         this.add(nameLabel, c);
-
         name = new JTextField();
-        c.gridx = 4; //TODO faire de ces c. une fonction qui renvoie le grid bag constraint avec en param les diff valeurs
+        c.gridx = 4;
         c.gridy = 1;
         c.ipadx = 100;
         this.add(name, c);
@@ -123,7 +111,6 @@ public class AstroBodyFormPanel extends JPanel {
         c.ipadx = 0;
         this.add(explorer, c);
 
-
         // --------------------------type--------------------------
 
         typeLabel = new JLabel("Type d'objet :");
@@ -136,6 +123,8 @@ public class AstroBodyFormPanel extends JPanel {
         for (AstroType a : allTypes) {
             typesName.add(a.getName());
         }
+
+
         type = new JComboBox(typesName.toArray());
         c.gridx = 4;
         c.gridy = 3;
@@ -152,7 +141,7 @@ public class AstroBodyFormPanel extends JPanel {
         c.ipadx = 0;
         this.add(climateLabel, c);
 
-        String[] climates = new String[]{"tempéré", "chaotique", "tempête", "aride", "glacé", "quantique", "volcanique", "torride"};
+        String[] climates = new String[]{"tempéré", "chaotique", "tempête", "aride", "glacé", "quantique", "volcanique", "torride", "inconnu"};
         climate = new JComboBox(climates);
         c.gridx = 4;
         c.gridy = 4;
@@ -167,6 +156,7 @@ public class AstroBodyFormPanel extends JPanel {
         c.gridy = 5;
         c.ipadx = 0;
         this.add(gravityLabel, c);
+
 
         SpinnerModel gravityModel = new SpinnerNumberModel(1, 0, null, 1);
         gravity = new JSpinner(gravityModel);
@@ -184,14 +174,14 @@ public class AstroBodyFormPanel extends JPanel {
         c.ipadx = 0;
         this.add(lifeformLabel, c);
 
-        String[] answer = new String[]{"oui", "non", "aucunes données"};
-        lifeform = new JComboBox(answer);
-        lifeform.setEditable(false);
+
+        hasLifeForm = false;
+        lifeform = new JCheckBox();
+        lifeform.addItemListener(new CheckBoxListener());
         c.gridx = 4;
         c.gridy = 6;
         c.ipadx = 0;
         this.add(lifeform, c);
-
 
         // --------------------------date--------------------------
 
@@ -202,14 +192,41 @@ public class AstroBodyFormPanel extends JPanel {
         c.insets = new Insets(20, 0, 50, 0);
         this.add(dateLabel, c);
 
-        SpinnerModel yearModel = new SpinnerNumberModel(1000, 1000, 9999, 100);
+        Date startDate = new GregorianCalendar(1000, 00, 01).getTime();
+        Date endDate = new GregorianCalendar(9999,11,31).getTime();
+        SpinnerDateModel yearModel = new SpinnerDateModel();
+        yearModel.setCalendarField(Calendar.YEAR);
+        yearModel.setStart(startDate);
+        yearModel.setEnd(endDate);
+        if(astroBody != null){
+            type.setSelectedItem(astroBody.getType().getName());
+            name.setText(astroBody.getName());
+            if(astroBody.getGravity() != null){
+                gravity.setValue(astroBody.getGravity());
+            }
+            if(astroBody.getClimate() != null){
+                climate.setSelectedItem(astroBody.getClimate());
+            }
+            if(astroBody.getFirstExplorer() != null){
+                explorer.setSelectedItem(astroBody.getFirstExplorer());
+            }
+            if(astroBody.getFirstExploDate() != null){
+                yearModel.setValue(astroBody.getFirstExploDate().getTime());
+            }
+
+        }else {
+            yearModel.setValue(startDate);
+        }
+        SimpleDateFormat formatBeg = new SimpleDateFormat("dd.MM.yyyy");
+        //SpinnerModel yearModel = new SpinnerNumberModel(1000, 1000, 9999, 100);
         year = new JSpinner(yearModel);
+        year.setEditor(new JSpinner.DateEditor(year, formatBeg.toPattern()));
         c.gridx = 4;
         c.gridy = 7;
         c.ipadx = 0;
         this.add(year, c);
 
-        String[] months = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        /*String[] months = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
         month = new JComboBox(months);
         month.setEditable(false);
         c.gridx = 3;
@@ -223,7 +240,7 @@ public class AstroBodyFormPanel extends JPanel {
         day.setEditable(false);
         c.gridx = 2;
         c.gridy = 7;
-        this.add(day, c);
+        this.add(day, c);*/
 
         // --------------------------noDate checkbox--------------------------
         checkBoxState = false;
@@ -233,6 +250,7 @@ public class AstroBodyFormPanel extends JPanel {
         c.gridy = 7;
         c.ipadx = 0;
         this.add(noDate, c);
+
 
 
         // --------------------------Butons--------------------------
@@ -257,10 +275,9 @@ public class AstroBodyFormPanel extends JPanel {
 
                 // -----------------------------------retrieve id, name, type, climate, gravity-----------------------------------
 
-                if (name.getText().isEmpty() || id.getText().isEmpty())
-                    throw new FormException("Nom et Id");
+                if (name.getText().isEmpty())
+                    throw new FormException("nom");
 
-                Integer newId = Integer.parseInt(id.getText());
                 String newName = name.getText();
                 String newType = (String)type.getSelectedItem();
 
@@ -268,35 +285,32 @@ public class AstroBodyFormPanel extends JPanel {
                 Integer newGravity = null;
                 if ((Integer) gravity.getValue() != 0)
                     newGravity = (Integer) gravity.getValue();
-
-                // -----------------------------------retrieve climate-----------------------------------
-                String newClimate = (String)climate.getSelectedItem();
-
-                // -----------------------------------retrieve explorer-----------------------------------
-                Integer newExplorerId = null;
-                for (Explorer e : allExplorers) {
-                    if (e.getName() == (String) explorer.getSelectedItem())
-                        newExplorerId = e.getExplorerId();
+                else{
+                    JOptionPane.showMessageDialog(null, "La gravité doit être supérieur à 0", "Erreur sur la gravité", JOptionPane.ERROR_MESSAGE);
                 }
 
+                // -----------------------------------retrieve climate-----------------------------------
+                String newClimate = null;
+                if(((String)climate.getSelectedItem()).compareTo("inconnu") != 0){
+                    newClimate = (String)climate.getSelectedItem();
+                }
+
+
+
                 // -----------------------------------retrieve date-----------------------------------
-                GregorianCalendar newDate = null; //TODO gerer le calendrier genre 31 fev devrait etre impossible
-                if (!checkBoxState)
-                    newDate = new GregorianCalendar((Integer) year.getValue(), (Integer) Integer.parseInt((String) month.getSelectedItem()), Integer.parseInt((String) day.getSelectedItem()));
+                GregorianCalendar newDate = null;
+                if (!checkBoxState) {
+                    Date beginDate = (Date) year.getValue();
+                    newDate = new GregorianCalendar();
+                    newDate.setTime(beginDate);
+                }
 
                 // -----------------------------------retrieve lifeform-----------------------------------
-                Boolean newLifeform = null;
-                if ((String) lifeform.getSelectedItem() != "aucunes données")
-                    if ((String) lifeform.getSelectedItem() == "oui")
-                        newLifeform = true;
-                    else {
-                        newLifeform = false;
-                    }
 
                 // -----------------------------------object creation-----------------------------------
-                AstroBody newBody = new AstroBody(newId, newName, allExplorers.get(explorer.getSelectedIndex()), allTypes.get(type.getSelectedIndex()), newClimate, newGravity, newLifeform, newDate);
+                AstroBody newBody = new AstroBody(controller.getMaxId() + 1, newName, (explorer.getSelectedIndex() == 10 ? null : allExplorers.get(explorer.getSelectedIndex())), allTypes.get(type.getSelectedIndex()), newClimate, newGravity, hasLifeForm, newDate);
 
-                if (fixedId == null) {
+                if (astroBody == null) {
                     controller.addAstroBody(newBody);
                     JOptionPane.showMessageDialog(null, "Nouvel objet céleste créé avec succès !", null, JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -304,51 +318,37 @@ public class AstroBodyFormPanel extends JPanel {
                     JOptionPane.showMessageDialog(null, "objet céleste modifié avec succès !", null, JOptionPane.INFORMATION_MESSAGE);
                 }
 
+            } catch (GeneralException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(),
+                        e.getTitle(), JOptionPane.ERROR_MESSAGE);
             } catch (ParseException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (TypeException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (NameException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (DateException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (IdException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (ClimateException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (GravityException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (ConnectionException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (AddAstroBodyException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
-            } catch (FormException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(),
-                        "Oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Le parsing n'a pas pu s'effectuer", "Erreur de parsing", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     private class CheckBoxListener implements ItemListener {
         public void itemStateChanged(ItemEvent event) {
-            if (event.getStateChange() == ItemEvent.SELECTED)
-                checkBoxState = true;
-            else {
-                checkBoxState = false;
+            if(event.getItem() == lifeform){
+                if (event.getStateChange() == ItemEvent.SELECTED){
+                    hasLifeForm = true;
+                }else{
+                    hasLifeForm = false;
+                }
+            }else{
+                if (event.getStateChange() == ItemEvent.SELECTED)
+                    checkBoxState = true;
+                else {
+                    checkBoxState = false;
+                }
             }
+
         }
     }
+
 
     public void setController(ApplicationControler controller) {
         this.controller = controller;
     }
+
 }

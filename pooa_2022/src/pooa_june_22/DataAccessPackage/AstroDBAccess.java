@@ -12,20 +12,34 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 public class AstroDBAccess implements AstroBodyDataAccess {
 
-    public void deleteColonyForAstroBody(int location) throws ConnectionException, GeneralException {
+    public int getMaxId() throws ConnectionException, IdException {
+        String instructionSQL;
+        Connection connection;
+        int id = 0;
+        try{
+            instructionSQL = "select max(AstroId) from astronomicalbody";
+            connection = SingletonConnexion.getInstance();
+            PreparedStatement preparedStatement = connection.prepareStatement(instructionSQL);
+            ResultSet data = preparedStatement.executeQuery();
+            data.next();
+            id = data.getInt(1);
+
+        } catch (SQLException e) {
+            throw new IdException(id);
+        }
+        return id;
+    }
+
+    public void deleteColonyForAstroBody(int location) throws ConnectionException, SQLException, DeleteAstroBodyException {
         String sqlInstruction;
         Connection connection;
-        try{
             sqlInstruction = "delete from colony where Location = ?";
             connection = SingletonConnexion.getInstance();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
             preparedStatement.setInt(1, location);
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new GeneralException(e.getMessage());
-        }
     }
-    public void deleteAstroBody(int astroID) throws ConnectionException, DeleteAstroBodyException, GeneralException {
+    public void deleteAstroBody(int astroID) throws ConnectionException, DeleteAstroBodyException {
         String sqlInstruction;
         Connection connection;
         try{
@@ -36,7 +50,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             preparedStatement.setInt(1, astroID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DeleteAstroBodyException(e.getMessage());
+            throw new DeleteAstroBodyException(astroID);
         }
     }
     public void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException {
@@ -84,12 +98,12 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new AddAstroBodyException(e.getMessage());
+            throw new AddAstroBodyException(astroBody.getName());
         }
 
     }
 
-    public void updateAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException {
+    public void updateAstroBody(AstroBody astroBody) throws ConnectionException, UpdateAstroBodyException {
         Connection connection = SingletonConnexion.getInstance();
 
         String sqlInstruction =
@@ -136,16 +150,15 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new AddAstroBodyException(e.getMessage());
+            throw new UpdateAstroBodyException(astroBody.getName());
         }
 
     }
 
-   public Explorer getExplorerForAstroBody(int exploID) throws IdException, DateException, NameException, ConnectionException, GeneralException {
+   public Explorer getExplorerForAstroBody(int exploID) throws IdException, DateException, NameException, ConnectionException, SQLException {
        String sqlInstruction;
        Connection connection;
        Explorer explorer = null;
-       try {
            sqlInstruction = "select * from explorer where ExplorerId = ?";
            connection = SingletonConnexion.getInstance();
            PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
@@ -166,29 +179,23 @@ public class AstroDBAccess implements AstroBodyDataAccess {
                calendar.setTime(date);
                explorer.setBirthDate(calendar);
            }
-       } catch (SQLException e) {
-           throw new GeneralException(e.getMessage());
-       }
        return explorer;
    }
-   public AstroType getTypeForAstroBody(Integer type) throws NameException, TypeException, ConnectionException, AllAstroBodiesException {
+   public AstroType getTypeForAstroBody(Integer type) throws NameException, TypeException, ConnectionException, SQLException, TypeIDException {
        String sqlInstruction;
        Connection connection;
        AstroType typeAstro = null;
-       try{
-           sqlInstruction = "select * from astronomicaltype where TypeId=?";
-           connection = SingletonConnexion.getInstance();
-           PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
-           preparedStatement.setInt(1, type);
-           ResultSet data = preparedStatement.executeQuery();
-           data.next();
-           typeAstro = new AstroType(data.getInt("TypeId"), data.getString("Name"));
-       } catch (SQLException e) {
-           throw new AllAstroBodiesException(e.getMessage());
-       }
+       sqlInstruction = "select * from astronomicaltype where TypeId=?";
+       connection = SingletonConnexion.getInstance();
+       PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+       preparedStatement.setInt(1, type);
+       ResultSet data = preparedStatement.executeQuery();
+       data.next();
+       typeAstro = new AstroType(data.getInt("TypeId"), data.getString("Name"));
+
        return typeAstro;
    }
-    public ArrayList<AstroBody> getAllAstroBodies() throws AllAstroBodiesException, ClimateException, TypeException, GravityException, NameException, DateException, IdException, ConnectionException, GeneralException {
+    public ArrayList<AstroBody> getAllAstroBodies() throws AllAstroBodiesException, ClimateException, TypeException, GravityException, NameException, DateException, IdException, ConnectionException, TypeIDException {
         ArrayList<AstroBody> allAstroBodies = new ArrayList<>();
 
         try {
@@ -244,13 +251,13 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             }
 
         } catch (SQLException exception) {
-            throw new AllAstroBodiesException(exception.getMessage());
+            throw new AllAstroBodiesException("La récolte n'a pas pu s'effectuer");
         }
 
         return allAstroBodies;
     }
 
-    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException {
+    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
         ArrayList<ResearchedAstroBodies> astroBodies = new ArrayList<>();
 
         try{
@@ -288,8 +295,8 @@ public class AstroDBAccess implements AstroBodyDataAccess {
                 }
                 astroBodies.add(astroBody);
             }
-        }catch (SQLException throwables) {
-            throwables.printStackTrace();
+        }catch (SQLException e) {
+            throw new TypeException(type);
         }
         return astroBodies;
     }
@@ -336,7 +343,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
                 astroBodiesDates.add(astroBodyDate);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DateException();
         }
         return astroBodiesDates;
     }

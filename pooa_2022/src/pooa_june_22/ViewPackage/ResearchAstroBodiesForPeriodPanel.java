@@ -1,10 +1,7 @@
 package pooa_june_22.ViewPackage;
 
 import pooa_june_22.ControlerPackage.ApplicationControler;
-import pooa_june_22.ExceptionPackage.ClimateException;
-import pooa_june_22.ExceptionPackage.ConnectionException;
-import pooa_june_22.ExceptionPackage.DateException;
-import pooa_june_22.ExceptionPackage.NameException;
+import pooa_june_22.ExceptionPackage.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,7 +69,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
         endModel.setStart(startDate);
         endModel.setEnd(endDate);
         endModel.setValue(endDate);
-        dateEnding = new JSpinner(endModel);// TODO : Documentation pour min et max
+        dateEnding = new JSpinner(endModel);
         dateEnding.setEditor(new JSpinner.DateEditor(dateEnding, formatBeg.toPattern()));
         c.gridx = 1;
         c.gridy = 1;
@@ -109,14 +106,8 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
                     container.repaint();
                     setVisible(true);
 
-                } catch (ClimateException e) {
-                    e.printStackTrace();
-                } catch (NameException e) {
-                    e.printStackTrace();
-                } catch (DateException e) {
-                    e.printStackTrace();
-                } catch (ConnectionException e) {
-                    e.printStackTrace();
+                } catch (GeneralException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

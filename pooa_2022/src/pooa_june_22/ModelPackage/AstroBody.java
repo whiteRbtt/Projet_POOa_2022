@@ -1,6 +1,7 @@
 package pooa_june_22.ModelPackage;
 
 import java.util.GregorianCalendar;
+import java.util.regex.Pattern;
 
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ViewPackage.AstroBodiesListingModel;
@@ -16,7 +17,7 @@ public class AstroBody {
     private Boolean hasLifeform;
     private GregorianCalendar firstExploDate;
 
-    public AstroBody(Integer astroId, String name, Explorer firstExplorer, AstroType type, String climate, Integer gravity, Boolean hasLifeform, GregorianCalendar firstExploDate) throws IdException, NameException, TypeException, ClimateException, GravityException, DateException {
+    public AstroBody(Integer astroId, String name, Explorer firstExplorer, AstroType type, String climate, Integer gravity, Boolean hasLifeform, GregorianCalendar firstExploDate) throws IdException, NameException, TypeException, ClimateException, GravityException, DateException, TypeIDException {
         setAstroId(astroId);
         setName(name);
         setFirstExplorer(firstExplorer);
@@ -38,7 +39,7 @@ public class AstroBody {
     }
 
     public void setName(String name) throws NameException {
-        if (name != null && name.length() < 45)
+        if (name != null && Pattern.matches("^[A-zÀ-ú\\\\s' )(]+", name) && !Pattern.matches(" *", name) && name.length() < 45)
             this.name = name;
         else {
             throw new NameException(name);
@@ -49,11 +50,11 @@ public class AstroBody {
         this.firstExplorer = firstExplorer;
     }
 
-    public void setType(AstroType type) throws TypeException {
+    public void setType(AstroType type) throws TypeIDException {
         if (type != null && type.getTypeID() > 0)
             this.type = type;
         else {
-            throw new TypeException(type.getTypeID());
+            throw new TypeIDException(type.getTypeID());
         }
     }
 

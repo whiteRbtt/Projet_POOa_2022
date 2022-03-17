@@ -50,7 +50,7 @@ public class EraDBaccess implements EraDataAccess {
             }
 
         } catch (SQLException exception) {
-            throw new AllEraException(exception.getMessage());
+            throw new AllEraException();
         }
         return allEras;
     }
