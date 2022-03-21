@@ -13,7 +13,7 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
     private ArrayList<ResearchedAstroBodies> contents;
 
     public ResearchAstroBodiesModel(String type) throws ClimateException, NameException, DateException, IdException, ConnectionException, GravityException, TypeException {
-        controler = new ApplicationControler();
+        this.controler = new ApplicationControler();
         contents = controler.getAstroBodiesForType(type);
         columnNames = new ArrayList<>();
         columnNames.add("Espèce");
@@ -49,7 +49,10 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
             case 2:
                 return astroBody.getFirstExploDateInString();
             case 3:
-                return astroBody.getGravity();
+                 if(astroBody.getGravity() != null){
+                     return astroBody.getGravity();}
+                     else return 0;
+
             case 4: {
                 if (astroBody.getClimate() != null) return astroBody.getClimate();
                 else return "Inconnu";

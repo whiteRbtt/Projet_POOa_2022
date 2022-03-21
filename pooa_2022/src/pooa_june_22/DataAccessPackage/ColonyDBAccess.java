@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class ColonyDBAccess implements ColonyDataAccess {
-    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, NameException, ColonyException, DateException, AllColoniesException {
+    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, NameException, DateException, AllColoniesException {
         ArrayList<ResearchedColonies> colonies = new ArrayList<>();
 
         try {

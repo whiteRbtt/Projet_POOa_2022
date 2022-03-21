@@ -17,11 +17,10 @@ public class BusinessPanel extends JPanel {
     private JComboBox types;
     private JButton validate;
     private Container container;
-    private TablePanel table;
-    private ResearchAstroBodiesModel astroModel;
     private ApplicationControler controler;
 
     private ArrayList<AstroType> allTypes;
+
     public BusinessPanel(){
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Gravité moyenne par type : ");
@@ -79,7 +78,7 @@ public class BusinessPanel extends JPanel {
             try{
                 GridBagConstraints c = new GridBagConstraints();
                 double average = controler.getGravityAverage((String)types.getSelectedItem());
-                TitlePanel result = new TitlePanel("La gravité moyenne d’une planète de type \"" +((String)types.getSelectedItem())+ "\" est de "+ average + " ! ");
+                TitlePanel result = new TitlePanel("La gravité moyenne d’une planète de type \"" +((String)types.getSelectedItem())+ "\" est de "+ String.format("%.2f",average) + " ! ");
                 container.add(result);
                 container.revalidate();
                 container.repaint();

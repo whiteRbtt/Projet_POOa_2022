@@ -44,20 +44,9 @@ public class Specie {
 
     // Getters
 
-    public String getScientificName() {
-        return scientificName;
-    }
-
     public String getVernacularName() {
         return vernacularName;
     }
 
-    public Boolean getIntelligent() {
-        return isIntelligent;
-    }
-
-    public Boolean getExtinct() {
-        return isExtinct;
-    }
 
 }

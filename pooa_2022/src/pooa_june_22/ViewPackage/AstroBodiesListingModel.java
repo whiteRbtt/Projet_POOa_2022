@@ -12,7 +12,7 @@ public class AstroBodiesListingModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<AstroBody> datas;
 
-    public AstroBodiesListingModel() throws ClimateException, NameException, DateException, TypeException, AllAstroBodiesException, IdException, ConnectionException, GravityException, GeneralException {
+    public AstroBodiesListingModel() throws GeneralException {
         controller = new ApplicationControler();
         datas = controller.getAllAstroBodies();
         columnNames = new ArrayList<>();

@@ -23,11 +23,10 @@ import java.util.regex.Pattern;
 public class AstroBodyFormPanel extends JPanel {
     private JLabel idLabel, nameLabel, explorerLabel, typeLabel, climateLabel, gravityLabel, lifeformLabel, dateLabel;
     private JTextField id, name;
-    private JSpinner gravity, year, date;
-    private JComboBox day, month, explorer, type, climate;
+    private JSpinner gravity, year;
+    private JComboBox explorer, type, climate;
     private JButton validate;
     private JCheckBox noDate, lifeform;
-    private ButtonGroup bg;
     private Boolean checkBoxState, hasLifeForm;
     private ApplicationControler controller;
     private ArrayList<Explorer> allExplorers;
@@ -53,7 +52,6 @@ public class AstroBodyFormPanel extends JPanel {
                 values[i] = e.getName();
                 i++;
             }
-            System.out.println(allExplorers.size());
 
         } catch (GeneralException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(),
@@ -226,22 +224,6 @@ public class AstroBodyFormPanel extends JPanel {
         c.ipadx = 0;
         this.add(year, c);
 
-        /*String[] months = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-        month = new JComboBox(months);
-        month.setEditable(false);
-        c.gridx = 3;
-        c.gridy = 7;
-        c.ipadx = 25;
-        c.anchor = GridBagConstraints.LINE_END;
-        this.add(month, c);
-
-        String[] days = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",};
-        day = new JComboBox(days);
-        day.setEditable(false);
-        c.gridx = 2;
-        c.gridy = 7;
-        this.add(day, c);*/
-
         // --------------------------noDate checkbox--------------------------
         checkBoxState = false;
         noDate = new JCheckBox("Pas de date");
@@ -250,8 +232,6 @@ public class AstroBodyFormPanel extends JPanel {
         c.gridy = 7;
         c.ipadx = 0;
         this.add(noDate, c);
-
-
 
         // --------------------------Butons--------------------------
 
@@ -279,7 +259,6 @@ public class AstroBodyFormPanel extends JPanel {
                     throw new FormException("nom");
 
                 String newName = name.getText();
-                String newType = (String)type.getSelectedItem();
 
                 // -----------------------------------retrieve gravity-----------------------------------
                 Integer newGravity = null;

@@ -15,7 +15,7 @@ public class DeleteAstroBodyPanel extends JPanel{
     private TitlePanel title;
     private JTable table;
 
-    public DeleteAstroBodyPanel() throws ClimateException, NameException, DateException, TypeException, AllAstroBodiesException, IdException, ConnectionException, GravityException, GeneralException {
+    public DeleteAstroBodyPanel() throws GeneralException {
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Liste des objets célestes connus de notre galaxie :");
         this.add(title, BorderLayout.NORTH);

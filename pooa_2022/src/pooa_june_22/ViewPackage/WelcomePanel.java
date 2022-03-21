@@ -18,7 +18,7 @@ public class WelcomePanel extends JPanel {
         c.gridy = 0;
         this.add(t1, c);
 
-        t2 = new TitlePanel("explorez cette mystérieuse galaxie et percez ses secrets !");
+        t2 = new TitlePanel("Explorez cette mystérieuse galaxie et percez ses secrets !");
         c.gridx = 0;
         c.gridy = 1;
         this.add(t2, c);

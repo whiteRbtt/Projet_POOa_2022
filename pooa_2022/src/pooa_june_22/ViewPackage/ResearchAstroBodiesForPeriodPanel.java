@@ -19,12 +19,10 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
     private JSpinner dateBegin, dateEnding;
     private JButton validate;
     private Container container;
-    private ApplicationControler controler;
     private ResearchAstroBodiesForPeriodModel astroModel;
 
 
     public ResearchAstroBodiesForPeriodPanel(){
-        this.controler = new ApplicationControler();
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Rechercher des planètes en fonction d'une période");
 

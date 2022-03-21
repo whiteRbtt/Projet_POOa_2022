@@ -49,12 +49,5 @@ public class Era {
         return name;
     }
 
-    public GregorianCalendar getBeginning() {
-        return beginning;
-    }
-
-    public GregorianCalendar getEnding() {
-        return ending;
-    }
 
 }

@@ -44,14 +44,6 @@ public class Colony {
         return specie;
     }
 
-    public Integer getLocation() {
-        return location;
-    }
-
-    public String getPeriod() {
-        return period;
-    }
-
     public String getName() {
         return name;
     }

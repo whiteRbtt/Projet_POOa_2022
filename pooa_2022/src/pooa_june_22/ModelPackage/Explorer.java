@@ -70,14 +70,6 @@ public class Explorer {
         return name;
     }
 
-    public Boolean getAlive() {
-        return isAlive;
-    }
-
-    public GregorianCalendar getBirthDate() {
-        return birthDate;
-    }
-
     public String getSpecie() {
         return specie;
     }

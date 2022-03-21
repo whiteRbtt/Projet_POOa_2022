@@ -16,8 +16,8 @@ public class ResearchAstroBodiesPanel extends JPanel {
     private JComboBox types;
     private JButton validate;
     private Container container;
-    private TablePanel table;
     private ResearchAstroBodiesModel astroModel;
+
     private ApplicationControler controler;
 
     private ArrayList<AstroType> allTypes;

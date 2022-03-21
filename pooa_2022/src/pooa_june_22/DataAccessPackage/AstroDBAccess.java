@@ -181,7 +181,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
            }
        return explorer;
    }
-   public AstroType getTypeForAstroBody(Integer type) throws NameException, TypeException, ConnectionException, SQLException, TypeIDException {
+   public AstroType getTypeForAstroBody(Integer type) throws NameException, ConnectionException, SQLException, TypeIDException {
        String sqlInstruction;
        Connection connection;
        AstroType typeAstro = null;

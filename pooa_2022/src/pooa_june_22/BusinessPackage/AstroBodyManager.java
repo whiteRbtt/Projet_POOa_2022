@@ -21,7 +21,7 @@ public class AstroBodyManager {
         this.dao = dao;
     }
 
-    public void deleteAstroBody(int astroID) throws ConnectionException, DeleteAstroBodyException, GeneralException {
+    public void deleteAstroBody(int astroID) throws  GeneralException {
         dao.deleteAstroBody(astroID);
     }
 
@@ -33,7 +33,7 @@ public class AstroBodyManager {
         dao.updateAstroBody(astroBody);
     }
 
-    public ArrayList<AstroBody> getAllAstroBodies() throws ConnectionException, ClimateException, IdException, TypeException, NameException, AllAstroBodiesException, DateException, GravityException, GeneralException {
+    public ArrayList<AstroBody> getAllAstroBodies() throws GeneralException {
         return dao.getAllAstroBodies();
     }
     public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {

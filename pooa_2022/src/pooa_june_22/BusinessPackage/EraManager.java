@@ -18,20 +18,11 @@ public class EraManager {
         setDao(new EraDBaccess());
     }
 
-
-    // -----------------------------------tache metier-----------------------------------
-    public Era findEra(GregorianCalendar date) throws ConnectionException, DateException, AllEraException, NameException {
-        ArrayList<Era> eras = dao.getAllEras();
-        String targetName = null;
-        for (Era e : eras) {
-            if (date.get(date.YEAR) >= e.getBeginning().get(e.getBeginning().YEAR)) { //TODO pas une vraie fct métier
-                return e;
-            }
-        }
-        return null;
-    }
-
     public void setDao(EraDataAccess dao) {
         this.dao = dao;
+    }
+
+    public ArrayList<Era> getAllEras() throws AllEraException, NameException, DateException, ConnectionException {
+        return dao.getAllEras();
     }
 }
