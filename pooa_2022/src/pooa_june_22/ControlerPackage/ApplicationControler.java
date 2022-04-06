@@ -90,7 +90,7 @@ public class ApplicationControler {
         return specieManager.getAllSpecies();
     }
 
-    public String bestSpecie(String vernacularName1, String vernacularName2) throws DateException, ConnectionException, AllEraException, ColonyException {
+    public String bestSpecie(String vernacularName1, String vernacularName2) throws DateException, ConnectionException, AllEraException, ColonyException, GravityException {
         return specieManager.bestSpecie(vernacularName1, vernacularName2);
     }
 

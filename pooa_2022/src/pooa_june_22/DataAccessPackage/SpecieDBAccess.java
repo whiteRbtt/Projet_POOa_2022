@@ -95,7 +95,7 @@ public class SpecieDBAccess implements SpecieDataAccess {
 
             // read
 
-            String sqlInstruction = "select e.EraName, e.Beginning, e.Ending from specie s, colony c, era e where s.ScientificName = c.Lifeform and c.Period = e.EraName and vernacularName = ?";
+            String sqlInstruction = "select e.EraName, e.Beginning, e.Ending from specie s, colony c, era e where s.ScientificName = c.Lifeform and c.Period = e.EraName and s.VernacularName = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
             preparedStatement.setString(1, vernacularName);
             ResultSet data = preparedStatement.executeQuery();
@@ -117,5 +117,28 @@ public class SpecieDBAccess implements SpecieDataAccess {
             throw new AllEraException();
         }
         return eras;
+    }
+    public ArrayList<Integer> getGravityOfColony(String vernacularName) throws ConnectionException, GravityException {
+        ArrayList<Integer> gravities = new ArrayList<>();
+        try{
+            Connection connection = SingletonConnexion.getInstance();
+
+            String sqlInstruction = "select a.Gravity from specie s, colony c, astronomicalbody a where s.ScientificName = c.Lifeform and c.Location = a.AstroId and s.VernacularName = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+            preparedStatement.setString(1, vernacularName);
+            ResultSet data = preparedStatement.executeQuery();
+            int gravity = 0;
+            while(data.next()){
+                if(!data.wasNull()){
+                    gravity = data.getInt("Gravity");
+                }
+                gravities.add(gravity);
+            }
+
+
+        } catch (SQLException throwables) {
+            throw new GravityException(-1);
+        }
+        return gravities;
     }
 }

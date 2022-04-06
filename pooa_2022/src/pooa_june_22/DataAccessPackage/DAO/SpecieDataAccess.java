@@ -10,4 +10,5 @@ public interface SpecieDataAccess {
     public int getNbColonyForSpecie(String vernacularName) throws ConnectionException, ColonyException;
     public ArrayList<Era> getBestEras(String vernacularName) throws DateException, AllEraException, ConnectionException;
     public ArrayList<Specie> getAllSpecies() throws AllSpeciesException, ConnectionException, NameException;
+    public ArrayList<Integer> getGravityOfColony(String vernacularName) throws ConnectionException, GravityException;
 }

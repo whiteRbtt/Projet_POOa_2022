@@ -82,7 +82,7 @@ public class DisplayBestSpeciesPanel extends JPanel {
                     try{
                         GridBagConstraints c = new GridBagConstraints();
                         String winner = controler.bestSpecie((String)species1.getSelectedValue(), (String)species2.getSelectedValue());
-                        TitlePanel resultat = new TitlePanel("L'espèce la plus forte sur base du nombre de colonies et leurs durées de vie moyenne est : " + winner);
+                        TitlePanel resultat = new TitlePanel("L'espèce la plus forte sur base du nombre de colonies, de leurs durées de vie moyenne et de la gravité moyenne des planètes colonisé est : " + winner);
                         secondPanel.add(resultat);
                         secondPanel.revalidate();
                         secondPanel.repaint();
