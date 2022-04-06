@@ -21,6 +21,7 @@ public class AstroBodyManager {
         this.dao = dao;
     }
 
+    //-----------------------------------MethodDBAccess-----------------------------------
     public void deleteAstroBody(int astroID) throws  GeneralException {
         dao.deleteAstroBody(astroID);
     }
@@ -48,6 +49,7 @@ public class AstroBodyManager {
         return dao.getMaxId();
     }
 
+    //-----------------------------------MethodBusiness-----------------------------------
     public double getGravityAverage(String type) throws ClimateException, NameException, DateException, TypeException, IdException, ConnectionException, GravityException, GravityAverageException {
         ArrayList<ResearchedAstroBodies> astroBodies = dao.getAstroBodiesForType(type);
         if(astroBodies.size() != 0){

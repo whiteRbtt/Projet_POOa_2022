@@ -17,6 +17,11 @@ public class Era {
         setEnding(ending);
     }
 
+    public Era(String name, GregorianCalendar beginning) throws DateException {
+        this.name = name;
+        setBeginning(beginning);
+    }
+
     // Setters
 
     public void setName(String name) throws NameException {
@@ -33,6 +38,14 @@ public class Era {
         else {
             throw new DateException();
         }
+    }
+
+    public GregorianCalendar getBeginning() {
+        return beginning;
+    }
+
+    public GregorianCalendar getEnding() {
+        return ending;
     }
 
     public void setEnding(GregorianCalendar ending) throws DateException {

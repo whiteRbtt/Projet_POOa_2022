@@ -16,23 +16,28 @@ public class DeleteAstroBodyPanel extends JPanel{
     private JTable table;
 
     public DeleteAstroBodyPanel() throws GeneralException {
+        // -----------------------------------Initilization-----------------------------------
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Liste des objets célestes connus de notre galaxie :");
         this.add(title, BorderLayout.NORTH);
         controller = new ApplicationControler();
+
+        // -----------------------------------Displays and model creation-----------------------------------
         deleteBut = new JButton("Supprimer");
         model = new AstroBodiesListingModel();
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel listSelect = table.getSelectionModel();
+
+        // -----------------------------------ActionListener for button-----------------------------------
         deleteBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try{
                     if(table.getSelectedRow() != -1){
                         int astroID = Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString());
-                        int answer = JOptionPane.showConfirmDialog(null, "La suppression de cette planète sera irreversibe... êtes-vous sur de votre choix?", "Attention", JOptionPane.WARNING_MESSAGE);
+                        int answer = JOptionPane.showConfirmDialog(null, "La suppression de cette planète entraînera également la suppression de ces colonies... êtes-vous sur de votre choix?", "Attention", JOptionPane.WARNING_MESSAGE);
                         if(answer == 0){
                             controller.deleteAstroBody(astroID);
                             model.removeRow(table.getSelectedRow());
@@ -43,11 +48,11 @@ public class DeleteAstroBodyPanel extends JPanel{
                             DeleteAstroBodyPanel.this.validate();
                             DeleteAstroBodyPanel.this.repaint();
                         }else{
-                            JOptionPane.showMessageDialog(null,"Choisissez une ligne.", "Consigne", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"Suppression annulé ! Choisissez une ligne.", "Consigne", JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
                 } catch (GeneralException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(),"oups, une erreur est survenue", JOptionPane.ERROR_MESSAGE );
+                    JOptionPane.showMessageDialog(null, e.getMessage(),e.getTitle(), JOptionPane.ERROR_MESSAGE );
                 }
             }
         });

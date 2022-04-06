@@ -9,7 +9,6 @@ import pooa_june_22.ExceptionPackage.NameException;
 import pooa_june_22.ModelPackage.Era;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class EraManager {
     EraDataAccess dao;
@@ -25,4 +24,6 @@ public class EraManager {
     public ArrayList<Era> getAllEras() throws AllEraException, NameException, DateException, ConnectionException {
         return dao.getAllEras();
     }
+
+
 }

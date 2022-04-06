@@ -16,12 +16,12 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
         this.controler = new ApplicationControler();
         contents = controler.getAstroBodiesForType(type);
         columnNames = new ArrayList<>();
-        columnNames.add("Espèce");
+        columnNames.add("Espèce de l'explorateur");
         columnNames.add("Explorateur");
         columnNames.add("Date de découverte");
-        columnNames.add("Gravité");
-        columnNames.add("Climat");
-        columnNames.add("Identifiant");
+        columnNames.add("Gravité de la planète");
+        columnNames.add("Climat de la planète");
+        columnNames.add("Identifiant de la planète");
         columnNames.add("Nom de la planète");
     }
 

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class SingletonConnexion {
     private static Connection connectionToken;
 
+    //-----------------------------------Create an unique instance of the connexion-----------------------------------
     public static Connection getInstance() throws ConnectionException {
 
         if (connectionToken == null) {
@@ -24,6 +25,7 @@ public class SingletonConnexion {
         return connectionToken;
     }
 
+    //-----------------------------------Allow to close the connexion at the close of the application-----------------------------------
     public static void close() throws ConnectionException {
         if(connectionToken != null){
             try {

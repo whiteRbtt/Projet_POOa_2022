@@ -15,7 +15,7 @@ import java.awt.Dimension;
 public class MenuWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu welcomeMenu, editMenu, infosMenu, statMenu;
-    private JMenuItem welcomeItem, addItem, searchItem, searchItem2, searchItem3, listItem, gravityAverageItem, updateItem, deleteItem;
+    private JMenuItem welcomeItem, addItem, searchItem, searchItem2, searchItem3, listItem, gravityAverageItem, updateItem, deleteItem, displayItem;
     private Container frameContainer;
 
     public MenuWindow() {
@@ -36,7 +36,7 @@ public class MenuWindow extends JFrame {
 
         MainListener listener = new MainListener();
 
-        // -----accueil-----
+        // -----Welcome-----
         welcomeMenu = new JMenu("Accueil");
         menuBar.add(welcomeMenu);
 
@@ -88,13 +88,17 @@ public class MenuWindow extends JFrame {
         searchItem3.addActionListener(listener);
         infosMenu.add(searchItem3);
 
-        // -----Tâche métier-----
+        // -----Business task-----
         statMenu = new JMenu("Statistiques");
         menuBar.add(statMenu);
 
         gravityAverageItem = new JMenuItem("Gravité moyenne pour un type de planète");
         gravityAverageItem.addActionListener(listener);
         statMenu.add(gravityAverageItem);
+
+        displayItem = new JMenuItem("Comparer les espèces");
+        displayItem.addActionListener(listener);
+        statMenu.add(displayItem);
         // default panels
 
         WelcomePanel welcomePanel = new WelcomePanel();
@@ -104,6 +108,7 @@ public class MenuWindow extends JFrame {
         setVisible(true);
     }
 
+    // -----------------------------------Action listener for buttons-----------------------------------
     private class MainListener implements ActionListener {
 
         public void actionPerformed(ActionEvent event) {
@@ -151,6 +156,10 @@ public class MenuWindow extends JFrame {
                     ResearchAstroBodiesPanel panel = new ResearchAstroBodiesPanel();
                     frameContainer.add(panel);
                 }
+                if(event.getSource() == displayItem){
+                    DisplayBestSpeciesPanel panel = new DisplayBestSpeciesPanel();
+                    frameContainer.add(panel);
+                }
             }catch (GeneralException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(),
                         e.getTitle(), JOptionPane.ERROR_MESSAGE);
@@ -163,6 +172,7 @@ public class MenuWindow extends JFrame {
 
     }
 
+    // -----------------------------------Action for close-----------------------------------
     public class ClosingListener extends WindowAdapter {
         public void windowClosing(WindowEvent e) {
             try {

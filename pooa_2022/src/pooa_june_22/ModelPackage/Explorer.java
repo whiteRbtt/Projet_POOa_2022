@@ -55,13 +55,11 @@ public class Explorer {
             throw new DateException();
         }
     }
-
-    // Getters
-
     public void setSpecie(String specie) {
         this.specie = specie;
     }
 
+    // Getters
     public Integer getExplorerId() {
         return explorerId;
     }

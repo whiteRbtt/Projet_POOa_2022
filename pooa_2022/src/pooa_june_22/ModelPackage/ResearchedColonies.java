@@ -20,6 +20,7 @@ public class ResearchedColonies {
         setTribalName(tribalName);
     }
 
+    //Setters
     public void setAstroName(String astroName) throws NameException {
         if (astroName != null && astroName.length() < 45)
             this.astroName = astroName;
@@ -60,6 +61,7 @@ public class ResearchedColonies {
         }
     }
 
+    //Getters
     public String getAstroName() {
         return astroName;
     }

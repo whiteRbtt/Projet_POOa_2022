@@ -23,13 +23,15 @@ public class ResearchAstroBodiesPanel extends JPanel {
     private ArrayList<AstroType> allTypes;
 
     public ResearchAstroBodiesPanel(){
+        // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Rechercher des planètes selon un type : ");
         this.add(title, BorderLayout.NORTH);
+        controler = new ApplicationControler();
 
+        // -----------------------------------Get Datas-----------------------------------
         String[] values = {};
         try{
-            controler = new ApplicationControler();
             allTypes = controler.getAllTypes();
             values = new String[allTypes.size()];
 
@@ -38,10 +40,12 @@ public class ResearchAstroBodiesPanel extends JPanel {
                 values[i] = type.getName();
                 i++;
             }
+            // -----------------------------------Displays-----------------------------------
             container = new Container();
             container.setLayout(new GridBagLayout());
             GridBagConstraints c = new GridBagConstraints();
 
+            // -----------------------------------Type-----------------------------------
             typeLabel = new JLabel("Selectionnez le type désirée");
             c.gridx = 0;
             c.gridy = 0;
@@ -57,6 +61,7 @@ public class ResearchAstroBodiesPanel extends JPanel {
             c.anchor = GridBagConstraints.LINE_END;
             container.add(types, c);
 
+            // -----------------------------------Validate button-----------------------------------
             validate = new JButton("Rechercher");
             validate.addActionListener(new SearchAstroListener());
             c.gridx = 1;
@@ -71,8 +76,8 @@ public class ResearchAstroBodiesPanel extends JPanel {
         }
     }
 
+    // -----------------------------------Action for button-----------------------------------
     private class SearchAstroListener implements ActionListener {
-
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {

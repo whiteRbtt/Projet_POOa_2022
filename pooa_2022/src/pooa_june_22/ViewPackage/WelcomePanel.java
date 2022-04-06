@@ -9,10 +9,11 @@ public class WelcomePanel extends JPanel {
     private TitlePanel t1, t2;
 
     public WelcomePanel() {
+        // -----------------------------------Initilizations-----------------------------------
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-
+        // -----------------------------------Displays-----------------------------------
         t1 = new TitlePanel("Bienvenus dans le programme d'apprentissage de l'A.D.C.S,");
         c.gridx = 0;
         c.gridy = 0;
@@ -34,6 +35,7 @@ public class WelcomePanel extends JPanel {
         c.insets = new Insets(150, 0, 0, 40);
         this.add(status, c);
 
+        // -----------------------------------Thread-----------------------------------
         cMatrix = new CMatrixPanel();
         c.gridx = 0;
         c.gridy = 4;
