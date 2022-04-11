@@ -77,12 +77,15 @@ public class SpecieManager {
         return (diff / (24*60*60*1000));
     }
 
-    public double gravityAverage(String vernacularName) throws ConnectionException, GravityException {
-        ArrayList<Integer> gravities = getGravityOfColony(vernacularName);
+    public double calcAverage(ArrayList<Integer> gravities){
         double average = 0;
         for(Integer gravity : gravities){
             average += gravity;
         }
         return average/gravities.size();
+    }
+    public double gravityAverage(String vernacularName) throws ConnectionException, GravityException {
+        ArrayList<Integer> gravities = getGravityOfColony(vernacularName);
+        return calcAverage(gravities);
     }
 }
