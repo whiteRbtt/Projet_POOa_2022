@@ -16,6 +16,7 @@ public class AstroBodiesListingPanel extends JPanel {
         title = new TitlePanel("Liste des objets célestes connus de notre galaxie :");
         this.add(title, BorderLayout.NORTH);
 
+
         //-----------------------------------Création du modèle et affichage de la table-----------------------------------
         model = new AstroBodiesListingModel();
         table = new JTable(model);

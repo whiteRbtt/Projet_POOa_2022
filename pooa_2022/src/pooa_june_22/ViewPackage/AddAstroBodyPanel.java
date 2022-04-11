@@ -7,15 +7,15 @@ import java.awt.*;
 
 public class AddAstroBodyPanel extends JPanel {
 
-    private TitlePanel title;
+    private TitlePanel t1;
     private AstroBodyFormPanel formPanel;
 
     public AddAstroBodyPanel() {
         //-----------------------------------Initialisation-----------------------------------
         this.setLayout(new BorderLayout());
-
-        title = new TitlePanel("Création d'un nouvel objet céleste :");
-        this.add(title, BorderLayout.NORTH);
+        GridBagConstraints c = new GridBagConstraints();
+        t1 = new TitlePanel("Création d'un nouvel objet céleste :");
+        this.add(t1, BorderLayout.NORTH);
 
         //-----------------------------------Création du formulaire-----------------------------------
         try {

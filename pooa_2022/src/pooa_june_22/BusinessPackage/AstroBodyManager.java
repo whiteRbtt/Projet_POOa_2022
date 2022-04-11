@@ -7,6 +7,7 @@ import pooa_june_22.ModelPackage.AstroBody;
 import pooa_june_22.ModelPackage.ResearchedAstroBodies;
 import pooa_june_22.ModelPackage.ResearchedAstroBodiesDate;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 

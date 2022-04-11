@@ -26,6 +26,7 @@ public class BusinessPanel extends JPanel {
         title = new TitlePanel("Gravité moyenne par type : ");
         this.add(title, BorderLayout.NORTH);
 
+
         // -----------------------------------Get datas for JCheckBox-----------------------------------
         String[] values = {};
         try{
