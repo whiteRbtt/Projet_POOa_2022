@@ -10,22 +10,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class DisplayBestSpeciesPanel extends JPanel {
+public class CompareSpeciesPanel extends JPanel {
     private TitlePanel title;
-    private JLabel specieLabel1, specieLabel2;
+    private JLabel specieLabel1, specieLabel2, information;
     private JList species1, species2;
     private JButton validate;
     private JPanel secondPanel;
 
-    public DisplayBestSpeciesPanel(){
+    public CompareSpeciesPanel(){
         this.setLayout(new BorderLayout());
         GridBagConstraints c = new GridBagConstraints();
         secondPanel = new JPanel(new GridBagLayout());
         ApplicationControler controler = new ApplicationControler();
 
-        title = new TitlePanel("Quelle est la meilleure espèce enregistré ? ");
+        title = new TitlePanel("Quelle est la meilleure espèce enregistré ?");
         this.add(title, BorderLayout.NORTH);
-
+        information = new JLabel("(La comparaison s'effectue sur base d'une formule autour du nombre de colonie, de la durée de vie moyenne de ses colonies, ainsi que de la gravité moyenne des planètes colonisées. La variable ayant le plus de poids étant la gravité car révélateur de la force physique)");
+        this.add(information, BorderLayout.PAGE_END);
         try{
             ArrayList<Specie> allSpecies = controler.getAllSpecies();
             ArrayList<String> speciesNames = new ArrayList<>();
@@ -82,7 +83,7 @@ public class DisplayBestSpeciesPanel extends JPanel {
                     try{
                         GridBagConstraints c = new GridBagConstraints();
                         String winner = controler.bestSpecie((String)species1.getSelectedValue(), (String)species2.getSelectedValue());
-                        TitlePanel resultat = new TitlePanel("L'espèce la plus forte sur base du nombre de colonies, de leurs durées de vie moyenne et de la gravité moyenne des planètes colonisé est : " + winner);
+                        TitlePanel resultat = new TitlePanel("L'espèce la plus forte est : " + winner);
                         secondPanel.add(resultat);
                         secondPanel.revalidate();
                         secondPanel.repaint();

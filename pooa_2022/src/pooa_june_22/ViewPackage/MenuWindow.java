@@ -80,7 +80,7 @@ public class MenuWindow extends JFrame {
         searchItem.addActionListener(listener);
         infosMenu.add(searchItem);
 
-        searchItem2 = new JMenuItem("Rechercher des planètes selon un période");
+        searchItem2 = new JMenuItem("Rechercher des planètes selon une période");
         searchItem2.addActionListener(listener);
         infosMenu.add(searchItem2);
 
@@ -157,7 +157,7 @@ public class MenuWindow extends JFrame {
                     frameContainer.add(panel);
                 }
                 if(event.getSource() == displayItem){
-                    DisplayBestSpeciesPanel panel = new DisplayBestSpeciesPanel();
+                    CompareSpeciesPanel panel = new CompareSpeciesPanel();
                     frameContainer.add(panel);
                 }
             }catch (GeneralException e) {
