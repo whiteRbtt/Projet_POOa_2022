@@ -18,16 +18,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.regex.Pattern;
 
 public class AstroBodyFormPanel extends JPanel {
     private JLabel idLabel, nameLabel, explorerLabel, typeLabel, climateLabel, gravityLabel, lifeformLabel, dateLabel;
     private JTextField id, name;
-    private JSpinner gravity, year, date;
-    private JComboBox day, month, explorer, type, climate;
+    private JSpinner gravity, year;
+    private JComboBox explorer, type, climate;
     private JButton validate;
     private JCheckBox noDate, lifeform;
-    private ButtonGroup bg;
     private Boolean checkBoxState, hasLifeForm;
     private ApplicationControler controller;
     private ArrayList<Explorer> allExplorers;
@@ -53,7 +51,6 @@ public class AstroBodyFormPanel extends JPanel {
                 values[i] = e.getName();
                 i++;
             }
-            System.out.println(allExplorers.size());
 
         } catch (GeneralException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(),
@@ -82,7 +79,7 @@ public class AstroBodyFormPanel extends JPanel {
 
         // --------------------------name--------------------------
 
-        nameLabel = new JLabel("Nom de l'objet:");
+        nameLabel = new JLabel("*Nom de l'objet:");
         c.gridx = 0;
         c.gridy = 1;
         c.ipadx = 0;
@@ -113,7 +110,7 @@ public class AstroBodyFormPanel extends JPanel {
 
         // --------------------------type--------------------------
 
-        typeLabel = new JLabel("Type d'objet :");
+        typeLabel = new JLabel("*Type d'objet :");
         c.gridx = 0;
         c.gridy = 3;
         c.ipadx = 0;
@@ -151,7 +148,7 @@ public class AstroBodyFormPanel extends JPanel {
 
         // --------------------------gravity--------------------------
 
-        gravityLabel = new JLabel("Gravité relative :");
+        gravityLabel = new JLabel("Gravité relative (Plus grand que 0) :");
         c.gridx = 0;
         c.gridy = 5;
         c.ipadx = 0;
@@ -168,7 +165,7 @@ public class AstroBodyFormPanel extends JPanel {
 
         // --------------------------hasEndemicLifeform--------------------------
 
-        lifeformLabel = new JLabel("Forme de vie endémique :");
+        lifeformLabel = new JLabel("*Forme de vie endémique :");
         c.gridx = 0;
         c.gridy = 6;
         c.ipadx = 0;
@@ -183,7 +180,7 @@ public class AstroBodyFormPanel extends JPanel {
         c.ipadx = 0;
         this.add(lifeform, c);
 
-        // --------------------------date--------------------------
+        // --------------------------date + Pre-completed field for modification--------------------------
 
         dateLabel = new JLabel("Date de découverte :");
         c.gridx = 0;
@@ -218,29 +215,12 @@ public class AstroBodyFormPanel extends JPanel {
             yearModel.setValue(startDate);
         }
         SimpleDateFormat formatBeg = new SimpleDateFormat("dd.MM.yyyy");
-        //SpinnerModel yearModel = new SpinnerNumberModel(1000, 1000, 9999, 100);
         year = new JSpinner(yearModel);
         year.setEditor(new JSpinner.DateEditor(year, formatBeg.toPattern()));
         c.gridx = 4;
         c.gridy = 7;
         c.ipadx = 0;
         this.add(year, c);
-
-        /*String[] months = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-        month = new JComboBox(months);
-        month.setEditable(false);
-        c.gridx = 3;
-        c.gridy = 7;
-        c.ipadx = 25;
-        c.anchor = GridBagConstraints.LINE_END;
-        this.add(month, c);
-
-        String[] days = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",};
-        day = new JComboBox(days);
-        day.setEditable(false);
-        c.gridx = 2;
-        c.gridy = 7;
-        this.add(day, c);*/
 
         // --------------------------noDate checkbox--------------------------
         checkBoxState = false;
@@ -250,8 +230,6 @@ public class AstroBodyFormPanel extends JPanel {
         c.gridy = 7;
         c.ipadx = 0;
         this.add(noDate, c);
-
-
 
         // --------------------------Butons--------------------------
 
@@ -273,13 +251,12 @@ public class AstroBodyFormPanel extends JPanel {
                 year.commitEdit();
                 gravity.commitEdit();
 
-                // -----------------------------------retrieve id, name, type, climate, gravity-----------------------------------
+                // -----------------------------------retrieve name-----------------------------------
 
                 if (name.getText().isEmpty())
                     throw new FormException("nom");
 
                 String newName = name.getText();
-                String newType = (String)type.getSelectedItem();
 
                 // -----------------------------------retrieve gravity-----------------------------------
                 Integer newGravity = null;
@@ -295,8 +272,6 @@ public class AstroBodyFormPanel extends JPanel {
                     newClimate = (String)climate.getSelectedItem();
                 }
 
-
-
                 // -----------------------------------retrieve date-----------------------------------
                 GregorianCalendar newDate = null;
                 if (!checkBoxState) {
@@ -304,8 +279,6 @@ public class AstroBodyFormPanel extends JPanel {
                     newDate = new GregorianCalendar();
                     newDate.setTime(beginDate);
                 }
-
-                // -----------------------------------retrieve lifeform-----------------------------------
 
                 // -----------------------------------object creation-----------------------------------
                 AstroBody newBody = new AstroBody(controller.getMaxId() + 1, newName, (explorer.getSelectedIndex() == 10 ? null : allExplorers.get(explorer.getSelectedIndex())), allTypes.get(type.getSelectedIndex()), newClimate, newGravity, hasLifeForm, newDate);

@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TypeDBAccess implements AstroTypeDBAccess {
+
+    //-----------------------------------Get all types from the DB-----------------------------------
     public ArrayList<AstroType> getAllTypes() throws ConnectionException, NameException, AllTypesException, TypeIDException {
         ArrayList<AstroType> types = new ArrayList<>();
         try{

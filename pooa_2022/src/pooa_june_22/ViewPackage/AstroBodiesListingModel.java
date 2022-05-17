@@ -12,7 +12,7 @@ public class AstroBodiesListingModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<AstroBody> datas;
 
-    public AstroBodiesListingModel() throws ClimateException, NameException, DateException, TypeException, AllAstroBodiesException, IdException, ConnectionException, GravityException, GeneralException {
+    public AstroBodiesListingModel() throws GeneralException {
         controller = new ApplicationControler();
         datas = controller.getAllAstroBodies();
         columnNames = new ArrayList<>();
@@ -25,15 +25,19 @@ public class AstroBodiesListingModel extends AbstractTableModel {
         columnNames.add("Date d'exploration");
         columnNames.add("Premier explorateur connus");;
     }
+
     public int getColumnCount(){
         return columnNames.size();
     }
+
     public int getRowCount(){
         return datas.size();
     }
+
     public String getColumnName(int column){
         return columnNames.get(column);
     }
+
     public Object getValueAt(int row, int column){
         AstroBody astroBody = datas.get(row);
         switch (column){
@@ -52,6 +56,7 @@ public class AstroBodiesListingModel extends AbstractTableModel {
             default: return null;
         }
     }
+
     public Class getColumnClass(int column){
         Class c;
         switch(column){
@@ -73,6 +78,7 @@ public class AstroBodiesListingModel extends AbstractTableModel {
     }
 
     public ArrayList<AstroBody> getDatas(){return datas;}
+
     public void removeRow(int row){
         datas.remove(row);
     }

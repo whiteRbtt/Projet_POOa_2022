@@ -2,43 +2,33 @@ package pooa_june_22.ViewPackage;
 
 import pooa_june_22.ControlerPackage.ApplicationControler;
 import pooa_june_22.ExceptionPackage.*;
-import pooa_june_22.ModelPackage.AstroBody;
-import pooa_june_22.ModelPackage.Colony;
-import pooa_june_22.ModelPackage.Era;
 import pooa_june_22.ModelPackage.Specie;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class ResearchColoniesPanel extends JPanel {
 
     private TitlePanel title;
-    private JLabel specieLabel, dateLabel, description;
-    private JSpinner year;
+    private JLabel specieLabel;
     private JComboBox species;
     private JButton validate;
     private Container container;
-    private TablePanel table;
-    private String[] columnNames;
-    private Object[][] datas;
     private ResearchColonieModel colonieModel;
     private ApplicationControler controller;
 
     private ArrayList<Specie> allSpecies;
-    private ArrayList<Colony> selectedColonies;
-    private ArrayList<AstroBody> allAstroBodies;
 
     public ResearchColoniesPanel() {
+        // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Rechercher des colonies :");
         this.add(title, BorderLayout.NORTH);
 
-        // -----------------------------------get All species-----------------------------------
+        // -----------------------------------Get datas-----------------------------------
         String[] values = {};
         try {
             setController(new ApplicationControler());
@@ -54,13 +44,12 @@ public class ResearchColoniesPanel extends JPanel {
             JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
 
-
-        // -----------------------------------form-----------------------------------
-
+        // -----------------------------------Displays-----------------------------------
         container = new Container();
         container.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
+        // -----------------------------------Species-----------------------------------
         specieLabel = new JLabel("Selectionnez l'espèce désirée");
         c.gridx = 0;
         c.gridy = 0;
@@ -76,21 +65,7 @@ public class ResearchColoniesPanel extends JPanel {
         c.anchor = GridBagConstraints.LINE_END;
         container.add(species, c);
 
-        /*dateLabel = new JLabel("Entrez une année de référence");
-        c.gridx = 0;
-        c.gridy = 1;
-        c.ipadx = 0;
-        c.anchor = GridBagConstraints.LINE_START;
-        container.add(dateLabel, c);
-
-        SpinnerModel model = new SpinnerNumberModel(1000, 1000, 9999, 100);
-        year = new JSpinner(model);
-        c.gridx = 1;
-        c.gridy = 1;
-        c.ipadx = 70;
-        c.anchor = GridBagConstraints.LINE_END;
-        container.add(year, c);*/
-
+        // -----------------------------------Validate button-----------------------------------
         validate = new JButton("Rechercher");
         validate.addActionListener(new SearchListener());
         c.gridx = 1;
@@ -102,6 +77,7 @@ public class ResearchColoniesPanel extends JPanel {
         this.add(container, BorderLayout.CENTER);
     }
 
+    // -----------------------------------Action for button-----------------------------------
     class SearchListener implements ActionListener {
 
         @Override

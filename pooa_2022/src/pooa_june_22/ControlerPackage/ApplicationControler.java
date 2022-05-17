@@ -52,7 +52,8 @@ public class ApplicationControler {
     }
 
     //-----------------------------------AstroBodyManager-----------------------------------
-    public void deleteAstroBody(int astroID) throws ConnectionException, DeleteAstroBodyException, GeneralException {
+
+    public void deleteAstroBody(int astroID) throws GeneralException {
         astroBodyManager.deleteAstroBody(astroID);
     }
     public void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException {
@@ -63,7 +64,7 @@ public class ApplicationControler {
         astroBodyManager.updateAstroBody(astroBody);
     }
 
-    public ArrayList<AstroBody> getAllAstroBodies() throws GravityException, ConnectionException, ClimateException, TypeException, AllAstroBodiesException, NameException, DateException, IdException, GeneralException {
+    public ArrayList<AstroBody> getAllAstroBodies() throws GeneralException {
         return astroBodyManager.getAllAstroBodies();
     }
 
@@ -82,27 +83,44 @@ public class ApplicationControler {
     public double getGravityAverage(String type) throws ClimateException, NameException, DateException, TypeException, IdException, ConnectionException, GravityException, GravityAverageException {
         return astroBodyManager.getGravityAverage(type);
     }
+
     //-----------------------------------SpecieManager-----------------------------------
+
     public ArrayList<Specie> getAllSpecies() throws ConnectionException, AllSpeciesException, NameException {
         return specieManager.getAllSpecies();
     }
 
+    public String bestSpecie(String vernacularName1, String vernacularName2) throws DateException, ConnectionException, AllEraException, ColonyException, GravityException {
+        return specieManager.bestSpecie(vernacularName1, vernacularName2);
+    }
+
     //-----------------------------------ExplorerManager-----------------------------------
+
     public ArrayList<Explorer> getAllExplorers() throws ConnectionException, AllExplorersException, IdException, DateException, NameException {
         return explorerManager.getAllExplorers();
     }
 
     //-----------------------------------ErasManager-----------------------------------
-    public Era findEra(GregorianCalendar date) throws ConnectionException, DateException, AllEraException, NameException {
-        return eraManager.findEra(date);
+
+    public ArrayList<Era> getAllEras() throws AllEraException, NameException, DateException, ConnectionException {
+        return eraManager.getAllEras();
     }
 
+    public ArrayList<Era> getBestEras(String vernacularName) throws DateException, AllEraException, ConnectionException {
+        return specieManager.getBestEras(vernacularName);
+    }
     //-----------------------------------ColonyManager-----------------------------------
-    public ArrayList<ResearchedColonies> getColonies( String specie) throws ConnectionException, DateException, ColonyException, AllEraException, NameException, AllColoniesException {
+
+    public ArrayList<ResearchedColonies> getColonies( String specie) throws ConnectionException, DateException, ColonyException, NameException, AllColoniesException {
         return colonyManager.getColonies(specie);
     }
 
+    public int getNbColonyForSpecie(String vernacularName) throws ConnectionException, ColonyException {
+        return specieManager.getNbColonyForSpecie(vernacularName);
+    }
+
     //-----------------------------------TypeManager-----------------------------------
+
     public ArrayList<AstroType> getAllTypes() throws NameException, TypeException, ConnectionException, AllTypesException, TypeIDException {
         return typeManager.getAllTypes();
     }

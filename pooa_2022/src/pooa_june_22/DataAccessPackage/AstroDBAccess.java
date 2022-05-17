@@ -1,17 +1,16 @@
 package pooa_june_22.DataAccessPackage;
 
 import pooa_june_22.DataAccessPackage.DAO.AstroBodyDataAccess;
-import pooa_june_22.DataAccessPackage.DAO.ExplorerDataAccess;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.*;
-import pooa_june_22.DataAccessPackage.ExplorerDBAccess;
-import pooa_june_22.ViewPackage.ResearchColonieModel;
+
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 public class AstroDBAccess implements AstroBodyDataAccess {
 
+    //-----------------------------------Get the greatest ID of the DB for incrementation-----------------------------------
     public int getMaxId() throws ConnectionException, IdException {
         String instructionSQL;
         Connection connection;
@@ -30,7 +29,8 @@ public class AstroDBAccess implements AstroBodyDataAccess {
         return id;
     }
 
-    public void deleteColonyForAstroBody(int location) throws ConnectionException, SQLException, DeleteAstroBodyException {
+    //-----------------------------------Delete the colonies of an astro body given-----------------------------------
+    public void deleteColonyForAstroBody(int location) throws ConnectionException, SQLException {
         String sqlInstruction;
         Connection connection;
             sqlInstruction = "delete from colony where Location = ?";
@@ -39,6 +39,8 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             preparedStatement.setInt(1, location);
             preparedStatement.executeUpdate();
     }
+
+    //-----------------------------------Delete an astro body and the depedencies link to the table-----------------------------------
     public void deleteAstroBody(int astroID) throws ConnectionException, DeleteAstroBodyException {
         String sqlInstruction;
         Connection connection;
@@ -53,6 +55,8 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             throw new DeleteAstroBodyException(astroID);
         }
     }
+
+    //-----------------------------------Add an astro body to the DB-----------------------------------
     public void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException {
         Connection connection = SingletonConnexion.getInstance();
 
@@ -103,6 +107,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
 
     }
 
+    //-----------------------------------Update an astro body-----------------------------------
     public void updateAstroBody(AstroBody astroBody) throws ConnectionException, UpdateAstroBodyException {
         Connection connection = SingletonConnexion.getInstance();
 
@@ -155,6 +160,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
 
     }
 
+    //-----------------------------------Get an explorer who discovered an astro body-----------------------------------
    public Explorer getExplorerForAstroBody(int exploID) throws IdException, DateException, NameException, ConnectionException, SQLException {
        String sqlInstruction;
        Connection connection;
@@ -181,7 +187,9 @@ public class AstroDBAccess implements AstroBodyDataAccess {
            }
        return explorer;
    }
-   public AstroType getTypeForAstroBody(Integer type) throws NameException, TypeException, ConnectionException, SQLException, TypeIDException {
+
+    //-----------------------------------Get type for a given type from an astroBody-----------------------------------
+   public AstroType getTypeForAstroBody(Integer type) throws NameException, ConnectionException, SQLException, TypeIDException {
        String sqlInstruction;
        Connection connection;
        AstroType typeAstro = null;
@@ -195,6 +203,8 @@ public class AstroDBAccess implements AstroBodyDataAccess {
 
        return typeAstro;
    }
+
+    //-----------------------------------Get all the astroBodies of the DB-----------------------------------
     public ArrayList<AstroBody> getAllAstroBodies() throws AllAstroBodiesException, ClimateException, TypeException, GravityException, NameException, DateException, IdException, ConnectionException, TypeIDException {
         ArrayList<AstroBody> allAstroBodies = new ArrayList<>();
 
@@ -257,6 +267,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
         return allAstroBodies;
     }
 
+    //-----------------------------------Get an astroBody for a given type-----------------------------------
     public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
         ArrayList<ResearchedAstroBodies> astroBodies = new ArrayList<>();
 
@@ -301,6 +312,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
         return astroBodies;
     }
 
+    //-----------------------------------Get all the astroBodies for a given period-----------------------------------
     public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException {
         ArrayList<ResearchedAstroBodiesDate> astroBodiesDates = new ArrayList<>();
 

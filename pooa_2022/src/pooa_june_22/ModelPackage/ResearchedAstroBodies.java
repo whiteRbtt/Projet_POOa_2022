@@ -23,16 +23,9 @@ public class ResearchedAstroBodies {
         setSpecie(specie);
     }
 
+    // Getters
     public String getSpecie() {
         return specie;
-    }
-
-    public void setSpecie(String specie) throws NameException {
-        if (specie != null && specie.length() < 45)
-            this.specie = specie;
-        else {
-            throw new NameException(specie);
-        }
     }
 
     public String  getFirstExploDateInString() {
@@ -40,6 +33,35 @@ public class ResearchedAstroBodies {
             return firstExploDate.get(firstExploDate.DAY_OF_MONTH) + "/" + (firstExploDate.get(firstExploDate.MONTH)+1) + "/" + firstExploDate.get(firstExploDate.YEAR);
         }else{
             return "inconnu";
+        }
+    }
+
+    public String getExplorer() {
+        return explorer;
+    }
+
+    public Integer getGravity() {
+        return gravity;
+    }
+
+    public String getClimate() {
+        return climate;
+    }
+
+    public int getAstroId() {
+        return astroId;
+    }
+
+    public String getAstroName() {
+        return astroName;
+    }
+
+    // Setters
+    public void setSpecie(String specie) throws NameException {
+        if (specie != null && specie.length() < 45)
+            this.specie = specie;
+        else {
+            throw new NameException(specie);
         }
     }
 
@@ -51,20 +73,12 @@ public class ResearchedAstroBodies {
         }
     }
 
-    public String getExplorer() {
-        return explorer;
-    }
-
     public void setExplorer(String explorer) throws NameException {
         if (explorer == null || explorer.length() <45)
             this.explorer = explorer;
         else {
             throw new NameException(explorer);
         }
-    }
-
-    public Integer getGravity() {
-        return gravity;
     }
 
     public void setGravity(Integer gravity) throws GravityException {
@@ -75,10 +89,6 @@ public class ResearchedAstroBodies {
         }
     }
 
-    public String getClimate() {
-        return climate;
-    }
-
     public void setClimate(String climate) throws ClimateException {
         if (climate == null || climate.length() < 45)
             this.climate = climate;
@@ -87,20 +97,12 @@ public class ResearchedAstroBodies {
         }
     }
 
-    public int getAstroId() {
-        return astroId;
-    }
-
     public void setAstroId(Integer astroId) throws IdException {
         if (astroId != null && astroId > 0)
             this.astroId = astroId;
         else {
             throw new IdException(astroId);
         }
-    }
-
-    public String getAstroName() {
-        return astroName;
     }
 
     public void setAstroName(String astroName) throws NameException {

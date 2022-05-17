@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 
 public class ExplorerDBAccess implements ExplorerDataAccess {
 
+    //-----------------------------------Get all the explorers of the DB-----------------------------------
     public ArrayList<Explorer> getAllExplorers() throws IdException, DateException, NameException, AllExplorersException, ConnectionException {
         ArrayList<Explorer> allExplorers = new ArrayList<>();
 

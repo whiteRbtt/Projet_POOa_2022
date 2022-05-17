@@ -55,27 +55,17 @@ public class Explorer {
             throw new DateException();
         }
     }
-
-    // Getters
-
     public void setSpecie(String specie) {
         this.specie = specie;
     }
 
+    // Getters
     public Integer getExplorerId() {
         return explorerId;
     }
 
     public String getName() {
         return name;
-    }
-
-    public Boolean getAlive() {
-        return isAlive;
-    }
-
-    public GregorianCalendar getBirthDate() {
-        return birthDate;
     }
 
     public String getSpecie() {

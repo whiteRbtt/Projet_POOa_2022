@@ -1,7 +1,6 @@
 package pooa_june_22.ModelPackage;
 
 import pooa_june_22.ExceptionPackage.NameException;
-import pooa_june_22.ExceptionPackage.TypeException;
 import pooa_june_22.ExceptionPackage.TypeIDException;
 
 public class AstroType {
@@ -13,6 +12,7 @@ public class AstroType {
         setName(name);
     }
 
+    // getters
     public Integer getTypeID() {
         return typeID;
     }
@@ -20,6 +20,7 @@ public class AstroType {
     public String getName(){;return name;
     }
 
+    //setters
     public void setTypeID(Integer typeID) throws  TypeIDException {
         if(typeID != null && typeID > 0){
             this.typeID = typeID;

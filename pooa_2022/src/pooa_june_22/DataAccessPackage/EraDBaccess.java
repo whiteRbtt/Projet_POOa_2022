@@ -3,6 +3,7 @@ package pooa_june_22.DataAccessPackage;
 import pooa_june_22.DataAccessPackage.DAO.EraDataAccess;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.Era;
+import pooa_june_22.ModelPackage.Specie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.util.GregorianCalendar;
 
 public class EraDBaccess implements EraDataAccess {
 
+    //-----------------------------------Get all the periods in the DB-----------------------------------
     public ArrayList<Era> getAllEras() throws AllEraException, ConnectionException, NameException, DateException {
         ArrayList<Era> allEras = new ArrayList<>();
 

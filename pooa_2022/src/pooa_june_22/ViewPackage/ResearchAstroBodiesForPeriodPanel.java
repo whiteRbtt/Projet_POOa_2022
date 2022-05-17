@@ -1,6 +1,5 @@
 package pooa_june_22.ViewPackage;
 
-import pooa_june_22.ControlerPackage.ApplicationControler;
 import pooa_june_22.ExceptionPackage.*;
 
 import javax.swing.*;
@@ -8,7 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,12 +17,11 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
     private JSpinner dateBegin, dateEnding;
     private JButton validate;
     private Container container;
-    private ApplicationControler controler;
     private ResearchAstroBodiesForPeriodModel astroModel;
 
 
     public ResearchAstroBodiesForPeriodPanel(){
-        this.controler = new ApplicationControler();
+        // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Rechercher des planètes en fonction d'une période");
 
@@ -33,6 +30,9 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         this.add(title, BorderLayout.NORTH);
 
+        // -----------------------------------Displays-----------------------------------
+
+        // -----------------------------------BeginDate-----------------------------------
         beginLabel = new JLabel("Date de commencement");
         c.gridx = 0;
         c.gridy = 0;
@@ -56,6 +56,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
         c.anchor = GridBagConstraints.LINE_END;
         container.add(dateBegin, c);
 
+        // -----------------------------------EndingDate-----------------------------------
         endingLabel = new JLabel("Date de fin");
         c.gridx = 0;
         c.gridy = 1;
@@ -77,6 +78,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
         c.anchor = GridBagConstraints.LINE_END;
         container.add(dateEnding, c);
 
+        // -----------------------------------Validate Button-----------------------------------
         validate = new JButton("Rechercher");
         c.gridx = 1;
         c.gridy = 2;
@@ -85,6 +87,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
         container.add(validate, c);
         this.add(container, BorderLayout.CENTER);
 
+        // -----------------------------------Action for validate button-----------------------------------
         validate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

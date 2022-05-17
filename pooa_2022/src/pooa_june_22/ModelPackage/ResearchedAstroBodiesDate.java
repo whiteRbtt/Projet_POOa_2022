@@ -27,20 +27,50 @@ public class ResearchedAstroBodiesDate {
         setExtinct(isExtinct);
     }
 
+    // Getters
     public String getAstroName() {
         return astroName;
     }
 
+    public String getExploBirthInString() {
+        if(exploBirth != null){
+            return exploBirth.get(exploBirth.DAY_OF_MONTH) + "/" + (exploBirth.get(exploBirth.MONTH)+1) + "/" + exploBirth.get(exploBirth.YEAR);
+        }else{
+            return "inconnu";
+        }
+    }
+
+    public String getAstroClimate() {
+        return astroClimate;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public String getExploName() {
+        return exploName;
+    }
+
+    public String getSpecieSName() {
+        return specieSName;
+    }
+
+    public Boolean isExtinct() {
+        return isExtinct;
+    }
+
+    public String getSpecieVName() {
+        return specieVName;
+    }
+
+    // Setters
     public void setAstroName(String astroName) throws NameException {
         if (astroName != null && astroName.length() < 45)
             this.astroName = astroName;
         else {
             throw new NameException(astroName);
         }
-    }
-
-    public String getAstroClimate() {
-        return astroClimate;
     }
 
     public void setAstroClimate(String astroClimate) throws ClimateException {
@@ -51,10 +81,6 @@ public class ResearchedAstroBodiesDate {
         }
     }
 
-    public String getTypeName() {
-        return typeName;
-    }
-
     public void setTypeName(String typeName) throws NameException {
         if (typeName != null && typeName.length() < 45)
             this.typeName = typeName;
@@ -63,23 +89,11 @@ public class ResearchedAstroBodiesDate {
         }
     }
 
-    public String getExploName() {
-        return exploName;
-    }
-
     public void setExploName(String exploName) throws NameException {
         if (exploName == null || exploName.length() < 45)
             this.exploName = exploName;
         else {
             throw new NameException(exploName);
-        }
-    }
-
-    public String getExploBirthInString() {
-        if(exploBirth != null){
-            return exploBirth.get(exploBirth.DAY_OF_MONTH) + "/" + (exploBirth.get(exploBirth.MONTH)+1) + "/" + exploBirth.get(exploBirth.YEAR);
-        }else{
-            return "inconnu";
         }
     }
 
@@ -91,10 +105,6 @@ public class ResearchedAstroBodiesDate {
         }
     }
 
-    public String getSpecieSName() {
-        return specieSName;
-    }
-
     public void setSpecieSName(String specieSName) throws NameException {
         if (specieSName == null || specieSName.length() < 45)
             this.specieSName = specieSName;
@@ -103,20 +113,12 @@ public class ResearchedAstroBodiesDate {
         }
     }
 
-    public String getSpecieVName() {
-        return specieVName;
-    }
-
     public void setSpecieVName(String specieVName) throws NameException {
         if (specieVName == null || specieVName.length() < 45)
             this.specieVName = specieVName;
         else {
             throw new NameException(specieVName);
         }
-    }
-
-    public Boolean isExtinct() {
-        return isExtinct;
     }
 
     public void setExtinct(Boolean extinct) {

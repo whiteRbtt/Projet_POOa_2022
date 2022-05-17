@@ -8,7 +8,6 @@ import pooa_june_22.ExceptionPackage.NameException;
 import pooa_june_22.ModelPackage.ResearchedAstroBodiesDate;
 
 import javax.swing.table.AbstractTableModel;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -22,10 +21,10 @@ public class ResearchAstroBodiesForPeriodModel extends AbstractTableModel {
         columnNames = new ArrayList<>();
         contents = controler.getAstroBodiesForPeriod(beginningDate, endingDate);
         columnNames.add("Nom de la planète");
-        columnNames.add("Climat");
-        columnNames.add("Type");
+        columnNames.add("Climat de la planète");
+        columnNames.add("Type de la planète");
         columnNames.add("Explorateur");
-        columnNames.add("Née le :");
+        columnNames.add("Née le");
         columnNames.add("Appartient à l'espèce");
         columnNames.add("Nom vernaculaire de l'espèce");
         columnNames.add("Est éteinte");

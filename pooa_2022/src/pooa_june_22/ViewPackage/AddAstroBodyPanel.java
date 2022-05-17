@@ -1,24 +1,23 @@
 package pooa_june_22.ViewPackage;
 
-import pooa_june_22.ExceptionPackage.ConnectionException;
 import pooa_june_22.ExceptionPackage.GeneralException;
-import pooa_june_22.ExceptionPackage.NameException;
-import pooa_june_22.ExceptionPackage.TypeException;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class AddAstroBodyPanel extends JPanel {
 
-    private TitlePanel title;
+    private TitlePanel t1;
     private AstroBodyFormPanel formPanel;
 
     public AddAstroBodyPanel() {
+        //-----------------------------------Initialisation-----------------------------------
         this.setLayout(new BorderLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        t1 = new TitlePanel("Création d'un nouvel objet céleste :");
+        this.add(t1, BorderLayout.NORTH);
 
-        title = new TitlePanel("Création d'un nouvel objet céleste :");
-        this.add(title, BorderLayout.NORTH);
-
+        //-----------------------------------Création du formulaire-----------------------------------
         try {
             formPanel = new AstroBodyFormPanel(null);
         } catch (GeneralException e) {

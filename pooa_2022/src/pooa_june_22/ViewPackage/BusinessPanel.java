@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BusinessPanel extends JPanel {
@@ -17,16 +16,18 @@ public class BusinessPanel extends JPanel {
     private JComboBox types;
     private JButton validate;
     private Container container;
-    private TablePanel table;
-    private ResearchAstroBodiesModel astroModel;
     private ApplicationControler controler;
 
     private ArrayList<AstroType> allTypes;
+
     public BusinessPanel(){
+        // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Gravité moyenne par type : ");
         this.add(title, BorderLayout.NORTH);
 
+
+        // -----------------------------------Get datas for JCheckBox-----------------------------------
         String[] values = {};
         try{
             controler = new ApplicationControler();
@@ -38,10 +39,13 @@ public class BusinessPanel extends JPanel {
                 values[i] = type.getName();
                 i++;
             }
+
+            // -----------------------------------Displays-----------------------------------
             container = new Container();
             container.setLayout(new GridBagLayout());
             GridBagConstraints c = new GridBagConstraints();
 
+            // -----------------------------------Type-----------------------------------
             typeLabel = new JLabel("Selectionnez le type désirée");
             c.gridx = 0;
             c.gridy = 0;
@@ -57,6 +61,7 @@ public class BusinessPanel extends JPanel {
             c.anchor = GridBagConstraints.LINE_END;
             container.add(types, c);
 
+            // -----------------------------------Validate Button-----------------------------------
             validate = new JButton("Rechercher");
             validate.addActionListener(new SearchAstroListener());
             c.gridx = 1;
@@ -70,6 +75,8 @@ public class BusinessPanel extends JPanel {
             JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    // -----------------------------------Action for button-----------------------------------
     private class SearchAstroListener implements ActionListener {
 
         @Override
@@ -79,7 +86,7 @@ public class BusinessPanel extends JPanel {
             try{
                 GridBagConstraints c = new GridBagConstraints();
                 double average = controler.getGravityAverage((String)types.getSelectedItem());
-                TitlePanel result = new TitlePanel("La gravité moyenne d’une planète de type \"" +((String)types.getSelectedItem())+ "\" est de "+ average + " ! ");
+                TitlePanel result = new TitlePanel("La gravité moyenne d’une planète de type \"" +((String)types.getSelectedItem())+ "\" est de "+ String.format("%.2f",average) + " ! ");
                 container.add(result);
                 container.revalidate();
                 container.repaint();

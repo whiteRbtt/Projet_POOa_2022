@@ -5,23 +5,26 @@ import pooa_june_22.ExceptionPackage.*;
 
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.SQLException;
-
+import java.awt.Dimension;
 
 public class MenuWindow extends JFrame {
     private JMenuBar menuBar;
-    private JMenu welcomeMenu, addMenu, updateMenu, deleteMenu, listMenu, searchMenu, searchMenu2, searchMenu3, editMenu, infosMenu, statMenu, lifeSpanMenu;
+    private JMenu welcomeMenu, editMenu, infosMenu, statMenu;
+    private JMenuItem welcomeItem, addItem, searchItem, searchItem2, searchItem3, listItem, gravityAverageItem, updateItem, deleteItem, displayItem;
     private Container frameContainer;
 
     public MenuWindow() {
+        // -----Initialization-----
         super("A.D.C.S - Solar system explorer");
-        setBounds(0, 0, 1675, 870);
+        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        int height = (int)dimension.getHeight();
+        int width  = (int)dimension.getWidth();
+        setBounds(0, 0, width, height);
         this.setLocationRelativeTo(null);
         this.addWindowListener(new ClosingListener());
 
@@ -31,60 +34,71 @@ public class MenuWindow extends JFrame {
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
-        // -----accueil-----
+        MainListener listener = new MainListener();
+
+        // -----Welcome-----
         welcomeMenu = new JMenu("Accueil");
-        welcomeMenu.addMenuListener(new MainListener());
         menuBar.add(welcomeMenu);
+
+        welcomeItem = new JMenuItem("Retourner sur la page d'accueil");
+        welcomeItem.addActionListener(listener);
+        welcomeMenu.add(welcomeItem);
 
         // -----edit-----
         editMenu = new JMenu("Editer");
         menuBar.add(editMenu);
 
-        addMenu = new JMenu("Ajouter un corps céleste");
-        addMenu.addMenuListener(new MainListener());
-        editMenu.add(addMenu);
+        addItem = new JMenuItem("Ajouter un corps céleste");
+        addItem.addActionListener(listener);
+        editMenu.add(addItem);
 
         editMenu.addSeparator();
 
-        updateMenu = new JMenu("Modifier un corps céleste");
-        updateMenu.addMenuListener(new MainListener());
-        editMenu.add(updateMenu);
+        updateItem = new JMenuItem("Modifier un corps céleste");
+        updateItem.addActionListener(listener);
+        editMenu.add(updateItem);
 
         editMenu.addSeparator();
 
-        deleteMenu = new JMenu("Supprimer un corps céleste");
-        deleteMenu.addMenuListener(new MainListener());
-        editMenu.add(deleteMenu);
+        deleteItem = new JMenuItem("Supprimer un corps céleste");
+        deleteItem.addActionListener(listener);
+        editMenu.add(deleteItem);
 
         // -----list-----
         infosMenu = new JMenu("S'informer");
         menuBar.add(infosMenu);
 
-        listMenu = new JMenu("Lister les objets de notre système");
-        listMenu.addMenuListener(new MainListener());
-        infosMenu.add(listMenu);
+        listItem = new JMenuItem("Lister les objets de notre système");
+        listItem.addActionListener(listener);
+        infosMenu.add(listItem);
 
         infosMenu.addSeparator();
 
-        searchMenu = new JMenu("Rechercher des colonies");
-        searchMenu.addMenuListener(new MainListener());
-        infosMenu.add(searchMenu);
+        // -----Research-----
 
-        searchMenu2 = new JMenu("Rechercher des planètes selon un période");
-        searchMenu2.addMenuListener(new MainListener());
-        infosMenu.add(searchMenu2);
+        searchItem = new JMenuItem("Rechercher des colonies");
+        searchItem.addActionListener(listener);
+        infosMenu.add(searchItem);
 
-        searchMenu3 = new JMenu("Rechercher des planètes en fonction du type");
-        searchMenu3.addMenuListener(new MainListener());
-        infosMenu.add(searchMenu3);
+        searchItem2 = new JMenuItem("Rechercher des planètes selon une période");
+        searchItem2.addActionListener(listener);
+        infosMenu.add(searchItem2);
 
-        // -----Tâche métier-----
+        searchItem3 = new JMenuItem("Rechercher des planètes en fonction du type");
+        searchItem3.addActionListener(listener);
+        infosMenu.add(searchItem3);
+
+        // -----Business task-----
         statMenu = new JMenu("Statistiques");
         menuBar.add(statMenu);
 
-        lifeSpanMenu = new JMenu("Durée de vie moyenne entre 2 ères");
-        lifeSpanMenu.addMenuListener(new MainListener());
-        statMenu.add(lifeSpanMenu);
+        gravityAverageItem = new JMenuItem("Gravité moyenne pour un type de planète");
+        gravityAverageItem.addActionListener(listener);
+        statMenu.add(gravityAverageItem);
+
+        displayItem = new JMenuItem("Comparer les espèces");
+        displayItem.addActionListener(listener);
+        statMenu.add(displayItem);
         // default panels
 
         WelcomePanel welcomePanel = new WelcomePanel();
@@ -94,51 +108,56 @@ public class MenuWindow extends JFrame {
         setVisible(true);
     }
 
-    private class MainListener implements MenuListener {
-        public void menuSelected(MenuEvent event) {
+    // -----------------------------------Action listener for buttons-----------------------------------
+    private class MainListener implements ActionListener {
 
+        public void actionPerformed(ActionEvent event) {
             frameContainer.removeAll();
             try{
-                if (event.getSource() == welcomeMenu) {
+                if (event.getSource() == welcomeItem) {
                     WelcomePanel welcomePanel = new WelcomePanel();
                     frameContainer.add(welcomePanel);
                 }
-                if (event.getSource() == addMenu) {
+                if (event.getSource() == addItem) {
                     AddAstroBodyPanel addAstroBodyPanel = new AddAstroBodyPanel();
                     frameContainer.add(addAstroBodyPanel);
                 }
-                if (event.getSource() == updateMenu) {
+                if (event.getSource() == updateItem) {
                     UpdateAstroBodyPanel updateAstroBodyPanel = null;
                     updateAstroBodyPanel = new UpdateAstroBodyPanel();
 
                     frameContainer.add(updateAstroBodyPanel);
                 }
 
-                if (event.getSource() == listMenu) {
+                if (event.getSource() == listItem) {
                     AstroBodiesListingPanel astroBodiesListingPanel = new AstroBodiesListingPanel();
                     frameContainer.add(astroBodiesListingPanel);
 
                 }
-                if(event.getSource() == deleteMenu){
+                if(event.getSource() == deleteItem){
                     DeleteAstroBodyPanel deletePanel = new DeleteAstroBodyPanel();
                     frameContainer.add(deletePanel);
 
 
                 }
-                if (event.getSource() == searchMenu) {
+                if (event.getSource() == searchItem) {
                     ResearchColoniesPanel researchColoniesPanel = new ResearchColoniesPanel();
                     frameContainer.add(researchColoniesPanel);
                 }
-                if(event.getSource() == lifeSpanMenu){
+                if(event.getSource() == gravityAverageItem){
                     BusinessPanel panel = new BusinessPanel();
                     frameContainer.add(panel);
                 }
-                if(event.getSource() == searchMenu2){
+                if(event.getSource() == searchItem2){
                     ResearchAstroBodiesForPeriodPanel panel = new ResearchAstroBodiesForPeriodPanel();
                     frameContainer.add(panel);
                 }
-                if(event.getSource() == searchMenu3){
+                if(event.getSource() == searchItem3){
                     ResearchAstroBodiesPanel panel = new ResearchAstroBodiesPanel();
+                    frameContainer.add(panel);
+                }
+                if(event.getSource() == displayItem){
+                    CompareSpeciesPanel panel = new CompareSpeciesPanel();
                     frameContainer.add(panel);
                 }
             }catch (GeneralException e) {
@@ -151,14 +170,9 @@ public class MenuWindow extends JFrame {
             frameContainer.repaint();
         }
 
-        public void menuDeselected(MenuEvent e) {
-
-        }
-
-        public void menuCanceled(MenuEvent e) {
-        }
     }
 
+    // -----------------------------------Action for close-----------------------------------
     public class ClosingListener extends WindowAdapter {
         public void windowClosing(WindowEvent e) {
             try {

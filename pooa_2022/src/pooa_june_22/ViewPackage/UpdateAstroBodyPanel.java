@@ -22,6 +22,7 @@ public class UpdateAstroBodyPanel extends JPanel {
     private String[] astroBodiesName;
 
     public UpdateAstroBodyPanel() throws GeneralException {
+        // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
 
         title = new TitlePanel("Modification d'un objet céleste existant :");
@@ -31,7 +32,7 @@ public class UpdateAstroBodyPanel extends JPanel {
         container.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        // --------------------------get all astro bodies--------------------------
+        // --------------------------get datas--------------------------
         try {
             setController(new ApplicationControler());
             allAstroBodies = controller.getAllAstroBodies();
@@ -46,7 +47,8 @@ public class UpdateAstroBodyPanel extends JPanel {
             JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
 
-        // --------------------------Components--------------------------
+        // --------------------------Displays--------------------------
+        // -----------------------------------AstroBody-----------------------------------
         astroBodyLabel = new JLabel("Sélectionnez un Objet à modifier :");
         c.gridx = 0;
         c.gridy = 0;
@@ -59,6 +61,7 @@ public class UpdateAstroBodyPanel extends JPanel {
         c.ipadx = 100;
         container.add(astroBody, c);
 
+        // -----------------------------------Validate button-----------------------------------
         validate = new JButton("Modifier");
         validate.addActionListener(new UpdateListener());
         c.gridx = 0;
@@ -73,6 +76,7 @@ public class UpdateAstroBodyPanel extends JPanel {
 
     }
 
+    // -----------------------------------Action for button-----------------------------------
     private class UpdateListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
