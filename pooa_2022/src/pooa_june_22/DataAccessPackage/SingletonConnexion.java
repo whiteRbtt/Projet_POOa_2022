@@ -17,7 +17,7 @@ public class SingletonConnexion {
                 connectionToken =
                         DriverManager.getConnection("jdbc:mysql://localhost:3306/solarsystem",
                                 "root",
-                                "ALIcia91270");
+                                "intruderZ5813");
             } catch (SQLException e) {
                 throw new ConnectionException(true);
             }
