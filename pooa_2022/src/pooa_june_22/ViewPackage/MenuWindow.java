@@ -80,7 +80,7 @@ public class MenuWindow extends JFrame {
         searchItem.addActionListener(listener);
         infosMenu.add(searchItem);
 
-        searchItem2 = new JMenuItem("Rechercher la présence de planètes à une période précise");
+        searchItem2 = new JMenuItem("Lister les planètes existant durant une période donnée");
         searchItem2.addActionListener(listener);
         infosMenu.add(searchItem2);
 

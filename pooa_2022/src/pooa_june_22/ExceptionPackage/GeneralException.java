@@ -9,6 +9,6 @@ public abstract class GeneralException extends Exception {
     public abstract String getMessage();
 
     public String getTitle(){
-        return "Erreur générique ! ";
+        return "Erreur générique !";
     }
 }

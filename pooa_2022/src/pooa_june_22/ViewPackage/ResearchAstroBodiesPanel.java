@@ -25,7 +25,7 @@ public class ResearchAstroBodiesPanel extends JPanel {
     public ResearchAstroBodiesPanel(){
         // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
-        title = new TitlePanel("Rechercher des planètes selon un type : ");
+        title = new TitlePanel("Rechercher des planètes selon leur type : ");
         this.add(title, BorderLayout.NORTH);
         controler = new ApplicationControler();
 
@@ -46,7 +46,7 @@ public class ResearchAstroBodiesPanel extends JPanel {
             GridBagConstraints c = new GridBagConstraints();
 
             // -----------------------------------Type-----------------------------------
-            typeLabel = new JLabel("Selectionnez le type désirée");
+            typeLabel = new JLabel("Sélectionnez le type cible");
             c.gridx = 0;
             c.gridy = 0;
             c.insets = new Insets(0, 25, 40, 0);
@@ -62,7 +62,7 @@ public class ResearchAstroBodiesPanel extends JPanel {
             container.add(types, c);
 
             // -----------------------------------Validate button-----------------------------------
-            validate = new JButton("Rechercher");
+            validate = new JButton("Recherche");
             validate.addActionListener(new SearchAstroListener());
             c.gridx = 1;
             c.gridy = 2;

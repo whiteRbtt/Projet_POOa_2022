@@ -49,7 +49,7 @@ public class UpdateAstroBodyPanel extends JPanel {
 
         // --------------------------Displays--------------------------
         // -----------------------------------AstroBody-----------------------------------
-        astroBodyLabel = new JLabel("Sélectionnez un Objet à modifier :");
+        astroBodyLabel = new JLabel("Sélectionnez un objet céleste à modifier :");
         c.gridx = 0;
         c.gridy = 0;
         container.add(astroBodyLabel);

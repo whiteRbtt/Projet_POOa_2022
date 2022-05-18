@@ -50,7 +50,7 @@ public class ResearchColoniesPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
 
         // -----------------------------------Species-----------------------------------
-        specieLabel = new JLabel("Selectionnez l'espèce désirée");
+        specieLabel = new JLabel("Sélectionnez l'espèce cible");
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(0, 25, 40, 0);
@@ -66,7 +66,7 @@ public class ResearchColoniesPanel extends JPanel {
         container.add(species, c);
 
         // -----------------------------------Validate button-----------------------------------
-        validate = new JButton("Rechercher");
+        validate = new JButton("Recherche");
         validate.addActionListener(new SearchListener());
         c.gridx = 1;
         c.gridy = 2;

@@ -23,7 +23,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
     public ResearchAstroBodiesForPeriodPanel(){
         // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
-        title = new TitlePanel("Rechercher des planètes en fonction d'une période");
+        title = new TitlePanel("Lister les planètes existant durant une période donnée");
 
         container = new Container();
         container.setLayout(new GridBagLayout());
@@ -79,7 +79,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
         container.add(dateEnding, c);
 
         // -----------------------------------Validate Button-----------------------------------
-        validate = new JButton("Rechercher");
+        validate = new JButton("Recherche");
         c.gridx = 1;
         c.gridy = 2;
         c.ipadx = 100;

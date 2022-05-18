@@ -8,7 +8,7 @@ public class FormException extends GeneralException {
     }
 
     public String getMessage() {
-        return "le champs " + message + " ne peut pas être vides";
+        return "le champ " + message + " ne peut pas être vide";
     }
 
     public String getTitle(){

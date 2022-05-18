@@ -11,10 +11,7 @@ public class TitlePanel extends JPanel {
         setTitle = new JLabel(
                 "<html>" +
                         "<p></p>" +
-                        "<p></p>" +
                         "<p>" + title +"</p>" +
-                        "<p></p>" +
-                        "<p></p>" +
                         "<p></p>" +
                         "</html>"
         );

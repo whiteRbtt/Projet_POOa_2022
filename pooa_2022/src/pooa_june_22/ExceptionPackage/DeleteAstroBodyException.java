@@ -8,7 +8,7 @@ public class DeleteAstroBodyException extends GeneralException {
     }
 
     public String getMessage() {
-        return "La suppression de l'objet :  " + wrongID + " N'a pas pu s'effectuer";
+        return "La suppression de l'objet :  " + wrongID + " n'a pas pu être effectuée";
     }
 
     public String getTitle(){

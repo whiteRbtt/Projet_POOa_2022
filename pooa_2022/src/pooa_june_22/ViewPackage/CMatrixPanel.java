@@ -10,11 +10,11 @@ public class CMatrixPanel extends JPanel {
     private JTextArea cMatrix;
     private String[] fakeCmd = {
             "Démarrage du vaisseau ...",
-            "Atterissage sur la lune quantique ...",
-            "Vérification de la gravité artifisielle ...",
+            "Atterrissage sur la lune quantique ...",
+            "Vérification de la gravité artificielle ...",
             "Chargement des canons à particules ...",
             "Initialisation ...",
-            "... error",
+            "... Error",
             "Localisation de l'oeil de l'univers ...",
             "Observation des coelcantes ...",
             "Débarquement des Nomais ...",

@@ -14,6 +14,6 @@ public class TypeIDException extends GeneralException{
 
     @Override
     public String getTitle() {
-        return "Erreur au niveau du type ! ";
+        return "Erreur de type ! ";
     }
 }

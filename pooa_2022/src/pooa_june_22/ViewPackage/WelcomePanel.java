@@ -11,7 +11,6 @@ public class WelcomePanel extends JPanel {
     public WelcomePanel() {
         // -----------------------------------Initilizations-----------------------------------
         this.setLayout(new GridBagLayout());
-
         GridBagConstraints c = new GridBagConstraints();
 
         // -----------------------------------Displays-----------------------------------
@@ -23,9 +22,10 @@ public class WelcomePanel extends JPanel {
         t2 = new TitlePanel("Explorez une mystérieuse galaxie et percez ses secrets !");
         c.gridx = 0;
         c.gridy = 1;
+        c.insets = new Insets(0, 0, 150, 0);
         this.add(t2, c);
 
-        riddle = new JLabel("Énigme : Comment les Nomais se sont-ils éteints ?");
+        riddle = new JLabel("Enigme : Comment les Nomais se sont ils éteints ?");
         c.gridx = 0;
         c.gridy = 2;
         this.add(riddle, c);
@@ -33,7 +33,7 @@ public class WelcomePanel extends JPanel {
         status = new JLabel("Chargement :");
         c.gridx = 0;
         c.gridy = 3;
-        c.insets = new Insets(150, 0, 0, 40);
+        c.insets = new Insets(0, 0, 0, 40);
         this.add(status, c);
 
         // -----------------------------------Thread-----------------------------------

@@ -8,7 +8,7 @@ public class IdException extends GeneralException {
     }
 
     public String getMessage() {
-        return "La valeur " + wrongId + " doit etre un entier positif";
+        return "La valeur " + wrongId + " doit être un entier positif";
     }
 
     public String getTitle(){

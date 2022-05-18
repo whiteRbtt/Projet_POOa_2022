@@ -20,7 +20,7 @@ public class ResearchColonieModel extends AbstractTableModel {
         columnNames.add("Date de début");
         columnNames.add("Date de fin");
         columnNames.add("Nom de la planète");
-        columnNames.add("Nom de tribu");
+        columnNames.add("Nom de la colonie");
     }
 
     @Override
