@@ -68,7 +68,7 @@ public class MenuWindow extends JFrame {
         infosMenu = new JMenu("S'informer");
         menuBar.add(infosMenu);
 
-        listItem = new JMenuItem("Lister les objets de notre système");
+        listItem = new JMenuItem("Lister les objets du système solaire");
         listItem.addActionListener(listener);
         infosMenu.add(listItem);
 
@@ -80,11 +80,11 @@ public class MenuWindow extends JFrame {
         searchItem.addActionListener(listener);
         infosMenu.add(searchItem);
 
-        searchItem2 = new JMenuItem("Rechercher des planètes selon une période");
+        searchItem2 = new JMenuItem("Rechercher la présence de planètes à une période précise");
         searchItem2.addActionListener(listener);
         infosMenu.add(searchItem2);
 
-        searchItem3 = new JMenuItem("Rechercher des planètes en fonction du type");
+        searchItem3 = new JMenuItem("Rechercher des planètes en fonction de leur type");
         searchItem3.addActionListener(listener);
         infosMenu.add(searchItem3);
 
@@ -92,11 +92,11 @@ public class MenuWindow extends JFrame {
         statMenu = new JMenu("Statistiques");
         menuBar.add(statMenu);
 
-        gravityAverageItem = new JMenuItem("Gravité moyenne pour un type de planète");
+        gravityAverageItem = new JMenuItem("Gravité moyenne pour un type de planète donné");
         gravityAverageItem.addActionListener(listener);
         statMenu.add(gravityAverageItem);
 
-        displayItem = new JMenuItem("Comparer les espèces");
+        displayItem = new JMenuItem("Comparer les différentes espèces");
         displayItem.addActionListener(listener);
         statMenu.add(displayItem);
         // default panels
