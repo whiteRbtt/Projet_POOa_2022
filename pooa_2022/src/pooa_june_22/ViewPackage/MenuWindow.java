@@ -18,15 +18,18 @@ public class MenuWindow extends JFrame {
     private JMenuItem welcomeItem, addItem, searchItem, searchItem2, searchItem3, listItem, gravityAverageItem, updateItem, deleteItem, displayItem;
     private Container frameContainer;
 
+
     public MenuWindow() {
+
         // -----Initialization-----
         super("A.D.C.S - Solar system explorer");
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int)dimension.getHeight();
-        int width  = (int)dimension.getWidth();
+        int height = (int)dimension.getHeight() - 150;
+        int width  = (int)dimension.getWidth() - 500;
         setBounds(0, 0, width, height);
         this.setLocationRelativeTo(null);
         this.addWindowListener(new ClosingListener());
+
 
         frameContainer = this.getContentPane();
         frameContainer.setLayout(new BorderLayout());

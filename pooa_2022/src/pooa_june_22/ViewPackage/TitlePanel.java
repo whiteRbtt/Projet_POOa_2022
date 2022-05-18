@@ -15,8 +15,21 @@ public class TitlePanel extends JPanel {
                         "<p></p>" +
                         "</html>"
         );
-        setTitle.setFont(new Font("Arial",Font.TRUETYPE_FONT,20));
+        setTitle.setFont(new Font("Eras Bold ITC",Font.TRUETYPE_FONT,25));
+        this.add(setTitle);
+    }
 
+    public TitlePanel(String title, Boolean isWhite) {
+        this.setLayout(new FlowLayout());
+        setTitle = new JLabel(
+                "<html>" +
+                        "<p></p>" +
+                        "<p>" + title +"</p>" +
+                        "<p></p>" +
+                        "</html>"
+        );
+        setTitle.setFont(new Font("Eras Bold ITC",Font.TRUETYPE_FONT,25));
+        if(isWhite) setTitle.setForeground(Color.white);
         this.add(setTitle);
     }
 }

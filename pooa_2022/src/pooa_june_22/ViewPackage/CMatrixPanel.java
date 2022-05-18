@@ -9,26 +9,29 @@ import java.util.Random;
 public class CMatrixPanel extends JPanel {
     private JTextArea cMatrix;
     private String[] fakeCmd = {
-            "Démarrage du vaisseau ...",
-            "Atterrissage sur la lune quantique ...",
-            "Vérification de la gravité artificielle ...",
-            "Chargement des canons à particules ...",
-            "Initialisation ...",
-            "... Error",
-            "Localisation de l'oeil de l'univers ...",
-            "Observation des coelcantes ...",
-            "Débarquement des Nomais ...",
-            "Capture des méduses ...",
-            "réservation des popcorns pour la supernova ...",
-            "Apprentissage de la méditation ...",
-            "Découverte des secrets de l'univers ...",
-            "Accordage du banjo ..."
+            ">> Démarrage du vaisseau ...",
+            ">> Atterrissage sur la lune quantique ...",
+            ">> Vérification de la gravité artificielle ...",
+            ">> Chargement des canons à particules ...",
+            ">> Initialisation ...",
+            ">> ... Error",
+            ">> Localisation de l'oeil de l'univers ...",
+            ">> Observation des coelcantes ...",
+            ">> Débarquement des Nomais ...",
+            ">> Capture des méduses ...",
+            ">> Préparation des popcorns pour la supernova ...",
+            ">> Apprentissage de la méditation ...",
+            ">> Découverte des secrets de l'univers ...",
+            ">> Accordage du banjo ..."
     };
 
     public CMatrixPanel() {
         this.setLayout(new FlowLayout());
         cMatrix = new JTextArea(1, 25);
         cMatrix.setEditable(false);
+        cMatrix.setBackground(new Color(42,39,39));
+        cMatrix.setFont(new Font("Consolas",Font.BOLD,15));
+        cMatrix.setForeground(Color.GREEN);
         this.add(cMatrix);
 
         CMatrixThread cMatrixThread = new CMatrixThread(this);
