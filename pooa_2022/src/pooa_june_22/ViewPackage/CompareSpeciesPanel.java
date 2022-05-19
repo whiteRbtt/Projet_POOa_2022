@@ -25,6 +25,7 @@ public class CompareSpeciesPanel extends JPanel {
 
         title = new TitlePanel("Quelle est la meilleure espèce enregistré ?");
         this.add(title, BorderLayout.NORTH);
+        this.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
         information = new JLabel("(La comparaison s'effectue sur base d'une formule autour du nombre de colonie, de la durée de vie moyenne de ses colonies, ainsi que de la gravité moyenne des planètes colonisées. La variable ayant le plus de poids étant la gravité car révélateur de la force physique)");
         this.add(information, BorderLayout.PAGE_END);
         try{
@@ -84,6 +85,8 @@ public class CompareSpeciesPanel extends JPanel {
                         GridBagConstraints c = new GridBagConstraints();
                         String winner = controler.bestSpecie((String)species1.getSelectedValue(), (String)species2.getSelectedValue());
                         TitlePanel resultat = new TitlePanel("L'espèce la plus forte est : " + winner);
+                        resultat.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+
                         secondPanel.add(resultat);
                         secondPanel.revalidate();
                         secondPanel.repaint();

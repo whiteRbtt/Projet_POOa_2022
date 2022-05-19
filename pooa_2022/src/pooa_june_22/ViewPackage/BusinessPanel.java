@@ -23,7 +23,8 @@ public class BusinessPanel extends JPanel {
     public BusinessPanel(){
         // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
-        title = new TitlePanel("Gravité moyenne par type : ");
+        title = new TitlePanel("Gravité moyenne pour un type de corps donné : ");
+        this.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
         this.add(title, BorderLayout.NORTH);
 
 

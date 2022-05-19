@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class UpdateAstroBodyPanel extends JPanel {
     private AstroBodyFormPanel formPanel;
-    private TitlePanel title;
+    private TitlePanel t1;
     private JLabel astroBodyLabel;
     private JComboBox astroBody;
     private JButton validate;
@@ -24,9 +24,9 @@ public class UpdateAstroBodyPanel extends JPanel {
     public UpdateAstroBodyPanel() throws GeneralException {
         // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
-
-        title = new TitlePanel("Modification d'un objet céleste existant :");
-        this.add(title, BorderLayout.NORTH);
+        this.setBorder(BorderFactory.createEmptyBorder(50, 50, 0, 50));
+        t1 = new TitlePanel("Modification d'un corps céleste existant :");
+        this.add(t1, BorderLayout.NORTH);
 
         container = new Container();
         container.setLayout(new GridBagLayout());
@@ -49,7 +49,7 @@ public class UpdateAstroBodyPanel extends JPanel {
 
         // --------------------------Displays--------------------------
         // -----------------------------------AstroBody-----------------------------------
-        astroBodyLabel = new JLabel("Sélectionnez un objet céleste à modifier :");
+        astroBodyLabel = new JLabel("Sélectionnez un corps céleste à modifier :");
         c.gridx = 0;
         c.gridy = 0;
         container.add(astroBodyLabel);
@@ -67,7 +67,7 @@ public class UpdateAstroBodyPanel extends JPanel {
         c.gridx = 0;
         c.gridy = 2;
         c.ipadx = 100;
-        c.insets = new Insets(100, 0, 200, 0);
+        c.insets = new Insets(50, 0, 200, 0);
         c.anchor = GridBagConstraints.SOUTH;
         container.add(validate, c);
 
