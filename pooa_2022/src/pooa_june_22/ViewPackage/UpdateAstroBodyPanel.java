@@ -36,6 +36,7 @@ public class UpdateAstroBodyPanel extends JPanel {
         try {
             setController(new ApplicationControler());
             allAstroBodies = controller.getAllAstroBodies();
+
             astroBodiesName = new String[allAstroBodies.size()];
             int i = 0;
             for (AstroBody a : allAstroBodies) {
@@ -86,10 +87,11 @@ public class UpdateAstroBodyPanel extends JPanel {
             try {
                 // --------------------------retrieve id--------------------------
                 AstroBody astro = null;
-                Integer selectedId = null;
                 for (AstroBody a : allAstroBodies) {
                     if (a.getName().compareTo((String) astroBody.getSelectedItem()) == 0) {
+
                         astro = new AstroBody(a.getAstroId(), a.getName(), a.getFirstExplorer(), a.getType(), a.getClimate(), a.getGravity(), a.getHasLifeform(), a.getFirstExploDate());
+                        controller.updateAstroBody(astro);
                     }
 
                 }

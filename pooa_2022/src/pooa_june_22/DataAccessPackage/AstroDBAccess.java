@@ -152,6 +152,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
 
             preparedStatement.setInt(8, astroBody.getAstroId());
 
+            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
