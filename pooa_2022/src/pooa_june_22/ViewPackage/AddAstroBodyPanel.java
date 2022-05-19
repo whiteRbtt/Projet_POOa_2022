@@ -13,7 +13,7 @@ public class AddAstroBodyPanel extends JPanel {
     public AddAstroBodyPanel() {
         //-----------------------------------Initialisation-----------------------------------
         this.setLayout(new BorderLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        this.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
         t1 = new TitlePanel("Création d'un nouvel objet céleste :");
         this.add(t1, BorderLayout.NORTH);
 

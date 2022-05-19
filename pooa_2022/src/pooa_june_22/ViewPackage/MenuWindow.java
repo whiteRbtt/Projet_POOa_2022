@@ -30,7 +30,6 @@ public class MenuWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.addWindowListener(new ClosingListener());
 
-
         frameContainer = this.getContentPane();
         frameContainer.setLayout(new BorderLayout());
 
@@ -38,6 +37,16 @@ public class MenuWindow extends JFrame {
         setJMenuBar(menuBar);
 
         MainListener listener = new MainListener();
+
+
+        // -----graphics-----
+        Font defaultfont = new Font ("Consolas", Font.TRUETYPE_FONT, 15);
+        UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+        defaults.put("Label.font", defaultfont);
+        defaults.put("Label.foreground", Color.white);
+        defaults.put("Panel.background", new Color(42,39,39));
+        defaults.put("OptionPane.messageForeground", Color.white);
+
 
         // -----Welcome-----
         welcomeMenu = new JMenu("Accueil");
@@ -106,7 +115,6 @@ public class MenuWindow extends JFrame {
 
         WelcomePanel welcomePanel = new WelcomePanel();
         frameContainer.add(welcomePanel);
-
 
         setVisible(true);
     }

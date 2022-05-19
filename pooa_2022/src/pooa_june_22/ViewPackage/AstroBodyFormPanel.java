@@ -67,6 +67,7 @@ public class AstroBodyFormPanel extends JPanel {
             c.gridy = 0;
             c.anchor = GridBagConstraints.LINE_START;
             this.add(idLabel, c);
+
             id = new JTextField(astroBody.getAstroId());
             id.setText(String.valueOf(astroBody.getAstroId()));
             id.setEditable(false);
@@ -82,14 +83,14 @@ public class AstroBodyFormPanel extends JPanel {
         nameLabel = new JLabel("*Nom de l'objet:");
         c.gridx = 0;
         c.gridy = 1;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         c.insets = new Insets(20, 0, 0, 0);
-
         this.add(nameLabel, c);
-        name = new JTextField();
+
+        name = new JTextField(15);
         c.gridx = 4;
         c.gridy = 1;
-        c.ipadx = 100;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(name, c);
 
 
@@ -98,14 +99,14 @@ public class AstroBodyFormPanel extends JPanel {
         explorerLabel = new JLabel("Premier explorateur connu:");
         c.gridx = 0;
         c.gridy = 2;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(explorerLabel, c);
 
         explorer = new JComboBox(values);
         explorer.setEditable(false);
         c.gridx = 4;
         c.gridy = 2;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(explorer, c);
 
         // --------------------------type--------------------------
@@ -113,7 +114,7 @@ public class AstroBodyFormPanel extends JPanel {
         typeLabel = new JLabel("*Type d'objet :");
         c.gridx = 0;
         c.gridy = 3;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(typeLabel, c);
 
         ArrayList<String> typesName = new ArrayList<>();
@@ -125,8 +126,7 @@ public class AstroBodyFormPanel extends JPanel {
         type = new JComboBox(typesName.toArray());
         c.gridx = 4;
         c.gridy = 3;
-        c.ipadx = 0;
-        c.anchor = GridBagConstraints.LINE_END;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(type, c);
 
 
@@ -135,14 +135,14 @@ public class AstroBodyFormPanel extends JPanel {
         climateLabel = new JLabel("Climat :");
         c.gridx = 0;
         c.gridy = 4;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(climateLabel, c);
 
         String[] climates = new String[]{"tempéré", "chaotique", "tempête", "aride", "glacé", "quantique", "volcanique", "torride", "inconnu"};
         climate = new JComboBox(climates);
         c.gridx = 4;
         c.gridy = 4;
-        c.ipadx = 100;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(climate, c);
 
 
@@ -151,7 +151,7 @@ public class AstroBodyFormPanel extends JPanel {
         gravityLabel = new JLabel("Gravité relative (Plus grand que 0) :");
         c.gridx = 0;
         c.gridy = 5;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(gravityLabel, c);
 
 
@@ -159,7 +159,7 @@ public class AstroBodyFormPanel extends JPanel {
         gravity = new JSpinner(gravityModel);
         c.gridx = 4;
         c.gridy = 5;
-        c.ipadx = 25;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(gravity, c);
 
 
@@ -168,7 +168,7 @@ public class AstroBodyFormPanel extends JPanel {
         lifeformLabel = new JLabel("*Forme de vie endémique :");
         c.gridx = 0;
         c.gridy = 6;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(lifeformLabel, c);
 
 
@@ -177,7 +177,7 @@ public class AstroBodyFormPanel extends JPanel {
         lifeform.addItemListener(new CheckBoxListener());
         c.gridx = 4;
         c.gridy = 6;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(lifeform, c);
 
         // --------------------------date + Pre-completed field for modification--------------------------
@@ -185,19 +185,21 @@ public class AstroBodyFormPanel extends JPanel {
         dateLabel = new JLabel("Date de découverte :");
         c.gridx = 0;
         c.gridy = 7;
-        c.ipadx = 0;
-        c.insets = new Insets(20, 0, 50, 0);
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(dateLabel, c);
 
         Date startDate = new GregorianCalendar(1000, 00, 01).getTime();
         Date endDate = new GregorianCalendar(9999,11,31).getTime();
+
         SpinnerDateModel yearModel = new SpinnerDateModel();
         yearModel.setCalendarField(Calendar.YEAR);
         yearModel.setStart(startDate);
         yearModel.setEnd(endDate);
+
         if(astroBody != null){
             type.setSelectedItem(astroBody.getType().getName());
             name.setText(astroBody.getName());
+
             if(astroBody.getGravity() != null){
                 gravity.setValue(astroBody.getGravity());
             }
@@ -214,12 +216,13 @@ public class AstroBodyFormPanel extends JPanel {
         }else {
             yearModel.setValue(startDate);
         }
+
         SimpleDateFormat formatBeg = new SimpleDateFormat("dd.MM.yyyy");
         year = new JSpinner(yearModel);
         year.setEditor(new JSpinner.DateEditor(year, formatBeg.toPattern()));
         c.gridx = 4;
         c.gridy = 7;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(year, c);
 
         // --------------------------noDate checkbox--------------------------
@@ -228,17 +231,17 @@ public class AstroBodyFormPanel extends JPanel {
         noDate.addItemListener(new CheckBoxListener());
         c.gridx = 5;
         c.gridy = 7;
-        c.ipadx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(noDate, c);
 
-        // --------------------------Butons--------------------------
+        // --------------------------Buttons--------------------------
 
         validate = new JButton("Valider");
         validate.addActionListener(new ValidateListener());
         c.gridx = 3;
         c.gridy = 8;
-        c.ipadx = 100;
         c.anchor = GridBagConstraints.SOUTH;
+        c.insets = new Insets(70, 0, 0, 0);
         this.add(validate, c);
     }
 
