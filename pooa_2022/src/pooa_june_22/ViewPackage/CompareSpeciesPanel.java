@@ -79,18 +79,30 @@ public class CompareSpeciesPanel extends JPanel {
             validate.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    secondPanel.removeAll();
-                    secondPanel.setLayout(new BorderLayout());
-                    try{
-                        GridBagConstraints c = new GridBagConstraints();
-                        String winner = controler.bestSpecie((String)species1.getSelectedValue(), (String)species2.getSelectedValue());
-                        TitlePanel resultat = new TitlePanel("L'espèce la plus forte est : " + winner);
-                        resultat.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
 
-                        secondPanel.add(resultat);
-                        secondPanel.revalidate();
-                        secondPanel.repaint();
-                        setVisible(true);
+                    try{
+                            if(species1.getSelectedValue() == null || species2.getSelectedValue() == null) {
+                                throw new SelectionException("2 espèces.") ;
+                            }
+
+                            if((String)species1.getSelectedValue() == (String)species2.getSelectedValue()) {
+                                throw new SelectionException("2 espèces différentes.") ;
+                            }
+
+                            secondPanel.removeAll();
+                            secondPanel.setLayout(new BorderLayout());
+
+
+                            GridBagConstraints c = new GridBagConstraints();
+                            String winner = controler.bestSpecie((String)species1.getSelectedValue(), (String)species2.getSelectedValue());
+                            TitlePanel resultat = new TitlePanel("L'espèce la plus forte est : " + winner);
+                            resultat.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+
+                            secondPanel.add(resultat);
+                            secondPanel.revalidate();
+                            secondPanel.repaint();
+                            setVisible(true);
+
                     } catch(GeneralException exception){
                         JOptionPane.showMessageDialog(null, exception.getMessage(), exception.getTitle(),JOptionPane.ERROR_MESSAGE);
                     }
