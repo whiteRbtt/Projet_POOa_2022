@@ -17,13 +17,17 @@ public class ColonyDBAccess implements ColonyDataAccess {
     public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, NameException, DateException, AllColoniesException {
         ArrayList<ResearchedColonies> colonies = new ArrayList<>();
 
+        System.out.println(specie);
         try {
             // connect
             Connection connection = SingletonConnexion.getInstance();
 
             // read triple joint
-            String sqlInstruction = "select c.TribalName, a.Name, era.EraName, era.Beginning, era.Ending "+ "from colony c "+
-            "join era on c.Period = era.EraName join specie on c.Lifeform = specie.ScientificName join astronomicalbody a on a.AstroId = c.Location where specie.VernacularName = ?";
+            String sqlInstruction = "select c.TribalName, a.Name, era.EraName, era.Beginning, era.Ending from colony c "+
+                    "join era on c.Period = era.EraName " +
+                    "join specie on c.Lifeform = specie.ScientificName " +
+                    "join astronomicalbody a on a.AstroId = c.Location " +
+                    "where specie.VernacularName = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
             preparedStatement.setString(1, specie);
@@ -47,7 +51,11 @@ public class ColonyDBAccess implements ColonyDataAccess {
                 }
 
                 colonies.add(colony);
+
             }
+
+            System.out.println(colonies);
+
 
         } catch (SQLException e) {
             throw new AllColoniesException(specie);

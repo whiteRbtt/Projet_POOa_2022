@@ -102,19 +102,22 @@ public class ApplicationControler {
 
     //-----------------------------------ErasManager-----------------------------------
 
+    @Deprecated
     public ArrayList<Era> getAllEras() throws AllEraException, NameException, DateException, ConnectionException {
         return eraManager.getAllEras();
     }
 
+    @Deprecated
     public ArrayList<Era> getBestEras(String vernacularName) throws DateException, AllEraException, ConnectionException {
         return specieManager.getBestEras(vernacularName);
     }
     //-----------------------------------ColonyManager-----------------------------------
 
-    public ArrayList<ResearchedColonies> getColonies( String specie) throws ConnectionException, DateException, ColonyException, NameException, AllColoniesException {
+    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, DateException, ColonyException, NameException, AllColoniesException {
         return colonyManager.getColonies(specie);
     }
 
+    @Deprecated
     public int getNbColonyForSpecie(String vernacularName) throws ConnectionException, ColonyException {
         return specieManager.getNbColonyForSpecie(vernacularName);
     }

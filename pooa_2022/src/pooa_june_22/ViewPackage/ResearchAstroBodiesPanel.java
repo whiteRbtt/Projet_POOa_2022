@@ -89,7 +89,9 @@ public class ResearchAstroBodiesPanel extends JPanel {
                 astroModel = new ResearchAstroBodiesModel((String)types.getSelectedItem());
                 JTable table = new JTable(astroModel);
                 JScrollPane scrollPane = new JScrollPane(table);
+
                 table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
                 container.add(scrollPane);
                 container.revalidate();
                 container.repaint();
