@@ -26,6 +26,8 @@ public class ResearchAstroBodiesPanel extends JPanel {
         // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Rechercher des planètes selon leur type : ");
+        this.setLayout(new BorderLayout(0, 50));
+        this.setBorder(BorderFactory.createEmptyBorder(20, 100, 100, 100));
         this.add(title, BorderLayout.NORTH);
         controler = new ApplicationControler();
 

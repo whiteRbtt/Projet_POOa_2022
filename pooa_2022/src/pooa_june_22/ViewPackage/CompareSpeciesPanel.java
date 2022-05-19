@@ -23,10 +23,14 @@ public class CompareSpeciesPanel extends JPanel {
         secondPanel = new JPanel(new GridBagLayout());
         ApplicationControler controler = new ApplicationControler();
 
-        title = new TitlePanel("Quelle est la meilleure espèce enregistré ?");
+        title = new TitlePanel("Quelle est l'espèce alien la plus puissante ?");
         this.add(title, BorderLayout.NORTH);
-        this.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
-        information = new JLabel("(La comparaison s'effectue sur base d'une formule autour du nombre de colonie, de la durée de vie moyenne de ses colonies, ainsi que de la gravité moyenne des planètes colonisées. La variable ayant le plus de poids étant la gravité car révélateur de la force physique)");
+        this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+        information = new JLabel(
+                "<html>La comparaison s'effectue sur base d'une formule considérant nombre de colonie, <br>" +
+                "la durée de vie moyenne des colonies, ainsi que de la gravité moyenne des planètes colonisées. <br><br>" +
+                "La variable ayant le plus de poids est la gravité car elle impacte directement la force physique</html>"
+        );
         this.add(information, BorderLayout.PAGE_END);
         try{
             ArrayList<Specie> allSpecies = controler.getAllSpecies();
@@ -35,45 +39,36 @@ public class CompareSpeciesPanel extends JPanel {
                 speciesNames.add(specie.getVernacularName());
             }
 
-            specieLabel1 = new JLabel("Selectionnez l'espèce désirée");
-            c.gridx = 0;
+            specieLabel1 = new JLabel("Selectionnez les espèces à comparer");
+            c.gridx = 1;
             c.gridy = 0;
-            c.insets = new Insets(0, 25, 40, 0);
-            c.anchor = GridBagConstraints.LINE_START;
+            c.insets = new Insets(0, 0, 50, 0);
+            c.anchor = GridBagConstraints.CENTER;
             secondPanel.add(specieLabel1, c);
 
             species1 = new JList(speciesNames.toArray());
             species1.setVisibleRowCount(5);
-            species1.setFixedCellWidth(90);
+            species1.setFixedCellWidth(150);
             species1.setFixedCellHeight(20);
             species1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            c.gridx = 1;
-            c.gridy = 0;
-            c.ipadx = 100;
-            secondPanel.add(new JScrollPane(species1), c);
-
-            specieLabel2 = new JLabel("Selectionnez la deuxième espèce désirée");
             c.gridx = 0;
             c.gridy = 1;
-            c.ipadx = 100;
-            secondPanel.add(specieLabel2, c);
+            secondPanel.add(new JScrollPane(species1), c);
 
             species2 = new JList(speciesNames.toArray());
             species2.setVisibleRowCount(5);
-            species2.setFixedCellWidth(90);
+            species2.setFixedCellWidth(150);
             species2.setFixedCellHeight(20);
             species2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            c.gridx = 1;
+            c.gridx = 2;
             c.gridy = 1;
-            c.ipadx = 100;
-            c.anchor = GridBagConstraints.LINE_END;
             secondPanel.add(new JScrollPane(species2), c);
 
             validate = new JButton("Comparer");
-            c.gridx = 0;
+            c.gridx = 1;
             c.gridy = 2;
-            c.ipadx = 100;
-            c.anchor = GridBagConstraints.LAST_LINE_END;
+            c.insets = new Insets(50, 0, 0, 0);
+            c.anchor = GridBagConstraints.CENTER;
             secondPanel.add(validate, c);
 
             validate.addActionListener(new ActionListener() {
@@ -96,7 +91,7 @@ public class CompareSpeciesPanel extends JPanel {
                             GridBagConstraints c = new GridBagConstraints();
                             String winner = controler.bestSpecie((String)species1.getSelectedValue(), (String)species2.getSelectedValue());
                             TitlePanel resultat = new TitlePanel("L'espèce la plus forte est : " + winner);
-                            resultat.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+                            resultat.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
 
                             secondPanel.add(resultat);
                             secondPanel.revalidate();

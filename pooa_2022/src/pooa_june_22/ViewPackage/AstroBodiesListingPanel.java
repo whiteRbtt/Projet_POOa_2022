@@ -12,7 +12,8 @@ public class AstroBodiesListingPanel extends JPanel {
 
     public AstroBodiesListingPanel() throws GeneralException {
         //-----------------------------------Initialisation-----------------------------------
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout(0,50));
+        this.setBorder(BorderFactory.createEmptyBorder(20, 100, 50, 100));
         title = new TitlePanel("Liste des objets célestes connus de notre galaxie :");
         this.add(title, BorderLayout.NORTH);
 

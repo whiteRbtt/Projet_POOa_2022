@@ -17,7 +17,8 @@ public class DeleteAstroBodyPanel extends JPanel{
 
     public DeleteAstroBodyPanel() throws GeneralException {
         // -----------------------------------Initilization-----------------------------------
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout(0, 50));
+        this.setBorder(BorderFactory.createEmptyBorder(20, 100, 50, 100));
         title = new TitlePanel("Liste des objets célestes connus de notre galaxie :");
         this.add(title, BorderLayout.NORTH);
         controller = new ApplicationControler();
@@ -28,7 +29,6 @@ public class DeleteAstroBodyPanel extends JPanel{
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        ListSelectionModel listSelect = table.getSelectionModel();
 
         // -----------------------------------ActionListener for button-----------------------------------
         deleteBut.addActionListener(new ActionListener() {
@@ -37,14 +37,12 @@ public class DeleteAstroBodyPanel extends JPanel{
                 try{
                     if(table.getSelectedRow() != -1){
                         int astroID = Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString());
-                        int answer = JOptionPane.showConfirmDialog(null, "La suppression de cette planète entraînera également la suppression de ces colonies... êtes-vous sur de votre choix?", "Attention", JOptionPane.WARNING_MESSAGE);
+
+                        int answer = JOptionPane.showConfirmDialog(null, "La suppression de cette planète entraînera également la suppression de ses colonies... êtes-vous sur ?", "Attention", JOptionPane.WARNING_MESSAGE);
                         if(answer == 0){
                             controller.deleteAstroBody(astroID);
+
                             model.removeRow(table.getSelectedRow());
-                            DeleteAstroBodyPanel.this.removeAll();
-                            DeleteAstroBodyPanel.this.add(scrollPane);
-                            DeleteAstroBodyPanel.this.add(deleteBut, BorderLayout.SOUTH);
-                            DeleteAstroBodyPanel.this.add(title, BorderLayout.NORTH);
                             DeleteAstroBodyPanel.this.validate();
                             DeleteAstroBodyPanel.this.repaint();
                         }else{
