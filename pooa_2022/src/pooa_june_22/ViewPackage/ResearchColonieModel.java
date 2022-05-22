@@ -2,7 +2,7 @@ package pooa_june_22.ViewPackage;
 
 import pooa_june_22.ControlerPackage.ApplicationControler;
 import pooa_june_22.ExceptionPackage.*;
-import pooa_june_22.ModelPackage.ResearchedColonies;
+import pooa_june_22.ModelPackage.Colony;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ResearchColonieModel extends AbstractTableModel {
     private ApplicationControler controler;
     private ArrayList<String> columnNames;
-    private ArrayList<ResearchedColonies> contents;
+    private ArrayList<Colony> contents;
 
     public ResearchColonieModel(String specie) throws AllEraException, NameException, ColonyException, DateException, ConnectionException, AllColoniesException {
         controler = new ApplicationControler();
@@ -37,19 +37,19 @@ public class ResearchColonieModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int column) {
-        ResearchedColonies colony = contents.get(row);
+        Colony colony = contents.get(row);
         switch (column) {
             case 0:
-                return colony.getEraName();
+                return colony.getEra().getName();
             case 1:
-                return colony.getEraBeginningInString();
+                return colony.getEra().getBeginningInString();
             case 2:
-                return colony.getEraEndingInString();
+                return colony.getEra().getEndingInString();
             case 3:
-                return colony.getAstroName();
+                return colony.getLocation();
             case 4: {
-                if (colony.getTribalName() != null)
-                    return colony.getTribalName();
+                if (colony.getName() != null)
+                    return colony.getName();
                 else return "Inconnu";
             }
             default:
@@ -73,7 +73,7 @@ public class ResearchColonieModel extends AbstractTableModel {
         return c;
     }
 
-    public ArrayList<ResearchedColonies> getContents() {
+    public ArrayList<Colony> getContents() {
         return contents;
     }
 

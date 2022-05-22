@@ -114,7 +114,7 @@ public class ApplicationControler {
     }
     //-----------------------------------ColonyManager-----------------------------------
 
-    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, DateException, ColonyException, NameException, AllColoniesException {
+    public ArrayList<Colony> getColonies(String specie) throws ConnectionException, DateException, ColonyException, NameException, AllColoniesException {
         return colonyManager.getColonies(specie);
     }
 

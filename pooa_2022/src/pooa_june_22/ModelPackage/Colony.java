@@ -3,31 +3,20 @@ package pooa_june_22.ModelPackage;
 import pooa_june_22.ExceptionPackage.NameException;
 
 public class Colony {
-    private String specie;
-    private Integer location;
-    private String period;
     private String name;
+    private String specie;
+    private String location;
+    private Era era;
 
-    public Colony(String specie, Integer location, String period, String name) throws NameException {
+
+    public Colony(String specie, String location, Era period, String name) throws NameException {
         setSpecie(specie);
         setLocation(location);
-        setPeriod(period);
+        setEra(period);
         setName(name);
     }
 
     // Setters
-
-    public void setSpecie(String specie) {
-        this.specie = specie;
-    }
-
-    public void setLocation(Integer location) {
-        this.location = location;
-    }
-
-    public void setPeriod(String period) {
-        this.period = period;
-    }
 
     public void setName(String name) throws NameException {
         if (name == null || name.length() < 45)
@@ -36,6 +25,23 @@ public class Colony {
             throw new NameException(name);
         }
     }
+
+    public void setSpecie(String specie) {
+        this.specie = specie;
+    }
+
+    public void setLocation (String location) throws NameException {
+        if (location != null && location.length() < 45)
+            this.location = location;
+        else {
+            throw new NameException(location);
+        }
+    }
+
+    public void setEra(Era era) {
+        this.era = era;
+    }
+    
 
     // Getters
 
@@ -47,11 +53,11 @@ public class Colony {
         return name;
     }
 
-    public Integer getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public String getPeriod() {
-        return period;
+    public Era getEra() {
+        return era;
     }
 }

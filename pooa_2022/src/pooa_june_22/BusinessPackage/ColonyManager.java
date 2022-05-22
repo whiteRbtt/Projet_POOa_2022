@@ -3,7 +3,7 @@ package pooa_june_22.BusinessPackage;
 import pooa_june_22.DataAccessPackage.ColonyDBAccess;
 import pooa_june_22.DataAccessPackage.DAO.ColonyDataAccess;
 import pooa_june_22.ExceptionPackage.*;
-import pooa_june_22.ModelPackage.ResearchedColonies;
+import pooa_june_22.ModelPackage.Colony;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class ColonyManager {
         setDao(new ColonyDBAccess());
     }
 
-    public ArrayList<ResearchedColonies> getColonies(String specie) throws ConnectionException, ColonyException, NameException, DateException, AllColoniesException {
+    public ArrayList<Colony> getColonies(String specie) throws ConnectionException, ColonyException, NameException, DateException, AllColoniesException {
         return (dao.getColonies(specie));
     }
 

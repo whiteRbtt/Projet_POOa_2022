@@ -40,14 +40,6 @@ public class Era {
         }
     }
 
-    public GregorianCalendar getBeginning() {
-        return beginning;
-    }
-
-    public GregorianCalendar getEnding() {
-        return ending;
-    }
-
     public void setEnding(GregorianCalendar ending) throws DateException {
         if (ending == null || (ending.get(ending.YEAR) >= 1000 && ending.get(ending.YEAR) <= 9999))
             this.ending = ending;
@@ -60,6 +52,30 @@ public class Era {
 
     public String getName() {
         return name;
+    }
+
+    public GregorianCalendar getBeginning() {
+        return beginning;
+    }
+
+    public GregorianCalendar getEnding() {
+        return ending;
+    }
+
+    public String getBeginningInString() {
+        if (beginning != null) {
+            return beginning.get(beginning.DAY_OF_MONTH) + "/" + (beginning.get(beginning.MONTH) + 1) + "/" + beginning.get(beginning.YEAR);
+        } else {
+            return "inconnu";
+        }
+    }
+
+    public String getEndingInString() {
+        if (ending != null) {
+            return ending.get(ending.DAY_OF_MONTH) + "/" + (ending.get(ending.MONTH) + 1) + "/" + ending.get(ending.YEAR);
+        } else {
+            return "inconnu";
+        }
     }
 
 
