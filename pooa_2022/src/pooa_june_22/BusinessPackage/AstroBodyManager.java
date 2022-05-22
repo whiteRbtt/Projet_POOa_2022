@@ -38,7 +38,7 @@ public class AstroBodyManager {
         return dao.getAllAstroBodies();
     }
 
-    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
+    public ArrayList<AstroBody> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
         return dao.getAstroBodiesForType(type);
     }
 
@@ -52,10 +52,10 @@ public class AstroBodyManager {
 
     //-----------------------------------MethodBusiness-----------------------------------
     public double getGravityAverage(String type) throws ClimateException, NameException, DateException, TypeException, IdException, ConnectionException, GravityException, GravityAverageException {
-        ArrayList<ResearchedAstroBodies> astroBodies = dao.getAstroBodiesForType(type);
+        ArrayList<AstroBody> astroBodies = dao.getAstroBodiesForType(type);
         if (astroBodies.size() != 0) {
             double average = 0;
-            for (ResearchedAstroBodies a : astroBodies) {
+            for (AstroBody a : astroBodies) {
                 if (a.getGravity() != null)
                     average += a.getGravity();
             }

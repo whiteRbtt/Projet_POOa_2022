@@ -58,8 +58,8 @@ public class ResearchAstroBodiesForPeriodModel extends AbstractTableModel {
             case 2:
                 return astroBodiesDate.getTypeName();
             case 3:
-                if (astroBodiesDate.getExploName() != null) {
-                    return astroBodiesDate.getExploName();
+                if (astroBodiesDate.getExplorer() != null) {
+                    return astroBodiesDate.getExplorer();
                 } else {
                     return "inconnu";
                 }

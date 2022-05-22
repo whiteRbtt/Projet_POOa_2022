@@ -1,31 +1,34 @@
 package pooa_june_22.ModelPackage;
 
 import pooa_june_22.ExceptionPackage.*;
-
 import java.util.GregorianCalendar;
 
 public class ResearchedAstroBodies {
-    private String specie;
-    private String explorer;
-    private GregorianCalendar firstExploDate;
-    private Integer gravity;
-    private String climate;
     private Integer astroId;
     private String astroName;
+    private String explorer;
+
+    private String climate;
+    private Integer gravity;
+    private GregorianCalendar firstExploDate;
+
+    private String ExplorerSpecie;
+
 
     public ResearchedAstroBodies(String specie, String explorer, GregorianCalendar firstExploDate, Integer gravity, String climate, Integer astroId, String astroName) throws NameException, GravityException, DateException, IdException, ClimateException {
+        // super(astroId, astroName, explorer, null, climate,gravity, null, firstExploDate);
         setAstroId(astroId);
         setClimate(climate);
         setExplorer(explorer);
         setGravity(gravity);
         setFirstExploDate(firstExploDate);
         setAstroName(astroName);
-        setSpecie(specie);
+        setExplorerSpecie(specie);
     }
 
     // Getters
-    public String getSpecie() {
-        return specie;
+    public String getExplorerSpecie() {
+        return ExplorerSpecie;
     }
 
     public String getFirstExploDateInString() {
@@ -57,11 +60,11 @@ public class ResearchedAstroBodies {
     }
 
     // Setters
-    public void setSpecie(String specie) throws NameException {
-        if (specie != null && specie.length() < 45)
-            this.specie = specie;
+    public void setExplorerSpecie(String explorerSpecie) throws NameException {
+        if (explorerSpecie != null && explorerSpecie.length() < 45)
+            this.ExplorerSpecie = explorerSpecie;
         else {
-            throw new NameException(specie);
+            throw new NameException(explorerSpecie);
         }
     }
 

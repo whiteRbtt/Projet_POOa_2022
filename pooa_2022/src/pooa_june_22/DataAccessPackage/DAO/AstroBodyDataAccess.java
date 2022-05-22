@@ -2,7 +2,6 @@ package pooa_june_22.DataAccessPackage.DAO;
 
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.AstroBody;
-import pooa_june_22.ModelPackage.ResearchedAstroBodies;
 import pooa_june_22.ModelPackage.ResearchedAstroBodiesDate;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public interface AstroBodyDataAccess {
 
     ArrayList<AstroBody> getAllAstroBodies() throws GeneralException;
 
-    ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException;
+    ArrayList<AstroBody> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException;
 
     ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException;
 

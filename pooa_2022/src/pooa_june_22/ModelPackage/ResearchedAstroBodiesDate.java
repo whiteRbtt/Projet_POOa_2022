@@ -7,20 +7,21 @@ import pooa_june_22.ExceptionPackage.NameException;
 import java.util.GregorianCalendar;
 
 public class ResearchedAstroBodiesDate {
+    private String specieSName;
+    private String specieVName;
+    private String explorer;
+    private GregorianCalendar exploBirth;
+    private Boolean isExtinct;
+
     private String astroName;
     private String astroClimate;
     private String typeName;
-    private String exploName;
-    private GregorianCalendar exploBirth;
-    private String specieSName;
-    private String specieVName;
-    private Boolean isExtinct;
 
     public ResearchedAstroBodiesDate(String astroName, String astroClimate, String typeName, String exploName, GregorianCalendar exploBirth, String specieSName, String specieVName, Boolean isExtinct) throws NameException, ClimateException, DateException {
         setAstroName(astroName);
         setAstroClimate(astroClimate);
         setTypeName(typeName);
-        setExploName(exploName);
+        setExplorer(exploName);
         setExploBirth(exploBirth);
         setSpecieSName(specieSName);
         setSpecieVName(specieVName);
@@ -48,8 +49,8 @@ public class ResearchedAstroBodiesDate {
         return typeName;
     }
 
-    public String getExploName() {
-        return exploName;
+    public String getExplorer() {
+        return explorer;
     }
 
     public String getSpecieSName() {
@@ -89,11 +90,11 @@ public class ResearchedAstroBodiesDate {
         }
     }
 
-    public void setExploName(String exploName) throws NameException {
-        if (exploName == null || exploName.length() < 45)
-            this.exploName = exploName;
+    public void setExplorer(String explorer) throws NameException {
+        if (explorer == null || explorer.length() < 45)
+            this.explorer = explorer;
         else {
-            throw new NameException(exploName);
+            throw new NameException(explorer);
         }
     }
 

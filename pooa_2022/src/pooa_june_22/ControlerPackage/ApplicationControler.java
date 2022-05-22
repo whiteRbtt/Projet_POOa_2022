@@ -69,7 +69,7 @@ public class ApplicationControler {
         return astroBodyManager.getAllAstroBodies();
     }
 
-    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
+    public ArrayList<AstroBody> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
         return astroBodyManager.getAstroBodiesForType(type);
     }
 

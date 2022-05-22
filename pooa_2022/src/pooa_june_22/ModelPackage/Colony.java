@@ -3,7 +3,6 @@ package pooa_june_22.ModelPackage;
 import pooa_june_22.ExceptionPackage.NameException;
 
 public class Colony {
-
     private String specie;
     private Integer location;
     private String period;

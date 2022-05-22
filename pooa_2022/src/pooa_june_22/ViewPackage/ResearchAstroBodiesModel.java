@@ -2,7 +2,7 @@ package pooa_june_22.ViewPackage;
 
 import pooa_june_22.ControlerPackage.ApplicationControler;
 import pooa_june_22.ExceptionPackage.*;
-import pooa_june_22.ModelPackage.ResearchedAstroBodies;
+import pooa_june_22.ModelPackage.AstroBody;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -10,11 +10,12 @@ import java.util.ArrayList;
 public class ResearchAstroBodiesModel extends AbstractTableModel {
     private ApplicationControler controler;
     private ArrayList<String> columnNames;
-    private ArrayList<ResearchedAstroBodies> contents;
+    private ArrayList<AstroBody> contents;
 
     public ResearchAstroBodiesModel(String type) throws ClimateException, NameException, DateException, IdException, ConnectionException, GravityException, TypeException {
         this.controler = new ApplicationControler();
         contents = controler.getAstroBodiesForType(type);
+
         columnNames = new ArrayList<>();
         columnNames.add("Espèce de l'explorateur");
         columnNames.add("Explorateur");
@@ -40,12 +41,12 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int column) {
-        ResearchedAstroBodies astroBody = contents.get(row);
+        AstroBody astroBody = contents.get(row);
         switch (column) {
             case 0:
-                return astroBody.getSpecie();
+                return astroBody.getFirstExplorer().getSpecie();
             case 1:
-                return astroBody.getExplorer();
+                return astroBody.getFirstExplorer().getName();
             case 2:
                 return astroBody.getFirstExploDateInString();
             case 3:
@@ -60,7 +61,7 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
             case 5:
                 return astroBody.getAstroId();
             case 6:
-                return astroBody.getAstroName();
+                return astroBody.getName();
 
             default:
                 return null;
@@ -88,7 +89,7 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
         return c;
     }
 
-    public ArrayList<ResearchedAstroBodies> getContents() {
+    public ArrayList<AstroBody> getContents() {
         return contents;
     }
 
