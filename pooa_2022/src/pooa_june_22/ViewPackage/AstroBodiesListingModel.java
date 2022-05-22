@@ -48,30 +48,32 @@ public class AstroBodiesListingModel extends AbstractTableModel {
             else return "inconnu"; }
             case 4 : {if(astroBody.getGravity() != null)return astroBody.getGravity();
             else return 0;}
-            case 5 : {if(astroBody.getHasLifeform())return "Oui";
-            else return "Non";}
+            case 5 : {if(astroBody.getHasLifeform())return Boolean.TRUE;
+            else return Boolean.FALSE;}
             case 6 : return astroBody.getFirstExploDateInString();
             case 7 : {if(astroBody.getFirstExplorer()!=null)return astroBody.getFirstExplorer().getName();
             else return "inconnu";}
             default: return null;
         }
     }
-
     public Class getColumnClass(int column){
         Class c;
         switch(column){
             case 0 :
             case 4 :
                 c = Integer.class;
-            break;
+                break;
             case 1 :
             case 2 :
-            case 3 :
+            case 3 : c = String.class;
+                break;
             case 5 :
+                c = Boolean.class;
+                break;
             case 6 :
             case 7 :
                 c = String.class;
-            break;
+                break;
             default: c=null;
         }
         return c;

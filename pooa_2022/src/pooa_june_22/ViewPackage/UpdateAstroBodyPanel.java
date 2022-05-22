@@ -1,5 +1,6 @@
 package pooa_june_22.ViewPackage;
 
+import org.w3c.dom.ls.LSOutput;
 import pooa_june_22.ControlerPackage.ApplicationControler;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.AstroBody;
@@ -93,7 +94,6 @@ public class UpdateAstroBodyPanel extends JPanel {
                         astro = new AstroBody(a.getAstroId(), a.getName(), a.getFirstExplorer(), a.getType(), a.getClimate(), a.getGravity(), a.getHasLifeform(), a.getFirstExploDate());
                         controller.updateAstroBody(astro);
                     }
-
                 }
 
                 formPanel = new AstroBodyFormPanel(astro);

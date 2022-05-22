@@ -284,12 +284,12 @@ public class AstroBodyFormPanel extends JPanel {
                 }
 
                 // -----------------------------------object creation-----------------------------------
-                AstroBody newBody = new AstroBody(controller.getMaxId() + 1, newName, (explorer.getSelectedIndex() == 10 ? null : allExplorers.get(explorer.getSelectedIndex())), allTypes.get(type.getSelectedIndex()), newClimate, newGravity, hasLifeForm, newDate);
-
                 if (astroBody == null) {
+                    AstroBody newBody = new AstroBody(controller.getMaxId() + 1, newName, (explorer.getSelectedIndex() == 10 ? null : allExplorers.get(explorer.getSelectedIndex())), allTypes.get(type.getSelectedIndex()), newClimate, newGravity, hasLifeForm, newDate);
                     controller.addAstroBody(newBody);
                     JOptionPane.showMessageDialog(null, "Nouvel objet céleste créé avec succès !", null, JOptionPane.INFORMATION_MESSAGE);
                 } else {
+                    AstroBody newBody = new AstroBody(astroBody.getAstroId(), newName, (explorer.getSelectedIndex() == 10 ? null : allExplorers.get(explorer.getSelectedIndex())), allTypes.get(type.getSelectedIndex()), newClimate, newGravity, hasLifeForm, newDate);
                     controller.updateAstroBody(newBody);
                     JOptionPane.showMessageDialog(null, "objet céleste modifié avec succès !", null, JOptionPane.INFORMATION_MESSAGE);
                 }
