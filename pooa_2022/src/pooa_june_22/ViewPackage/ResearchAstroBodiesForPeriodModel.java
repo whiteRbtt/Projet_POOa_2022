@@ -5,7 +5,7 @@ import pooa_june_22.ExceptionPackage.ClimateException;
 import pooa_june_22.ExceptionPackage.ConnectionException;
 import pooa_june_22.ExceptionPackage.DateException;
 import pooa_june_22.ExceptionPackage.NameException;
-import pooa_june_22.ModelPackage.ResearchedAstroBodiesDate;
+import pooa_june_22.ModelPackage.AstroBody;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 public class ResearchAstroBodiesForPeriodModel extends AbstractTableModel {
     private ApplicationControler controler;
     private ArrayList<String> columnNames;
-    private ArrayList<ResearchedAstroBodiesDate> contents;
+    private ArrayList<AstroBody> contents;
 
     public ResearchAstroBodiesForPeriodModel(GregorianCalendar beginningDate, GregorianCalendar endingDate) throws ClimateException, NameException, DateException, ConnectionException {
         controler = new ApplicationControler();
@@ -45,45 +45,45 @@ public class ResearchAstroBodiesForPeriodModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int column) {
-        ResearchedAstroBodiesDate astroBodiesDate = contents.get(row);
+        AstroBody astroBodiesDate = contents.get(row);
         switch (column) {
             case 0:
-                return astroBodiesDate.getAstroName();
+                return astroBodiesDate.getName();
             case 1:
-                if (astroBodiesDate.getAstroClimate() != null) {
-                    return astroBodiesDate.getAstroClimate();
+                if (astroBodiesDate.getClimate() != null) {
+                    return astroBodiesDate.getClimate();
                 } else {
                     return "inconnu";
                 }
             case 2:
-                return astroBodiesDate.getTypeName();
+                return astroBodiesDate.getType().getName();
             case 3:
-                if (astroBodiesDate.getExplorer() != null) {
-                    return astroBodiesDate.getExplorer();
+                if (astroBodiesDate.getFirstExplorer() != null) {
+                    return astroBodiesDate.getFirstExplorer().getName();
                 } else {
                     return "inconnu";
                 }
             case 4:
-                if (astroBodiesDate.getExploBirthInString() != null) {
-                    return astroBodiesDate.getExploBirthInString();
+                if (astroBodiesDate.getFirstExplorer() != null) {
+                    return astroBodiesDate.getFirstExplorer().getBirthdateInString();
                 } else {
                     return "inconnu";
                 }
             case 5:
-                if (astroBodiesDate.getSpecieSName() != null) {
-                    return astroBodiesDate.getSpecieSName();
+                if (astroBodiesDate.getFirstExplorer() != null) {
+                    return astroBodiesDate.getFirstExplorer().getSpecie().getVernacularName();
                 } else {
                     return "inconnu";
                 }
             case 6:
-                if (astroBodiesDate.getSpecieVName() != null) {
-                    return astroBodiesDate.getSpecieVName();
+                if (astroBodiesDate.getFirstExplorer() != null) {
+                    return astroBodiesDate.getFirstExplorer().getSpecie().getScientificName();
                 } else {
                     return "inconnu";
                 }
             case 7:
-                if (astroBodiesDate.isExtinct() != null) {
-                    if (astroBodiesDate.isExtinct()) {
+                if (astroBodiesDate.getFirstExplorer() != null && astroBodiesDate.getFirstExplorer().getSpecie()!= null) {
+                    if (astroBodiesDate.getFirstExplorer().getSpecie().getExtinct()) {
                         return "Oui";
                     } else {
                         return "Non";
@@ -115,7 +115,7 @@ public class ResearchAstroBodiesForPeriodModel extends AbstractTableModel {
         return c;
     }
 
-    public ArrayList<ResearchedAstroBodiesDate> getContents() {
+    public ArrayList<AstroBody> getContents() {
         return contents;
     }
 

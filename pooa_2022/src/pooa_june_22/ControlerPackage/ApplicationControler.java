@@ -73,7 +73,7 @@ public class ApplicationControler {
         return astroBodyManager.getAstroBodiesForType(type);
     }
 
-    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException {
+    public ArrayList<AstroBody> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException {
         return astroBodyManager.getAstroBodiesForPeriod(beginning, ending);
     }
 

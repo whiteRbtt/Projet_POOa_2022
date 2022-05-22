@@ -44,7 +44,7 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
         AstroBody astroBody = contents.get(row);
         switch (column) {
             case 0:
-                return astroBody.getFirstExplorer().getSpecie();
+                return astroBody.getFirstExplorer().getSpecie().getScientificName();
             case 1:
                 return astroBody.getFirstExplorer().getName();
             case 2:

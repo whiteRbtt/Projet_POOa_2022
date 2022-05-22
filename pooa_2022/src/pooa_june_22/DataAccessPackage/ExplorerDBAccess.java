@@ -3,6 +3,7 @@ package pooa_june_22.DataAccessPackage;
 import pooa_june_22.DataAccessPackage.DAO.ExplorerDataAccess;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.Explorer;
+import pooa_june_22.ModelPackage.Specie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +35,7 @@ public class ExplorerDBAccess implements ExplorerDataAccess {
                                 data.getString("Name"),
                                 null,
                                 null,
-                                data.getString("Specie")
+                                new Specie(data.getString("Specie"), "alien", null, null)
                         );
 
 

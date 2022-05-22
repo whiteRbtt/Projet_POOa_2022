@@ -11,9 +11,9 @@ public class Explorer {
     private String name;
     private Boolean isAlive;
     private GregorianCalendar birthDate;
-    private String specie;
+    private Specie specie;
 
-    public Explorer(Integer explorerId, String name, Boolean isAlive, GregorianCalendar birthDate, String specie) throws IdException, NameException, DateException {
+    public Explorer(Integer explorerId, String name, Boolean isAlive, GregorianCalendar birthDate, Specie specie) throws IdException, NameException, DateException {
         setExplorerId(explorerId);
         setName(name);
         setAlive(isAlive);
@@ -56,7 +56,7 @@ public class Explorer {
         }
     }
 
-    public void setSpecie(String specie) {
+    public void setSpecie(Specie specie) {
         this.specie = specie;
     }
 
@@ -69,8 +69,16 @@ public class Explorer {
         return name;
     }
 
-    public String getSpecie() {
+    public Specie getSpecie() {
         return specie;
+    }
+
+    public String getBirthdateInString() {
+        if (birthDate != null) {
+            return birthDate.get(birthDate.DAY_OF_MONTH) + "/" + (birthDate.get(birthDate.MONTH) + 1) + "/" + birthDate.get(birthDate.YEAR);
+        } else {
+            return "inconnu";
+        }
     }
 
     public Boolean getAlive() {

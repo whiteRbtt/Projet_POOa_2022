@@ -2,7 +2,6 @@ package pooa_june_22.DataAccessPackage.DAO;
 
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.AstroBody;
-import pooa_june_22.ModelPackage.ResearchedAstroBodiesDate;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -19,7 +18,7 @@ public interface AstroBodyDataAccess {
 
     ArrayList<AstroBody> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException;
 
-    ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException;
+    ArrayList<AstroBody> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException;
 
     int getMaxId() throws ConnectionException, IdException;
 }

@@ -23,7 +23,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
     public ResearchAstroBodiesForPeriodPanel() {
         // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
-        title = new TitlePanel("Lister les planètes existant durant une période donnée");
+        title = new TitlePanel("Lister les planètes découvertes durant une période donnée");
         this.setLayout(new BorderLayout(0, 50));
         this.setBorder(BorderFactory.createEmptyBorder(20, 100, 100, 100));
 

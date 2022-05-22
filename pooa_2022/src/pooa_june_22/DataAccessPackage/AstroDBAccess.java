@@ -175,7 +175,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
         explorer = new Explorer(data.getInt("ExplorerId"));
 
         explorer.setName(data.getString("Name"));
-        explorer.setSpecie(data.getString("Specie"));
+        explorer.setSpecie(new Specie(data.getString("Specie"), "alien", null, null));
         boolean isAlive = data.getBoolean("IsAlive");
         if (!data.wasNull()) {
             explorer.setAlive(isAlive);
@@ -298,7 +298,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
                                     data.getString("ExploName"),
                                     data.getBoolean("IsAlive"),
                                     null,
-                                    data.getString("Specie")
+                                    new Specie(data.getString("Specie"), "alien", null, null)
                             ),
                             new AstroType(
                                     data.getInt("TypeId"),
@@ -320,13 +320,16 @@ public class AstroDBAccess implements AstroBodyDataAccess {
     }
 
     //-----------------------------------Get all the astroBodies for a given period-----------------------------------
-    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException {
-        ArrayList<ResearchedAstroBodiesDate> astroBodiesDates = new ArrayList<>();
+    public ArrayList<AstroBody> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException {
+        ArrayList<AstroBody> astroBodiesDates = new ArrayList<>();
 
         try {
             Connection connection = SingletonConnexion.getInstance();
 
-            String sqlInstruction = "select a.Name as 'astroName', a.Climate, t.Name as 'typeName', e.Name as 'exploName', e.BirthDate, s.ScientificName, s.VernacularName, s.IsExtinct from astronomicalbody a, astronomicaltype t, explorer e, specie s where a.Type = t.TypeId and a.FirstKnownExplorer = e.ExplorerId and e.Specie = s.ScientificName and a.FirstExplorationDate between ? and ?";
+            String sqlInstruction = "select a.AstroId, a.Name as 'astroName', a.Climate, t.Name as 'typeName', e.Name as 'exploName', e.BirthDate, e.ExplorerId, e.IsAlive, s.ScientificName, s.VernacularName, s.IsExtinct " +
+                    "from astronomicalbody a, astronomicaltype t, explorer e, specie s " +
+                    "where a.Type = t.TypeId and a.FirstKnownExplorer = e.ExplorerId and e.Specie = s.ScientificName and a.FirstExplorationDate " +
+                    "between ? and ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
             java.sql.Date beg = new java.sql.Date(beginning.getTimeInMillis());
@@ -334,34 +337,42 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             preparedStatement.setDate(1, beg);
             preparedStatement.setDate(2, end);
             ResultSet data = preparedStatement.executeQuery();
-            String exploName;
-            java.sql.Date sqlDate1;
-            String specieSName;
-            String specieVName;
-            Boolean isExtinct;
+
+
             while (data.next()) {
-                GregorianCalendar birthDate = new GregorianCalendar();
-                ResearchedAstroBodiesDate astroBodyDate = new ResearchedAstroBodiesDate(data.getString("astroName"), data.getString("Climate"), data.getString("typeName"), null, null, null, null, null);
-                exploName = data.getString("exploName");
                 if (!data.wasNull()) {
-                    astroBodyDate.setExplorer(exploName);
-                    sqlDate1 = data.getDate("BirthDate");
-                    if (!data.wasNull()) {
-                        birthDate.setTime(sqlDate1);
-                        astroBodyDate.setExploBirth(birthDate);
-                    }
-                    specieSName = data.getString("ScientificName");
-                    astroBodyDate.setSpecieSName(specieSName);
 
-                    specieVName = data.getString("VernacularName");
-                    astroBodyDate.setSpecieVName(specieVName);
+                    GregorianCalendar birthDate = new GregorianCalendar();
+                    if(data.getDate("BirthDate") != null) birthDate.setTime(data.getDate("BirthDate"));
+                    else birthDate = null;
 
-                    isExtinct = data.getBoolean("IsExtinct");
-                    astroBodyDate.setExtinct(isExtinct);
+
+                    AstroBody astroBodyDate = new AstroBody(
+                            data.getInt("AstroId"),
+                            data.getString("astroName"),
+                            new Explorer(
+                                    data.getInt("ExplorerId"),
+                                    data.getString("exploName"),
+                                    data.getBoolean("IsAlive"),
+                                    birthDate,
+                                    new Specie(
+                                            data.getString("ScientificName"),
+                                            data.getString("VernacularName"),
+                                            null,
+                                            data.getBoolean("IsExtinct")
+                                    )
+                            ),
+                            new AstroType(999, data.getString("typeName")),
+                            data.getString("climate"),
+                            null,
+                            null,
+                            null
+                    );
+                    astroBodiesDates.add(astroBodyDate);
                 }
-                astroBodiesDates.add(astroBodyDate);
             }
-        } catch (SQLException e) {
+        } catch (TypeException | GravityException | SQLException | IdException | TypeIDException e) {
+            System.out.println(e);
             throw new DateException();
         }
         return astroBodiesDates;
