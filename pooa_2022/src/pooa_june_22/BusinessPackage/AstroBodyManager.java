@@ -4,7 +4,6 @@ import pooa_june_22.DataAccessPackage.AstroDBAccess;
 import pooa_june_22.DataAccessPackage.DAO.AstroBodyDataAccess;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.AstroBody;
-import pooa_june_22.ModelPackage.ResearchedAstroBodies;
 import pooa_june_22.ModelPackage.ResearchedAstroBodiesDate;
 
 import java.util.ArrayList;
