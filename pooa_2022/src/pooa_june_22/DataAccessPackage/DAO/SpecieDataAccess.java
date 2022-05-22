@@ -7,8 +7,11 @@ import pooa_june_22.ModelPackage.Specie;
 import java.util.ArrayList;
 
 public interface SpecieDataAccess {
-    public int getNbColonyForSpecie(String vernacularName) throws ConnectionException, ColonyException;
-    public ArrayList<Era> getBestEras(String vernacularName) throws DateException, AllEraException, ConnectionException;
-    public ArrayList<Specie> getAllSpecies() throws AllSpeciesException, ConnectionException, NameException;
-    public ArrayList<Integer> getGravityOfColony(String vernacularName) throws ConnectionException, GravityException;
+    int getNbColonyForSpecie(String vernacularName) throws ConnectionException, ColonyException;
+
+    ArrayList<Era> getBestEras(String vernacularName) throws DateException, AllEraException, ConnectionException;
+
+    ArrayList<Specie> getAllSpecies() throws AllSpeciesException, ConnectionException, NameException;
+
+    ArrayList<Integer> getGravityOfColony(String vernacularName) throws ConnectionException, GravityException;
 }

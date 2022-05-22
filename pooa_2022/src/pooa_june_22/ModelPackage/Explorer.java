@@ -55,6 +55,7 @@ public class Explorer {
             throw new DateException();
         }
     }
+
     public void setSpecie(String specie) {
         this.specie = specie;
     }
@@ -72,4 +73,11 @@ public class Explorer {
         return specie;
     }
 
+    public Boolean getAlive() {
+        return isAlive;
+    }
+
+    public GregorianCalendar getBirthDate() {
+        return birthDate;
+    }
 }

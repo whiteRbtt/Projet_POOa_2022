@@ -17,22 +17,23 @@ public class AstroType {
         return typeID;
     }
 
-    public String getName(){;return name;
+    public String getName() {
+        return name;
     }
 
     //setters
-    public void setTypeID(Integer typeID) throws  TypeIDException {
-        if(typeID != null && typeID > 0){
+    public void setTypeID(Integer typeID) throws TypeIDException {
+        if (typeID != null && typeID > 0) {
             this.typeID = typeID;
-        }else{
+        } else {
             throw new TypeIDException(typeID);
         }
     }
 
     public void setName(String name) throws NameException {
-        if(name != null && name.length() < 45){
+        if (name != null && name.length() < 45) {
             this.name = name;
-        }else{
+        } else {
             throw new NameException(name);
         }
     }

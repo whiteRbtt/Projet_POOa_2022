@@ -12,7 +12,7 @@ public class TypeException extends GeneralException {
         return "La valeur " + wrongType + " n'est pas une chaîne de caractères ou dépasse la limite (45 caractères)";
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return "Erreur de type ! ";
     }
 }

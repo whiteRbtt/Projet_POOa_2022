@@ -11,7 +11,7 @@ public class AddAstroBodyException extends GeneralException {
         return "L'objet : " + wrongAstro + " n'a pas pu être ajouté.";
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return "Erreur lors de l'ajout d'une planète ! ";
     }
 }

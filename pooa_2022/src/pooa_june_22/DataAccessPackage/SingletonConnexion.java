@@ -27,7 +27,7 @@ public class SingletonConnexion {
 
     //-----------------------------------Allow to close the connexion at the close of the application-----------------------------------
     public static void close() throws ConnectionException {
-        if(connectionToken != null){
+        if (connectionToken != null) {
             try {
                 connectionToken.close();
             } catch (SQLException e) {

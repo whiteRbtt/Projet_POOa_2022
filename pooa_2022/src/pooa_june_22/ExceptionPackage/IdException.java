@@ -11,7 +11,7 @@ public class IdException extends GeneralException {
         return "La valeur " + wrongId + " doit être un entier positif";
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return "Erreur sur l'id ! ";
     }
 }

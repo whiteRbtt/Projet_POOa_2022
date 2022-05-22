@@ -97,8 +97,8 @@ public class UpdateAstroBodyPanel extends JPanel {
                 }
 
                 formPanel = new AstroBodyFormPanel(astro);
-            }catch (GeneralException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
+            } catch (GeneralException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
 
             container.add(formPanel, BorderLayout.CENTER);

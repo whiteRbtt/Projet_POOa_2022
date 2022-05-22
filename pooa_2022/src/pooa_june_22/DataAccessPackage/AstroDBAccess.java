@@ -8,6 +8,7 @@ import pooa_june_22.ModelPackage.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
 public class AstroDBAccess implements AstroBodyDataAccess {
 
     //-----------------------------------Get the greatest ID of the DB for incrementation-----------------------------------
@@ -15,7 +16,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
         String instructionSQL;
         Connection connection;
         int id = 0;
-        try{
+        try {
             instructionSQL = "select max(AstroId) from astronomicalbody";
             connection = SingletonConnexion.getInstance();
             PreparedStatement preparedStatement = connection.prepareStatement(instructionSQL);
@@ -33,18 +34,18 @@ public class AstroDBAccess implements AstroBodyDataAccess {
     public void deleteColonyForAstroBody(int location) throws ConnectionException, SQLException {
         String sqlInstruction;
         Connection connection;
-            sqlInstruction = "delete from colony where Location = ?";
-            connection = SingletonConnexion.getInstance();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
-            preparedStatement.setInt(1, location);
-            preparedStatement.executeUpdate();
+        sqlInstruction = "delete from colony where Location = ?";
+        connection = SingletonConnexion.getInstance();
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+        preparedStatement.setInt(1, location);
+        preparedStatement.executeUpdate();
     }
 
     //-----------------------------------Delete an astro body and the depedencies link to the table-----------------------------------
     public void deleteAstroBody(int astroID) throws ConnectionException, DeleteAstroBodyException {
         String sqlInstruction;
         Connection connection;
-        try{
+        try {
             deleteColonyForAstroBody(astroID);
             sqlInstruction = "delete from astronomicalbody where AstroID = ?";
             connection = SingletonConnexion.getInstance();
@@ -161,48 +162,48 @@ public class AstroDBAccess implements AstroBodyDataAccess {
     }
 
     //-----------------------------------Get an explorer who discovered an astro body-----------------------------------
-   public Explorer getExplorerForAstroBody(int exploID) throws IdException, DateException, NameException, ConnectionException, SQLException {
-       String sqlInstruction;
-       Connection connection;
-       Explorer explorer = null;
-           sqlInstruction = "select * from explorer where ExplorerId = ?";
-           connection = SingletonConnexion.getInstance();
-           PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
-           preparedStatement.setInt(1, exploID);
-           ResultSet data = preparedStatement.executeQuery();
-           data.next();
-           explorer = new Explorer(data.getInt("ExplorerId"));
+    public Explorer getExplorerForAstroBody(int exploID) throws IdException, DateException, NameException, ConnectionException, SQLException {
+        String sqlInstruction;
+        Connection connection;
+        Explorer explorer = null;
+        sqlInstruction = "select * from explorer where ExplorerId = ?";
+        connection = SingletonConnexion.getInstance();
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+        preparedStatement.setInt(1, exploID);
+        ResultSet data = preparedStatement.executeQuery();
+        data.next();
+        explorer = new Explorer(data.getInt("ExplorerId"));
 
-           explorer.setName(data.getString("Name"));
-           explorer.setSpecie(data.getString("Specie"));
-           boolean isAlive = data.getBoolean("IsAlive");
-           if (!data.wasNull()) {
-               explorer.setAlive(isAlive);
-           }
-           GregorianCalendar calendar = new GregorianCalendar();
-           java.sql.Date date = data.getDate("BirthDate");
-           if (!data.wasNull()) {
-               calendar.setTime(date);
-               explorer.setBirthDate(calendar);
-           }
-       return explorer;
-   }
+        explorer.setName(data.getString("Name"));
+        explorer.setSpecie(data.getString("Specie"));
+        boolean isAlive = data.getBoolean("IsAlive");
+        if (!data.wasNull()) {
+            explorer.setAlive(isAlive);
+        }
+        GregorianCalendar calendar = new GregorianCalendar();
+        java.sql.Date date = data.getDate("BirthDate");
+        if (!data.wasNull()) {
+            calendar.setTime(date);
+            explorer.setBirthDate(calendar);
+        }
+        return explorer;
+    }
 
     //-----------------------------------Get type for a given type from an astroBody-----------------------------------
-   public AstroType getTypeForAstroBody(Integer type) throws NameException, ConnectionException, SQLException, TypeIDException {
-       String sqlInstruction;
-       Connection connection;
-       AstroType typeAstro = null;
-       sqlInstruction = "select * from astronomicaltype where TypeId=?";
-       connection = SingletonConnexion.getInstance();
-       PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
-       preparedStatement.setInt(1, type);
-       ResultSet data = preparedStatement.executeQuery();
-       data.next();
-       typeAstro = new AstroType(data.getInt("TypeId"), data.getString("Name"));
+    public AstroType getTypeForAstroBody(Integer type) throws NameException, ConnectionException, SQLException, TypeIDException {
+        String sqlInstruction;
+        Connection connection;
+        AstroType typeAstro = null;
+        sqlInstruction = "select * from astronomicaltype where TypeId=?";
+        connection = SingletonConnexion.getInstance();
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+        preparedStatement.setInt(1, type);
+        ResultSet data = preparedStatement.executeQuery();
+        data.next();
+        typeAstro = new AstroType(data.getInt("TypeId"), data.getString("Name"));
 
-       return typeAstro;
-   }
+        return typeAstro;
+    }
 
     //-----------------------------------Get all the astroBodies of the DB-----------------------------------
     public ArrayList<AstroBody> getAllAstroBodies() throws AllAstroBodiesException, ClimateException, TypeException, GravityException, NameException, DateException, IdException, ConnectionException, TypeIDException {
@@ -271,42 +272,42 @@ public class AstroDBAccess implements AstroBodyDataAccess {
     public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
         ArrayList<ResearchedAstroBodies> astroBodies = new ArrayList<>();
 
-        try{
+        try {
             Connection connection = SingletonConnexion.getInstance();
             String sqlInstruction = "select s.VernacularName, e.Name as 'exploName', a.FirstExplorationDate, a.Gravity, a.Climate, a.AstroId, a.Name from astronomicaltype t, specie s, explorer e, astronomicalbody a " +
-                    "where t.TypeId = a.Type and a.FirstKnownExplorer = e.ExplorerId and e.Specie = s.ScientificName and t.Name = ?" ;
+                    "where t.TypeId = a.Type and a.FirstKnownExplorer = e.ExplorerId and e.Specie = s.ScientificName and t.Name = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
             preparedStatement.setString(1, type);
             ResultSet data = preparedStatement.executeQuery();
             java.sql.Date sqlDate;
-            while(data.next()){
+            while (data.next()) {
                 GregorianCalendar calendar = new GregorianCalendar();
                 ResearchedAstroBodies astroBody = new ResearchedAstroBodies(data.getString("VernacularName"), null, null, null, null, data.getInt("AstroId"), data.getString("Name"));
                 sqlDate = data.getDate("FirstExplorationDate");
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     calendar.setTime(sqlDate);
                     astroBody.setFirstExploDate(calendar);
                 }
 
                 String exploName = data.getString("exploName");
 
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     astroBody.setExplorer(exploName);
                 }
 
                 Integer gravity = data.getInt("Gravity");
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     astroBody.setGravity(gravity);
                 }
 
                 String climate = data.getString("Climate");
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     astroBody.setClimate(climate);
                 }
                 astroBodies.add(astroBody);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new TypeException(type);
         }
         return astroBodies;
@@ -316,7 +317,7 @@ public class AstroDBAccess implements AstroBodyDataAccess {
     public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException {
         ArrayList<ResearchedAstroBodiesDate> astroBodiesDates = new ArrayList<>();
 
-        try{
+        try {
             Connection connection = SingletonConnexion.getInstance();
 
             String sqlInstruction = "select a.Name as 'astroName', a.Climate, t.Name as 'typeName', e.Name as 'exploName', e.BirthDate, s.ScientificName, s.VernacularName, s.IsExtinct from astronomicalbody a, astronomicaltype t, explorer e, specie s where a.Type = t.TypeId and a.FirstKnownExplorer = e.ExplorerId and e.Specie = s.ScientificName and a.FirstExplorationDate between ? and ?";
@@ -332,14 +333,14 @@ public class AstroDBAccess implements AstroBodyDataAccess {
             String specieSName;
             String specieVName;
             Boolean isExtinct;
-            while(data.next()){
+            while (data.next()) {
                 GregorianCalendar birthDate = new GregorianCalendar();
                 ResearchedAstroBodiesDate astroBodyDate = new ResearchedAstroBodiesDate(data.getString("astroName"), data.getString("Climate"), data.getString("typeName"), null, null, null, null, null);
                 exploName = data.getString("exploName");
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     astroBodyDate.setExploName(exploName);
                     sqlDate1 = data.getDate("BirthDate");
-                    if(!data.wasNull()){
+                    if (!data.wasNull()) {
                         birthDate.setTime(sqlDate1);
                         astroBodyDate.setExploBirth(birthDate);
                     }

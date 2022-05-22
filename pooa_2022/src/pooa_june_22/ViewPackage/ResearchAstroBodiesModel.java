@@ -35,7 +35,7 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
         return contents.size();
     }
 
-    public String getColumnName(int column){
+    public String getColumnName(int column) {
         return columnNames.get(column);
     }
 
@@ -49,9 +49,9 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
             case 2:
                 return astroBody.getFirstExploDateInString();
             case 3:
-                 if(astroBody.getGravity() != null){
-                     return astroBody.getGravity();}
-                     else return 0;
+                if (astroBody.getGravity() != null) {
+                    return astroBody.getGravity();
+                } else return 0;
 
             case 4: {
                 if (astroBody.getClimate() != null) return astroBody.getClimate();
@@ -62,34 +62,37 @@ public class ResearchAstroBodiesModel extends AbstractTableModel {
             case 6:
                 return astroBody.getAstroName();
 
-            default:return null;
+            default:
+                return null;
         }
 
     }
-        public Class getColumnClass(int column){
-            Class c;
-            switch(column){
-                case 0 :
-                case 1:
-                case 2:
-                case 4:
-                case 6:
-                    c = String.class;
-                    break;
-                case 3:
-                case 5:
-                    c = Integer.class;
-                    break;
-                default: c = null;
-            }
-            return c;
+
+    public Class getColumnClass(int column) {
+        Class c;
+        switch (column) {
+            case 0:
+            case 1:
+            case 2:
+            case 4:
+            case 6:
+                c = String.class;
+                break;
+            case 3:
+            case 5:
+                c = Integer.class;
+                break;
+            default:
+                c = null;
         }
+        return c;
+    }
 
     public ArrayList<ResearchedAstroBodies> getContents() {
         return contents;
     }
 
-    public void removeRow(int row){
+    public void removeRow(int row) {
         contents.remove(row);
     }
 }

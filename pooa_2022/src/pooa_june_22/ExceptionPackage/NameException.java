@@ -12,7 +12,7 @@ public class NameException extends GeneralException {
         return "La valeur " + wrongName + " n'est pas une chaine ou bien dépasse la limite de caractères (45)";
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return "Erreur sur le nom ! ";
     }
 }

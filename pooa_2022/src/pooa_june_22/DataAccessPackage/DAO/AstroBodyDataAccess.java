@@ -10,17 +10,17 @@ import java.util.GregorianCalendar;
 
 public interface AstroBodyDataAccess {
 
-    public void deleteAstroBody(int astroID) throws GeneralException;
+    void deleteAstroBody(int astroID) throws GeneralException;
 
-    public void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException;
+    void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException;
 
-    public void updateAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException, UpdateAstroBodyException;
+    void updateAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException, UpdateAstroBodyException;
 
-    public ArrayList<AstroBody> getAllAstroBodies() throws GeneralException;
+    ArrayList<AstroBody> getAllAstroBodies() throws GeneralException;
 
-    public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException;
+    ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException;
 
-    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException;
+    ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException;
 
-    public int getMaxId() throws ConnectionException, IdException;
+    int getMaxId() throws ConnectionException, IdException;
 }

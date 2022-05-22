@@ -11,7 +11,7 @@ public class SelectionException extends GeneralException {
         return "Veuillez sélectionner " + message;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return "La sélection est incorrecte";
     }
 

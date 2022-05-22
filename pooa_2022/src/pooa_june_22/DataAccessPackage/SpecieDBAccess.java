@@ -2,7 +2,6 @@ package pooa_june_22.DataAccessPackage;
 
 import pooa_june_22.DataAccessPackage.DAO.SpecieDataAccess;
 import pooa_june_22.ExceptionPackage.*;
-import pooa_june_22.ModelPackage.BestSpecie;
 import pooa_june_22.ModelPackage.Era;
 import pooa_june_22.ModelPackage.Specie;
 
@@ -58,6 +57,7 @@ public class SpecieDBAccess implements SpecieDataAccess {
         }
         return allSpecies;
     }
+
     //-----------------------------------Get the number of colonies for species-----------------------------------
     public int getNbColonyForSpecie(String vernacularName) throws ColonyException, ConnectionException {
 
@@ -76,7 +76,7 @@ public class SpecieDBAccess implements SpecieDataAccess {
 
             data.next();
 
-            if(!data.wasNull()){
+            if (!data.wasNull()) {
                 nbColony = data.getInt("Count");
 
             }
@@ -89,7 +89,7 @@ public class SpecieDBAccess implements SpecieDataAccess {
     //-----------------------------------Get Eras for Colony-----------------------------------
     public ArrayList<Era> getBestEras(String vernacularName) throws AllEraException, ConnectionException, DateException {
         ArrayList<Era> eras = new ArrayList<>();
-        try{
+        try {
             // connect
             Connection connection = SingletonConnexion.getInstance();
 
@@ -99,14 +99,14 @@ public class SpecieDBAccess implements SpecieDataAccess {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
             preparedStatement.setString(1, vernacularName);
             ResultSet data = preparedStatement.executeQuery();
-            while(data.next()){
+            while (data.next()) {
                 java.sql.Date beginDate = data.getDate("Beginning");
                 GregorianCalendar begin = new GregorianCalendar();
                 begin.setTime(beginDate);
                 Era bestEra = new Era(data.getString("EraName"), begin);
                 java.sql.Date endDate = data.getDate("Ending");
                 GregorianCalendar ending = new GregorianCalendar();
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     ending.setTime(endDate);
                     bestEra.setEnding(ending);
                 }
@@ -118,9 +118,10 @@ public class SpecieDBAccess implements SpecieDataAccess {
         }
         return eras;
     }
+
     public ArrayList<Integer> getGravityOfColony(String vernacularName) throws ConnectionException, GravityException {
         ArrayList<Integer> gravities = new ArrayList<>();
-        try{
+        try {
             Connection connection = SingletonConnexion.getInstance();
 
             String sqlInstruction = "select a.Gravity from specie s, colony c, astronomicalbody a where s.ScientificName = c.Lifeform and c.Location = a.AstroId and s.VernacularName = ?";
@@ -128,8 +129,8 @@ public class SpecieDBAccess implements SpecieDataAccess {
             preparedStatement.setString(1, vernacularName);
             ResultSet data = preparedStatement.executeQuery();
             int gravity = 0;
-            while(data.next()){
-                if(!data.wasNull()){
+            while (data.next()) {
+                if (!data.wasNull()) {
                     gravity = data.getInt("Gravity");
                 }
                 gravities.add(gravity);

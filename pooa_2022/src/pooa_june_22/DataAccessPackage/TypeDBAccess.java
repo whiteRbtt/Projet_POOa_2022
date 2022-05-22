@@ -15,12 +15,12 @@ public class TypeDBAccess implements AstroTypeDBAccess {
     //-----------------------------------Get all types from the DB-----------------------------------
     public ArrayList<AstroType> getAllTypes() throws ConnectionException, NameException, AllTypesException, TypeIDException {
         ArrayList<AstroType> types = new ArrayList<>();
-        try{
+        try {
             Connection connection = SingletonConnexion.getInstance();
             String sqlInstruction = "select * from astronomicaltype";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
             ResultSet data = preparedStatement.executeQuery();
-            while(data.next()){
+            while (data.next()) {
 
                 AstroType type = new AstroType(
                         data.getInt("TypeId"),

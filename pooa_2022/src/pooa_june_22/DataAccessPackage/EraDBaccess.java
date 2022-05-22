@@ -3,7 +3,6 @@ package pooa_june_22.DataAccessPackage;
 import pooa_june_22.DataAccessPackage.DAO.EraDataAccess;
 import pooa_june_22.ExceptionPackage.*;
 import pooa_june_22.ModelPackage.Era;
-import pooa_june_22.ModelPackage.Specie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

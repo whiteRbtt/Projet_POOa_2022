@@ -23,7 +23,7 @@ public class ColonyDBAccess implements ColonyDataAccess {
             Connection connection = SingletonConnexion.getInstance();
 
             // read triple joint
-            String sqlInstruction = "select c.TribalName, a.Name, era.EraName, era.Beginning, era.Ending from colony c "+
+            String sqlInstruction = "select c.TribalName, a.Name, era.EraName, era.Beginning, era.Ending from colony c " +
                     "join era on c.Period = era.EraName " +
                     "join specie on c.Lifeform = specie.ScientificName " +
                     "join astronomicalbody a on a.AstroId = c.Location " +
@@ -41,7 +41,7 @@ public class ColonyDBAccess implements ColonyDataAccess {
                 calendar1.setTime(sqlDate1);
                 ResearchedColonies colony = new ResearchedColonies(data.getString("eraName"), calendar1, null, data.getString("Name"), null);
                 sqlDate2 = data.getDate("Ending");
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     calendar2.setTime(sqlDate2);
                     colony.setEraEnding(calendar2);
                 }

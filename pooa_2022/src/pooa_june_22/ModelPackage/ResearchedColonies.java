@@ -75,13 +75,13 @@ public class ResearchedColonies {
     }
 
     public String getEraBeginningInString() {
-        return eraBeginning.get(eraBeginning.DAY_OF_MONTH) +"/" + (eraBeginning.get(eraBeginning.MONTH)+1) +"/" + eraBeginning.get(eraBeginning.YEAR);
+        return eraBeginning.get(eraBeginning.DAY_OF_MONTH) + "/" + (eraBeginning.get(eraBeginning.MONTH) + 1) + "/" + eraBeginning.get(eraBeginning.YEAR);
     }
 
     public String getEraEndingInString() {
-        if(eraEnding != null) {
+        if (eraEnding != null) {
             return eraEnding.get(eraEnding.DAY_OF_MONTH) + "/" + (eraEnding.get(eraBeginning.MONTH) + 1) + "/" + eraEnding.get(eraEnding.YEAR);
-        }else{
+        } else {
             return "inconnu";
         }
     }

@@ -20,7 +20,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
     private ResearchAstroBodiesForPeriodModel astroModel;
 
 
-    public ResearchAstroBodiesForPeriodPanel(){
+    public ResearchAstroBodiesForPeriodPanel() {
         // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Lister les planètes existant durant une période donnée");
@@ -42,8 +42,8 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
         c.anchor = GridBagConstraints.LINE_START;
         container.add(beginLabel, c);
 
-        Date startDate = new GregorianCalendar(1000,00,01).getTime();
-        Date endDate = new GregorianCalendar(9999, 11,31).getTime();
+        Date startDate = new GregorianCalendar(1000, 00, 01).getTime();
+        Date endDate = new GregorianCalendar(9999, 11, 31).getTime();
         SpinnerDateModel startModel = new SpinnerDateModel();
         startModel.setCalendarField(Calendar.YEAR);
         startModel.setStart(startDate);
@@ -95,7 +95,7 @@ public class ResearchAstroBodiesForPeriodPanel extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 container.removeAll();
                 container.setLayout(new BorderLayout());
-                try{
+                try {
                     Date beginDate = (Date) dateBegin.getValue();
                     Date endingDate = (Date) dateEnding.getValue();
                     GregorianCalendar beginCalendar = new GregorianCalendar();

@@ -22,7 +22,7 @@ public class AstroBodyManager {
     }
 
     //-----------------------------------MethodDBAccess-----------------------------------
-    public void deleteAstroBody(int astroID) throws  GeneralException {
+    public void deleteAstroBody(int astroID) throws GeneralException {
         dao.deleteAstroBody(astroID);
     }
 
@@ -37,34 +37,34 @@ public class AstroBodyManager {
     public ArrayList<AstroBody> getAllAstroBodies() throws GeneralException {
         return dao.getAllAstroBodies();
     }
+
     public ArrayList<ResearchedAstroBodies> getAstroBodiesForType(String type) throws ConnectionException, ClimateException, NameException, DateException, IdException, GravityException, TypeException {
         return dao.getAstroBodiesForType(type);
     }
 
-    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException{
+    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException {
         return dao.getAstroBodiesForPeriod(beginning, ending);
     }
 
-    public int getMaxId() throws ConnectionException, IdException{
+    public int getMaxId() throws ConnectionException, IdException {
         return dao.getMaxId();
     }
 
     //-----------------------------------MethodBusiness-----------------------------------
     public double getGravityAverage(String type) throws ClimateException, NameException, DateException, TypeException, IdException, ConnectionException, GravityException, GravityAverageException {
         ArrayList<ResearchedAstroBodies> astroBodies = dao.getAstroBodiesForType(type);
-        if(astroBodies.size() != 0){
+        if (astroBodies.size() != 0) {
             double average = 0;
-            for(ResearchedAstroBodies a : astroBodies){
-                if(a.getGravity() != null)
+            for (ResearchedAstroBodies a : astroBodies) {
+                if (a.getGravity() != null)
                     average += a.getGravity();
             }
-            if(average != 0){
-                return average/astroBodies.size();
-            }else{
+            if (average != 0) {
+                return average / astroBodies.size();
+            } else {
                 throw new GravityAverageException();
             }
-        }
-        else{
+        } else {
             throw new GravityAverageException();
         }
     }

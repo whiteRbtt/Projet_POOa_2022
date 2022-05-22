@@ -1,8 +1,7 @@
 package pooa_june_22.ExceptionPackage;
 
-public class GravityAverageException extends GeneralException{
-    public GravityAverageException(){
-
+public class GravityAverageException extends GeneralException {
+    public GravityAverageException() {
     }
 
     @Override

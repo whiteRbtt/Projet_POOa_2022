@@ -48,4 +48,11 @@ public class Colony {
         return name;
     }
 
+    public Integer getLocation() {
+        return location;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
 }

@@ -11,7 +11,7 @@ public class UpdateAstroBodyException extends GeneralException {
         return "L'objet : " + wrongAstro + " n'a pas pu être modifié.";
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return "Erreur lors de la modification d'une planète ! ";
     }
 }

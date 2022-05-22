@@ -22,7 +22,7 @@ public class ResearchAstroBodiesPanel extends JPanel {
 
     private ArrayList<AstroType> allTypes;
 
-    public ResearchAstroBodiesPanel(){
+    public ResearchAstroBodiesPanel() {
         // -----------------------------------Initialization-----------------------------------
         this.setLayout(new BorderLayout());
         title = new TitlePanel("Rechercher des planètes selon leur type : ");
@@ -33,12 +33,12 @@ public class ResearchAstroBodiesPanel extends JPanel {
 
         // -----------------------------------Get Datas-----------------------------------
         String[] values = {};
-        try{
+        try {
             allTypes = controler.getAllTypes();
             values = new String[allTypes.size()];
 
             int i = 0;
-            for(AstroType type : allTypes){
+            for (AstroType type : allTypes) {
                 values[i] = type.getName();
                 i++;
             }
@@ -53,7 +53,7 @@ public class ResearchAstroBodiesPanel extends JPanel {
             c.gridy = 0;
             c.insets = new Insets(0, 25, 40, 0);
             c.anchor = GridBagConstraints.LINE_START;
-            container.add(typeLabel,c);
+            container.add(typeLabel, c);
 
             types = new JComboBox(values);
             types.setEditable(false);
@@ -85,8 +85,8 @@ public class ResearchAstroBodiesPanel extends JPanel {
         public void actionPerformed(ActionEvent actionEvent) {
             container.removeAll();
             container.setLayout(new BorderLayout());
-            try{
-                astroModel = new ResearchAstroBodiesModel((String)types.getSelectedItem());
+            try {
+                astroModel = new ResearchAstroBodiesModel((String) types.getSelectedItem());
                 JTable table = new JTable(astroModel);
                 JScrollPane scrollPane = new JScrollPane(table);
 

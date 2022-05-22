@@ -28,39 +28,47 @@ public class ResearchColonieModel extends AbstractTableModel {
         return columnNames.size();
     }
 
-    public int getRowCount(){
+    public int getRowCount() {
         return contents.size();
     }
 
-    public String getColumnName(int column){
+    public String getColumnName(int column) {
         return columnNames.get(column);
     }
 
-    public Object getValueAt(int row, int column){
+    public Object getValueAt(int row, int column) {
         ResearchedColonies colony = contents.get(row);
-        switch(column){
-            case 0 : return colony.getEraName();
-            case 1 : return colony.getEraBeginningInString();
-            case 2 : return colony.getEraEndingInString();
-            case 3 : return colony.getAstroName();
-            case 4 : {if(colony.getTribalName() != null)
-                return colony.getTribalName();
+        switch (column) {
+            case 0:
+                return colony.getEraName();
+            case 1:
+                return colony.getEraBeginningInString();
+            case 2:
+                return colony.getEraEndingInString();
+            case 3:
+                return colony.getAstroName();
+            case 4: {
+                if (colony.getTribalName() != null)
+                    return colony.getTribalName();
                 else return "Inconnu";
             }
-            default: return null;
+            default:
+                return null;
         }
     }
 
-    public Class getColumnClass(int column){
+    public Class getColumnClass(int column) {
         Class c;
-        switch(column){
-            case 0 :
-            case 1 :
+        switch (column) {
+            case 0:
+            case 1:
             case 2:
-            case 3 :
-            case 4 : c = String.class;
-            break;
-            default: c = null;
+            case 3:
+            case 4:
+                c = String.class;
+                break;
+            default:
+                c = null;
         }
         return c;
     }
@@ -69,7 +77,7 @@ public class ResearchColonieModel extends AbstractTableModel {
         return contents;
     }
 
-    public void removeRow(int row){
+    public void removeRow(int row) {
         contents.remove(row);
     }
 }

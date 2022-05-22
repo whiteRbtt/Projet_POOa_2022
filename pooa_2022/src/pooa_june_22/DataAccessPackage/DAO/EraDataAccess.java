@@ -9,5 +9,5 @@ import pooa_june_22.ModelPackage.Era;
 import java.util.ArrayList;
 
 public interface EraDataAccess {
-    public ArrayList<Era>getAllEras() throws AllEraException, ConnectionException, NameException, DateException;
+    ArrayList<Era>getAllEras() throws AllEraException, ConnectionException, NameException, DateException;
 }

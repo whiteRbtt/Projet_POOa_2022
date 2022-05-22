@@ -56,6 +56,7 @@ public class ApplicationControler {
     public void deleteAstroBody(int astroID) throws GeneralException {
         astroBodyManager.deleteAstroBody(astroID);
     }
+
     public void addAstroBody(AstroBody astroBody) throws ConnectionException, AddAstroBodyException {
         astroBodyManager.addAstroBody(astroBody);
     }
@@ -72,11 +73,11 @@ public class ApplicationControler {
         return astroBodyManager.getAstroBodiesForType(type);
     }
 
-    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException{
+    public ArrayList<ResearchedAstroBodiesDate> getAstroBodiesForPeriod(GregorianCalendar beginning, GregorianCalendar ending) throws ClimateException, NameException, DateException, ConnectionException {
         return astroBodyManager.getAstroBodiesForPeriod(beginning, ending);
     }
 
-    public int getMaxId() throws ConnectionException, IdException{
+    public int getMaxId() throws ConnectionException, IdException {
         return astroBodyManager.getMaxId();
     }
 

@@ -28,10 +28,10 @@ public class ResearchedAstroBodies {
         return specie;
     }
 
-    public String  getFirstExploDateInString() {
-        if(firstExploDate != null){
-            return firstExploDate.get(firstExploDate.DAY_OF_MONTH) + "/" + (firstExploDate.get(firstExploDate.MONTH)+1) + "/" + firstExploDate.get(firstExploDate.YEAR);
-        }else{
+    public String getFirstExploDateInString() {
+        if (firstExploDate != null) {
+            return firstExploDate.get(firstExploDate.DAY_OF_MONTH) + "/" + (firstExploDate.get(firstExploDate.MONTH) + 1) + "/" + firstExploDate.get(firstExploDate.YEAR);
+        } else {
             return "inconnu";
         }
     }
@@ -74,7 +74,7 @@ public class ResearchedAstroBodies {
     }
 
     public void setExplorer(String explorer) throws NameException {
-        if (explorer == null || explorer.length() <45)
+        if (explorer == null || explorer.length() < 45)
             this.explorer = explorer;
         else {
             throw new NameException(explorer);

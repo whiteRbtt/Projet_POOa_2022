@@ -12,7 +12,7 @@ public class GravityException extends GeneralException {
         return "La valeur " + wrongGravity + " pour la gravité doit être un entier positif.";
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return "Erreur sur la gravité ! ";
     }
 }

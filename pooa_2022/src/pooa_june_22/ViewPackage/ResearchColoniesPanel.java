@@ -90,7 +90,7 @@ public class ResearchColoniesPanel extends JPanel {
             container.removeAll();
             container.setLayout(new BorderLayout());
             try {
-                colonieModel = new ResearchColonieModel((String)species.getSelectedItem());
+                colonieModel = new ResearchColonieModel((String) species.getSelectedItem());
                 JTable table = new JTable(colonieModel);
                 JScrollPane scrollPane = new JScrollPane(table);
 

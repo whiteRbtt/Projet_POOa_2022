@@ -44,60 +44,61 @@ public class ResearchAstroBodiesForPeriodModel extends AbstractTableModel {
         return columnNames.get(column);
     }
 
-    public Object getValueAt(int row, int column){
+    public Object getValueAt(int row, int column) {
         ResearchedAstroBodiesDate astroBodiesDate = contents.get(row);
-        switch(column){
-            case 0 :
+        switch (column) {
+            case 0:
                 return astroBodiesDate.getAstroName();
-            case 1 :
-                if(astroBodiesDate.getAstroClimate() != null){
+            case 1:
+                if (astroBodiesDate.getAstroClimate() != null) {
                     return astroBodiesDate.getAstroClimate();
-                }else{
+                } else {
                     return "inconnu";
                 }
-            case 2 :
+            case 2:
                 return astroBodiesDate.getTypeName();
-            case 3 :
-                if(astroBodiesDate.getExploName() != null){
+            case 3:
+                if (astroBodiesDate.getExploName() != null) {
                     return astroBodiesDate.getExploName();
-                }else{
+                } else {
                     return "inconnu";
                 }
-            case 4 :
-                if(astroBodiesDate.getExploBirthInString() != null){
+            case 4:
+                if (astroBodiesDate.getExploBirthInString() != null) {
                     return astroBodiesDate.getExploBirthInString();
-                }else{
+                } else {
                     return "inconnu";
                 }
-            case 5 :
-                if(astroBodiesDate.getSpecieSName() != null){
+            case 5:
+                if (astroBodiesDate.getSpecieSName() != null) {
                     return astroBodiesDate.getSpecieSName();
-                }else{
+                } else {
                     return "inconnu";
                 }
-            case 6 :
-                if(astroBodiesDate.getSpecieVName() != null){
+            case 6:
+                if (astroBodiesDate.getSpecieVName() != null) {
                     return astroBodiesDate.getSpecieVName();
-                }else{
+                } else {
                     return "inconnu";
                 }
-            case 7 :
-                if(astroBodiesDate.isExtinct() != null){
-                    if(astroBodiesDate.isExtinct()){
+            case 7:
+                if (astroBodiesDate.isExtinct() != null) {
+                    if (astroBodiesDate.isExtinct()) {
                         return "Oui";
-                    }else{
+                    } else {
                         return "Non";
                     }
-                }else{
+                } else {
                     return "inconnu";
                 }
-            default:return null;
+            default:
+                return null;
         }
     }
 
-    public Class getColumnClass(int column){
+    public Class getColumnClass(int column) {
         Class c;
-        switch (column){
+        switch (column) {
             case 0:
             case 1:
             case 2:
@@ -108,16 +109,17 @@ public class ResearchAstroBodiesForPeriodModel extends AbstractTableModel {
             case 7:
                 c = String.class;
                 break;
-            default: c = null;
+            default:
+                c = null;
         }
         return c;
     }
 
-    public ArrayList<ResearchedAstroBodiesDate> getContents(){
+    public ArrayList<ResearchedAstroBodiesDate> getContents() {
         return contents;
     }
 
-    public void removeRow(int row){
+    public void removeRow(int row) {
         contents.remove(row);
     }
 }

@@ -10,12 +10,14 @@ import java.util.ArrayList;
 public class TypeManager {
     AstroTypeDBAccess dao;
 
-    public TypeManager(){
+    public TypeManager() {
         setDao(new TypeDBAccess());
     }
+
     public ArrayList<AstroType> getAllTypes() throws ConnectionException, NameException, TypeException, AllTypesException, TypeIDException {
         return dao.getAllTypes();
     }
+
     public void setDao(AstroTypeDBAccess dao) {
         this.dao = dao;
     }

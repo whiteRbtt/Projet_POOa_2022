@@ -119,10 +119,10 @@ public class AstroBody {
         return firstExploDate;
     }
 
-    public String getFirstExploDateInString(){
-        if(firstExploDate != null){
-            return firstExploDate.get(firstExploDate.DAY_OF_MONTH) + "/" + (firstExploDate.get(firstExploDate.MONTH)+1) + "/" + firstExploDate.get(firstExploDate.YEAR);
-        }else{
+    public String getFirstExploDateInString() {
+        if (firstExploDate != null) {
+            return firstExploDate.get(firstExploDate.DAY_OF_MONTH) + "/" + (firstExploDate.get(firstExploDate.MONTH) + 1) + "/" + firstExploDate.get(firstExploDate.YEAR);
+        } else {
             return "inconnu";
         }
     }

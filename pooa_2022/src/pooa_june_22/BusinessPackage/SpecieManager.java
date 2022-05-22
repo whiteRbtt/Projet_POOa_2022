@@ -34,7 +34,7 @@ public class SpecieManager {
         return dao.getBestEras(vernacularName);
     }
 
-    public ArrayList<Integer> getGravityOfColony(String vernacularName) throws ConnectionException, GravityException{
+    public ArrayList<Integer> getGravityOfColony(String vernacularName) throws ConnectionException, GravityException {
         return dao.getGravityOfColony(vernacularName);
     }
 
@@ -48,12 +48,12 @@ public class SpecieManager {
     public double lifeSpan(String vernacularName) throws DateException, AllEraException, ConnectionException {
         ArrayList<Era> eras = getBestEras(vernacularName);
         double lifeSpan = 0;
-        for(Era era : eras){
+        for (Era era : eras) {
             long diff;
-            if(era.getEnding()!=null){
+            if (era.getEnding() != null) {
                 diff = diffDate(era.getBeginning(), era.getEnding());
-            }else{
-                GregorianCalendar calendar = new GregorianCalendar(10000, 01,01);
+            } else {
+                GregorianCalendar calendar = new GregorianCalendar(10000, 01, 01);
                 diff = diffDate(era.getBeginning(), calendar);
             }
 
@@ -61,29 +61,30 @@ public class SpecieManager {
             lifeSpan += res;
 
         }
-        return lifeSpan/eras.size();
+        return lifeSpan / eras.size();
     }
 
     //-----------------------------------Calculation (eligible to JUnit)-----------------------------------
-    public double calcMetaScore(double lifeSpan, int nbColony, double average){
+    public double calcMetaScore(double lifeSpan, int nbColony, double average) {
         return lifeSpan * 0.35 + nbColony * 0.40 + average * 0.45;
     }
 
-    public long diffDate(GregorianCalendar begin, GregorianCalendar ending){
+    public long diffDate(GregorianCalendar begin, GregorianCalendar ending) {
         return ending.getTimeInMillis() - begin.getTimeInMillis();
     }
 
-    public double conversion(double diff){
-        return (diff / (24*60*60*1000));
+    public double conversion(double diff) {
+        return (diff / (24 * 60 * 60 * 1000));
     }
 
-    public double calcAverage(ArrayList<Integer> gravities){
+    public double calcAverage(ArrayList<Integer> gravities) {
         double average = 0;
-        for(Integer gravity : gravities){
+        for (Integer gravity : gravities) {
             average += gravity;
         }
-        return average/gravities.size();
+        return average / gravities.size();
     }
+
     public double gravityAverage(String vernacularName) throws ConnectionException, GravityException {
         ArrayList<Integer> gravities = getGravityOfColony(vernacularName);
         return calcAverage(gravities);

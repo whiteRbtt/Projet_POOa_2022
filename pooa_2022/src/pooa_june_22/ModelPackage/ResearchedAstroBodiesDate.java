@@ -33,9 +33,9 @@ public class ResearchedAstroBodiesDate {
     }
 
     public String getExploBirthInString() {
-        if(exploBirth != null){
-            return exploBirth.get(exploBirth.DAY_OF_MONTH) + "/" + (exploBirth.get(exploBirth.MONTH)+1) + "/" + exploBirth.get(exploBirth.YEAR);
-        }else{
+        if (exploBirth != null) {
+            return exploBirth.get(exploBirth.DAY_OF_MONTH) + "/" + (exploBirth.get(exploBirth.MONTH) + 1) + "/" + exploBirth.get(exploBirth.YEAR);
+        } else {
             return "inconnu";
         }
     }

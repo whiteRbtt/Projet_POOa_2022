@@ -24,8 +24,8 @@ public class MenuWindow extends JFrame {
         // -----Initialization-----
         super("A.D.C.S - Solar system explorer");
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int)dimension.getHeight() - 150;
-        int width  = (int)dimension.getWidth() - 500;
+        int height = (int) dimension.getHeight() - 150;
+        int width = (int) dimension.getWidth() - 500;
         setBounds(0, 0, width, height);
         this.setLocationRelativeTo(null);
         this.addWindowListener(new ClosingListener());
@@ -40,11 +40,11 @@ public class MenuWindow extends JFrame {
 
 
         // -----graphics-----
-        Font defaultfont = new Font ("Consolas", Font.TRUETYPE_FONT, 15);
+        Font defaultfont = new Font("Consolas", Font.TRUETYPE_FONT, 15);
         UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         defaults.put("Label.font", defaultfont);
         defaults.put("Label.foreground", Color.white);
-        defaults.put("Panel.background", new Color(42,39,39));
+        defaults.put("Panel.background", new Color(42, 39, 39));
         defaults.put("OptionPane.messageForeground", Color.white);
 
 
@@ -124,7 +124,7 @@ public class MenuWindow extends JFrame {
 
         public void actionPerformed(ActionEvent event) {
             frameContainer.removeAll();
-            try{
+            try {
                 if (event.getSource() == welcomeItem) {
                     WelcomePanel welcomePanel = new WelcomePanel();
                     frameContainer.add(welcomePanel);
@@ -145,7 +145,7 @@ public class MenuWindow extends JFrame {
                     frameContainer.add(astroBodiesListingPanel);
 
                 }
-                if(event.getSource() == deleteItem){
+                if (event.getSource() == deleteItem) {
                     DeleteAstroBodyPanel deletePanel = new DeleteAstroBodyPanel();
                     frameContainer.add(deletePanel);
 
@@ -155,23 +155,23 @@ public class MenuWindow extends JFrame {
                     ResearchColoniesPanel researchColoniesPanel = new ResearchColoniesPanel();
                     frameContainer.add(researchColoniesPanel);
                 }
-                if(event.getSource() == gravityAverageItem){
+                if (event.getSource() == gravityAverageItem) {
                     BusinessPanel panel = new BusinessPanel();
                     frameContainer.add(panel);
                 }
-                if(event.getSource() == searchItem2){
+                if (event.getSource() == searchItem2) {
                     ResearchAstroBodiesForPeriodPanel panel = new ResearchAstroBodiesForPeriodPanel();
                     frameContainer.add(panel);
                 }
-                if(event.getSource() == searchItem3){
+                if (event.getSource() == searchItem3) {
                     ResearchAstroBodiesPanel panel = new ResearchAstroBodiesPanel();
                     frameContainer.add(panel);
                 }
-                if(event.getSource() == displayItem){
+                if (event.getSource() == displayItem) {
                     CompareSpeciesPanel panel = new CompareSpeciesPanel();
                     frameContainer.add(panel);
                 }
-            }catch (GeneralException e) {
+            } catch (GeneralException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(),
                         e.getTitle(), JOptionPane.ERROR_MESSAGE);
             }

@@ -6,6 +6,5 @@ import pooa_june_22.ModelPackage.AstroType;
 import java.util.ArrayList;
 
 public interface AstroTypeDBAccess {
-
-    public ArrayList<AstroType> getAllTypes() throws ConnectionException, NameException, TypeException, AllTypesException, TypeIDException;
+    ArrayList<AstroType> getAllTypes() throws ConnectionException, NameException, TypeException, AllTypesException, TypeIDException;
 }

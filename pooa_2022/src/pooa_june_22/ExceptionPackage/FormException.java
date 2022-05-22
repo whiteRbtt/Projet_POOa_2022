@@ -11,7 +11,7 @@ public class FormException extends GeneralException {
         return "le champ " + message + " ne peut pas être vide";
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return "Le formulaire n'est pas complété correctement";
     }
 }

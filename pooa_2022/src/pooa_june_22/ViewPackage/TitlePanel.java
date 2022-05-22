@@ -4,18 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TitlePanel extends JPanel {
-    JLabel setTitle;
+    private JLabel setTitle;
 
     public TitlePanel(String title) {
         this.setLayout(new FlowLayout());
         setTitle = new JLabel(
                 "<html>" +
                         "<p></p>" +
-                        "<p>" + title +"</p>" +
+                        "<p>" + title + "</p>" +
                         "<p></p>" +
                         "</html>"
         );
-        setTitle.setFont(new Font("Eras Bold ITC",Font.TRUETYPE_FONT,25));
+        setTitle.setFont(new Font("Eras Bold ITC", Font.TRUETYPE_FONT, 25));
         this.add(setTitle);
     }
 }
