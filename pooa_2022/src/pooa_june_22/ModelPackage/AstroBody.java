@@ -28,7 +28,6 @@ public class AstroBody {
     }
 
     // setters
-
     public void setAstroId(Integer astroId) throws IdException {
         if (astroId != null && astroId > 0)
             this.astroId = astroId;

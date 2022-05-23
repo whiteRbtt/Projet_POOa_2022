@@ -40,18 +40,14 @@ public class ColonyDBAccess implements ColonyDataAccess {
                     GregorianCalendar endingDate = new GregorianCalendar();
 
                     beginningDate.setTime(data.getDate("Beginning"));
-                    if (data.getDate("Ending") == null) {
-                        endingDate = null;
-                    } else {
-                        endingDate.setTime(data.getDate("Ending"));
-                    }
 
-                    Era newEra = new Era(data.getString("eraName"), beginningDate, endingDate);
+                    if (data.getDate("Ending") == null) endingDate = null;
+                    else endingDate.setTime(data.getDate("Ending"));
 
                     Colony colony = new Colony(
                             specie,
                             data.getString("Name"),
-                            newEra,
+                            new Era(data.getString("EraName"), beginningDate, endingDate),
                             data.getString("TribalName")
                     );
                     colonies.add(colony);
