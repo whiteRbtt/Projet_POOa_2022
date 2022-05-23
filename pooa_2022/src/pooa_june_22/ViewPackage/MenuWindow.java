@@ -56,9 +56,15 @@ public class MenuWindow extends JFrame {
         welcomeItem.addActionListener(listener);
         welcomeMenu.add(welcomeItem);
 
-        // -----edit-----
-        editMenu = new JMenu("Editer");
+        // -----CRUD-----
+        editMenu = new JMenu("Corps Céleste");
         menuBar.add(editMenu);
+
+        listItem = new JMenuItem("Lister les objets du système solaire");
+        listItem.addActionListener(listener);
+        editMenu.add(listItem);
+
+        editMenu.addSeparator();
 
         addItem = new JMenuItem("Ajouter un corps céleste");
         addItem.addActionListener(listener);
@@ -76,17 +82,9 @@ public class MenuWindow extends JFrame {
         deleteItem.addActionListener(listener);
         editMenu.add(deleteItem);
 
-        // -----list-----
+        // -----Research-----
         infosMenu = new JMenu("S'informer");
         menuBar.add(infosMenu);
-
-        listItem = new JMenuItem("Lister les objets du système solaire");
-        listItem.addActionListener(listener);
-        infosMenu.add(listItem);
-
-        infosMenu.addSeparator();
-
-        // -----Research-----
 
         searchItem = new JMenuItem("Rechercher des colonies");
         searchItem.addActionListener(listener);
@@ -111,7 +109,6 @@ public class MenuWindow extends JFrame {
         displayItem = new JMenuItem("Comparer les différentes espèces");
         displayItem.addActionListener(listener);
         statMenu.add(displayItem);
-        // default panels
 
         WelcomePanel welcomePanel = new WelcomePanel();
         frameContainer.add(welcomePanel);
@@ -176,7 +173,6 @@ public class MenuWindow extends JFrame {
                         e.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
 
-
             frameContainer.revalidate();
             frameContainer.repaint();
         }
@@ -192,7 +188,6 @@ public class MenuWindow extends JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage(),
                         ex.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
-
             System.exit(0);
         }
     }

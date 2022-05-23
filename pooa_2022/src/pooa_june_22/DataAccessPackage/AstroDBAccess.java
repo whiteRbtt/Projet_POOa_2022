@@ -309,7 +309,6 @@ public class AstroDBAccess implements AstroBodyDataAccess {
                             true,
                             explorationDate
                     );
-
                     astroBodies.add(astroBody);
                 }
             }
