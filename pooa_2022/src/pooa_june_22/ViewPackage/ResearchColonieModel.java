@@ -46,7 +46,7 @@ public class ResearchColonieModel extends AbstractTableModel {
             case 2:
                 return colony.getEra().getEndingInString();
             case 3:
-                return colony.getLocation();
+                return colony.getLocation().getName();
             case 4: {
                 if (colony.getName() != null)
                     return colony.getName();

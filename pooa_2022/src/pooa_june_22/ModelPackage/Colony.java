@@ -4,12 +4,12 @@ import pooa_june_22.ExceptionPackage.NameException;
 
 public class Colony {
     private String name;
-    private String specie;
-    private String location;
+    private Specie specie;
+    private AstroBody location;
     private Era era;
 
 
-    public Colony(String specie, String location, Era period, String name) throws NameException {
+    public Colony(Specie specie, AstroBody location, Era period, String name) throws NameException {
         setSpecie(specie);
         setLocation(location);
         setEra(period);
@@ -26,26 +26,26 @@ public class Colony {
         }
     }
 
-    public void setSpecie(String specie) {
+    public void setSpecie(Specie specie) {
         this.specie = specie;
     }
 
-    public void setLocation (String location) throws NameException {
-        if (location != null && location.length() < 45)
+    public void setLocation (AstroBody location) throws NameException {
+        if (location != null && location.getName().length() < 45)
             this.location = location;
         else {
-            throw new NameException(location);
+            throw new NameException(location.getName());
         }
     }
 
     public void setEra(Era era) {
         this.era = era;
     }
-    
+
 
     // Getters
 
-    public String getSpecie() {
+    public Specie getSpecie() {
         return specie;
     }
 
@@ -53,7 +53,7 @@ public class Colony {
         return name;
     }
 
-    public String getLocation() {
+    public AstroBody getLocation() {
         return location;
     }
 
