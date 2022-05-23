@@ -188,7 +188,7 @@ public class AstroBodyFormPanel extends JPanel {
         c.anchor = GridBagConstraints.LINE_START;
         this.add(dateLabel, c);
 
-        Date startDate = new GregorianCalendar(1000, 00, 01).getTime();
+        Date startDate = new GregorianCalendar(1001, 00, 01).getTime();
         Date endDate = new GregorianCalendar(9999,11,31).getTime();
 
         SpinnerDateModel yearModel = new SpinnerDateModel();
