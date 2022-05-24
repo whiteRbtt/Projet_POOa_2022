@@ -138,7 +138,7 @@ public class SpecieDBAccess implements SpecieDataAccess {
 
 
         } catch (SQLException throwables) {
-            throw new GravityException(-1);
+            throw new GravityException();
         }
         return gravities;
     }

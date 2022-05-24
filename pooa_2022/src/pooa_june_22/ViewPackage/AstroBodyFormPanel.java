@@ -148,14 +148,14 @@ public class AstroBodyFormPanel extends JPanel {
 
         // --------------------------gravity--------------------------
 
-        gravityLabel = new JLabel("Gravité relative (Plus grand que 0) :");
+        gravityLabel = new JLabel("Gravité relative (nulle ou postive) :");
         c.gridx = 0;
         c.gridy = 5;
         c.anchor = GridBagConstraints.LINE_START;
         this.add(gravityLabel, c);
 
 
-        SpinnerModel gravityModel = new SpinnerNumberModel(1, 0, null, 1);
+        SpinnerModel gravityModel = new SpinnerNumberModel(1, null, null, 1);
         gravity = new JSpinner(gravityModel);
         c.gridx = 4;
         c.gridy = 5;
@@ -263,11 +263,8 @@ public class AstroBodyFormPanel extends JPanel {
 
                 // -----------------------------------retrieve gravity-----------------------------------
                 Integer newGravity = null;
-                if ((Integer) gravity.getValue() != 0)
-                    newGravity = (Integer) gravity.getValue();
-                else{
-                    JOptionPane.showMessageDialog(null, "La gravité doit être supérieur à 0", "Erreur sur la gravité", JOptionPane.ERROR_MESSAGE);
-                }
+                if((Integer) gravity.getValue() < 0) throw new GravityException();
+                else if ((Integer) gravity.getValue() > 0) newGravity = (Integer) gravity.getValue();
 
                 // -----------------------------------retrieve climate-----------------------------------
                 String newClimate = null;

@@ -65,10 +65,11 @@ public class AstroBody {
     }
 
     public void setGravity(Integer gravity) throws GravityException {
-        if (gravity == null || gravity > 0)
+        if (gravity == null || gravity >= 0) {
             this.gravity = gravity;
+        }
         else {
-            throw new GravityException(gravity);
+            throw new GravityException();
         }
     }
 
