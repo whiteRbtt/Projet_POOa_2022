@@ -54,7 +54,7 @@ CREATE TABLE `astronomicalbody` (
   CONSTRAINT `Type` FOREIGN KEY (`Type`) REFERENCES `astronomicaltype` (`TypeId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `explorer_positive` CHECK (`FirstKnownExplorer` > 0),
   CONSTRAINT `gravity_positive` CHECK (`Gravity`>0),
-  CONSTRAINT `date_constraint` CHECK (`FirstExplorationDate` > '1000-01-01' and `FirstExplorationDate` <= '9999-12-31')
+  CONSTRAINT `date_constraint` CHECK (`FirstExplorationDate` >= '1000-01-01' and `FirstExplorationDate` <= '9999-12-31')
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -188,13 +188,10 @@ public class AstroBodyFormPanel extends JPanel {
         c.anchor = GridBagConstraints.LINE_START;
         this.add(dateLabel, c);
 
-        Date startDate = new GregorianCalendar(1001, 00, 01).getTime();
-        Date endDate = new GregorianCalendar(9999,11,31).getTime();
+        Date startDate = new GregorianCalendar(1000, 00, 01).getTime();
 
         SpinnerDateModel yearModel = new SpinnerDateModel();
         yearModel.setCalendarField(Calendar.YEAR);
-        yearModel.setStart(startDate);
-        yearModel.setEnd(endDate);
 
         if(astroBody != null){
             type.setSelectedItem(astroBody.getType().getName());
@@ -278,6 +275,9 @@ public class AstroBodyFormPanel extends JPanel {
                     Date beginDate = (Date) year.getValue();
                     newDate = new GregorianCalendar();
                     newDate.setTime(beginDate);
+
+                    if(newDate.get(Calendar.YEAR) < 1000 || newDate.get(Calendar.YEAR) > 9999) throw new DateException();
+                    System.out.println(newDate.get(Calendar.YEAR));
                 }
 
                 // -----------------------------------object creation-----------------------------------
